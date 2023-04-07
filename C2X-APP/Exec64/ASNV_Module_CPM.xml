@@ -1,0 +1,740 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module asnv-version="1" entry-point="CPM" name="CPM" tags="automatic">
+  <sequence name="CPM">
+    <field name="header" type="ItsPduHeader" />
+    <field name="cpm" type="CollectivePerceptionMessage" />
+    <attributes>
+      <general>
+        <attribute name="GenMsgSendType" displayname="Send Type" value="Cyclic" type="enum" />
+        <attribute name="GenMsgCycleTime" displayname="Cycle Time"  value="100" type="int32" />
+        <attribute name="GenMsgCertificate" displayname="Certificate Name"  value="" type="string" />
+        <attribute name="GenMsgCertificateSignerType" value="Certificate" type="enum" />
+        <attribute name="GenMsgCertificateSendTimeMS" displayname="Certificate Sendtime [ms]"  value="1000" type="int32" />
+        <attribute name="GenMsgCertificateMatching" displayname="Certificate Matching"  value="" type="string" />
+        <attribute name="GenMsgCertificateChangeTimeM" displayname="Certificate Change Time [minute]" value="5" type="int32" />
+      </general>
+      <stack>
+        <layer name="geo_bh">
+          <attribute name="version" displayname="Version" value="1" type="int32" />
+        </layer>
+        <layer name="wssv3">
+          <attribute name="psid" displayname="PS ID" value="639" type="int32" />
+          <attribute name="generationTime" displayname="Generation Time" value="0" type="int64" />
+        </layer>
+        <layer name="geo_ch">
+          <attribute name="nextHeader" displayname="Next Header" value="BTP-B" type="enum" />
+          <attribute name="ht" displayname="Header Type" value="GeoBroadcast" type="enum" />
+          <attribute name="hst" displayname="Header Subtype" value="0" type="int32" />
+        </layer>
+        <layer name="geo_eh">
+        </layer>
+      </stack>
+    </attributes>
+  </sequence>
+  <sequence name="ItsPduHeader">
+    <field name="protocolVersion" type="ItsPduHeader$protocolVersion" />
+    <field name="messageID" type="ItsPduHeader$messageID" />
+    <field name="stationID" type="StationID" />
+  </sequence>
+  <integer max="255" min="0" name="ItsPduHeader$protocolVersion">
+    <value name="currentVersion" value="1" />
+  </integer>
+  <integer max="255" min="0" name="ItsPduHeader$messageID">
+    <value name="denm" value="1" />
+    <value name="cam" value="2" />
+    <value name="poi" value="3" />
+    <value name="spatem" value="4" />
+    <value name="mapem" value="5" />
+    <value name="ivim" value="6" />
+    <value name="ev_rsr" value="7" />
+    <value name="tistpgtransaction" value="8" />
+    <value name="srem" value="9" />
+    <value name="ssem" value="10" />
+    <value name="evcsn" value="11" />
+  </integer>
+  <integer max="4294967295" min="0" name="StationID" />
+  <sequence name="CollectivePerceptionMessage">
+    <field name="generationDeltaTime" type="GenerationDeltaTime" />
+    <field name="cpmParameters" type="CpmParameters" />
+  </sequence>
+  <integer max="65535" min="0" name="GenerationDeltaTime">
+    <value name="oneMilliSec" value="1" />
+  </integer>
+  <sequence name="CpmParameters">
+    <field name="managementContainer" type="CpmManagementContainer" />
+    <field name="stationDataContainer" optional="true" type="StationDataContainer" />
+    <field name="sensorInformationContainer" optional="true" type="SensorInformationContainer" />
+    <field name="perceivedObjectContainer" optional="true" type="PerceivedObjectContainer" />
+    <field name="freeSpaceAddendumContainer" optional="true" type="FreeSpaceAddendumContainer" />
+    <field name="numberOfPerceivedObjects" type="NumberOfPerceivedObjects" />
+    <extension />
+  </sequence>
+  <sequence name="CpmManagementContainer">
+    <field name="stationType" type="StationType" />
+    <field name="perceivedObjectContainerSegmentInfo" optional="true" type="PerceivedObjectContainerSegmentInfo" />
+    <field name="referencePosition" type="ReferencePosition" />
+    <extension />
+  </sequence>
+  <integer max="255" min="0" name="StationType">
+    <value name="unknown" value="0" />
+    <value name="pedestrian" value="1" />
+    <value name="cyclist" value="2" />
+    <value name="moped" value="3" />
+    <value name="motorcycle" value="4" />
+    <value name="passengerCar" value="5" />
+    <value name="bus" value="6" />
+    <value name="lightTruck" value="7" />
+    <value name="heavyTruck" value="8" />
+    <value name="trailer" value="9" />
+    <value name="specialVehicles" value="10" />
+    <value name="tram" value="11" />
+    <value name="roadSideUnit" value="15" />
+  </integer>
+  <sequence name="PerceivedObjectContainerSegmentInfo">
+    <field name="totalMsgSegments" type="SegmentCount" />
+    <field name="thisSegmentNum" type="SegmentCount" />
+  </sequence>
+  <integer max="127" min="1" name="SegmentCount" />
+  <sequence name="ReferencePosition">
+    <field name="latitude" type="Latitude" />
+    <field name="longitude" type="Longitude" />
+    <field name="positionConfidenceEllipse" type="PosConfidenceEllipse" />
+    <field name="altitude" type="Altitude" />
+  </sequence>
+  <integer max="900000001" min="-900000000" name="Latitude">
+    <value name="oneMicrodegreeNorth" value="10" />
+    <value name="oneMicrodegreeSouth" value="-10" />
+    <value name="unavailable" value="900000001" />
+  </integer>
+  <integer max="1800000001" min="-1800000000" name="Longitude">
+    <value name="oneMicrodegreeEast" value="10" />
+    <value name="oneMicrodegreeWest" value="-10" />
+    <value name="unavailable" value="1800000001" />
+  </integer>
+  <sequence name="PosConfidenceEllipse">
+    <field name="semiMajorConfidence" type="SemiAxisLength" />
+    <field name="semiMinorConfidence" type="SemiAxisLength" />
+    <field name="semiMajorOrientation" type="HeadingValue" />
+  </sequence>
+  <integer max="4095" min="0" name="SemiAxisLength">
+    <value name="oneCentimeter" value="1" />
+    <value name="outOfRange" value="4094" />
+    <value name="unavailable" value="4095" />
+  </integer>
+  <integer max="3601" min="0" name="HeadingValue">
+    <value name="wgs84North" value="0" />
+    <value name="wgs84East" value="900" />
+    <value name="wgs84South" value="1800" />
+    <value name="wgs84West" value="2700" />
+    <value name="unavailable" value="3601" />
+  </integer>
+  <sequence name="Altitude">
+    <field name="altitudeValue" type="AltitudeValue" />
+    <field name="altitudeConfidence" type="AltitudeConfidence" />
+  </sequence>
+  <integer max="800001" min="-100000" name="AltitudeValue">
+    <value name="referenceEllipsoidSurface" value="0" />
+    <value name="oneCentimeter" value="1" />
+    <value name="unavailable" value="800001" />
+  </integer>
+  <enumerated name="AltitudeConfidence">
+    <value name="alt_000_01" value="0" />
+    <value name="alt_000_02" value="1" />
+    <value name="alt_000_05" value="2" />
+    <value name="alt_000_10" value="3" />
+    <value name="alt_000_20" value="4" />
+    <value name="alt_000_50" value="5" />
+    <value name="alt_001_00" value="6" />
+    <value name="alt_002_00" value="7" />
+    <value name="alt_005_00" value="8" />
+    <value name="alt_010_00" value="9" />
+    <value name="alt_020_00" value="10" />
+    <value name="alt_050_00" value="11" />
+    <value name="alt_100_00" value="12" />
+    <value name="alt_200_00" value="13" />
+    <value name="outOfRange" value="14" />
+    <value name="unavailable" value="15" />
+  </enumerated>
+  <choice name="StationDataContainer">
+    <field name="originatingVehicleContainer" type="OriginatingVehicleContainer" />
+    <field name="originatingRSUContainer" type="OriginatingRSUContainer" />
+    <extension />
+  </choice>
+  <sequence name="OriginatingVehicleContainer">
+    <field name="heading" type="Heading" />
+    <field name="speed" type="Speed" />
+    <field name="vehicleOrientationAngle" optional="true" type="WGS84Angle" />
+    <field default="0" name="driveDirection" optional="true" type="DriveDirection" />
+    <field name="longitudinalAcceleration" optional="true" type="LongitudinalAcceleration" />
+    <field name="lateralAcceleration" optional="true" type="LateralAcceleration" />
+    <field name="verticalAcceleration" optional="true" type="VerticalAcceleration" />
+    <field name="yawRate" optional="true" type="YawRate" />
+    <field name="pitchAngle" optional="true" type="CartesianAngle" />
+    <field name="rollAngle" optional="true" type="CartesianAngle" />
+    <field name="vehicleLength" optional="true" type="VehicleLength" />
+    <field name="vehicleWidth" optional="true" type="VehicleWidth" />
+    <field name="vehicleHeight" optional="true" type="VehicleHeight" />
+    <field name="trailerDataContainer" optional="true" type="TrailerDataContainer" />
+    <extension />
+  </sequence>
+  <sequence name="Heading">
+    <field name="headingValue" type="HeadingValue" />
+    <field name="headingConfidence" type="HeadingConfidence" />
+  </sequence>
+  <integer max="127" min="1" name="HeadingConfidence">
+    <value name="equalOrWithinZeroPointOneDegree" value="1" />
+    <value name="equalOrWithinOneDegree" value="10" />
+    <value name="outOfRange" value="126" />
+    <value name="unavailable" value="127" />
+  </integer>
+  <sequence name="Speed">
+    <field name="speedValue" type="SpeedValue" />
+    <field name="speedConfidence" type="SpeedConfidence" />
+  </sequence>
+  <integer max="16383" min="0" name="SpeedValue">
+    <value name="standstill" value="0" />
+    <value name="oneCentimeterPerSec" value="1" />
+    <value name="unavailable" value="16383" />
+  </integer>
+  <integer max="127" min="1" name="SpeedConfidence">
+    <value name="equalOrWithinOneCentimeterPerSec" value="1" />
+    <value name="equalOrWithinOneMeterPerSec" value="100" />
+    <value name="outOfRange" value="126" />
+    <value name="unavailable" value="127" />
+  </integer>
+  <sequence name="WGS84Angle">
+    <field name="value" type="WGS84AngleValue" />
+    <field name="confidence" type="AngleConfidence" />
+  </sequence>
+  <integer max="3601" min="0" name="WGS84AngleValue">
+    <value name="wgs84North" value="0" />
+    <value name="wgs84East" value="900" />
+    <value name="wgs84South" value="1800" />
+    <value name="wgs84West" value="2700" />
+    <value name="unavailable" value="3601" />
+  </integer>
+  <integer max="127" min="1" name="AngleConfidence">
+    <value name="zeroPointOneDegree" value="1" />
+    <value name="oneDegree" value="10" />
+    <value name="outOfRange" value="126" />
+    <value name="unavailable" value="127" />
+  </integer>
+  <enumerated name="DriveDirection">
+    <value name="forward" value="0" />
+    <value name="backward" value="1" />
+    <value name="unavailable" value="2" />
+  </enumerated>
+  <sequence name="LongitudinalAcceleration">
+    <field name="longitudinalAccelerationValue" type="LongitudinalAccelerationValue" />
+    <field name="longitudinalAccelerationConfidence" type="AccelerationConfidence" />
+  </sequence>
+  <integer max="161" min="-160" name="LongitudinalAccelerationValue">
+    <value name="pointOneMeterPerSecSquaredForward" value="1" />
+    <value name="pointOneMeterPerSecSquaredBackward" value="-1" />
+    <value name="unavailable" value="161" />
+  </integer>
+  <integer max="102" min="0" name="AccelerationConfidence">
+    <value name="pointOneMeterPerSecSquared" value="1" />
+    <value name="outOfRange" value="101" />
+    <value name="unavailable" value="102" />
+  </integer>
+  <sequence name="LateralAcceleration">
+    <field name="lateralAccelerationValue" type="LateralAccelerationValue" />
+    <field name="lateralAccelerationConfidence" type="AccelerationConfidence" />
+  </sequence>
+  <integer max="161" min="-160" name="LateralAccelerationValue">
+    <value name="pointOneMeterPerSecSquaredToRight" value="-1" />
+    <value name="pointOneMeterPerSecSquaredToLeft" value="1" />
+    <value name="unavailable" value="161" />
+  </integer>
+  <sequence name="VerticalAcceleration">
+    <field name="verticalAccelerationValue" type="VerticalAccelerationValue" />
+    <field name="verticalAccelerationConfidence" type="AccelerationConfidence" />
+  </sequence>
+  <integer max="161" min="-160" name="VerticalAccelerationValue">
+    <value name="pointOneMeterPerSecSquaredUp" value="1" />
+    <value name="pointOneMeterPerSecSquaredDown" value="-1" />
+    <value name="unavailable" value="161" />
+  </integer>
+  <sequence name="YawRate">
+    <field name="yawRateValue" type="YawRateValue" />
+    <field name="yawRateConfidence" type="YawRateConfidence" />
+  </sequence>
+  <integer max="32767" min="-32766" name="YawRateValue">
+    <value name="straight" value="0" />
+    <value name="degSec_000_01ToRight" value="-1" />
+    <value name="degSec_000_01ToLeft" value="1" />
+    <value name="unavailable" value="32767" />
+  </integer>
+  <enumerated name="YawRateConfidence">
+    <value name="degSec_000_01" value="0" />
+    <value name="degSec_000_05" value="1" />
+    <value name="degSec_000_10" value="2" />
+    <value name="degSec_001_00" value="3" />
+    <value name="degSec_005_00" value="4" />
+    <value name="degSec_010_00" value="5" />
+    <value name="degSec_100_00" value="6" />
+    <value name="outOfRange" value="7" />
+    <value name="unavailable" value="8" />
+  </enumerated>
+  <sequence name="CartesianAngle">
+    <field name="value" type="CartesianAngleValue" />
+    <field name="confidence" type="AngleConfidence" />
+  </sequence>
+  <integer max="3601" min="0" name="CartesianAngleValue">
+    <value name="zeroPointOneDegree" value="1" />
+    <value name="oneDegree" value="10" />
+    <value name="unavailable" value="3601" />
+  </integer>
+  <sequence name="VehicleLength">
+    <field name="vehicleLengthValue" type="VehicleLengthValue" />
+    <field name="vehicleLengthConfidenceIndication" type="VehicleLengthConfidenceIndication" />
+  </sequence>
+  <integer max="1023" min="1" name="VehicleLengthValue">
+    <value name="tenCentimeters" value="1" />
+    <value name="outOfRange" value="1022" />
+    <value name="unavailable" value="1023" />
+  </integer>
+  <enumerated name="VehicleLengthConfidenceIndication">
+    <value name="noTrailerPresent" value="0" />
+    <value name="trailerPresentWithKnownLength" value="1" />
+    <value name="trailerPresentWithUnknownLength" value="2" />
+    <value name="trailerPresenceIsUnknown" value="3" />
+    <value name="unavailable" value="4" />
+  </enumerated>
+  <integer max="62" min="1" name="VehicleWidth">
+    <value name="tenCentimeters" value="1" />
+    <value name="outOfRange" value="61" />
+    <value name="unavailable" value="62" />
+  </integer>
+  <integer max="127" min="0" name="VehicleHeight" />
+  <sequence-of max="2" min="1" name="TrailerDataContainer">
+    <field type="TrailerData" />
+  </sequence-of>
+  <sequence name="TrailerData">
+    <field name="refPointId" type="RefPointId" />
+    <field name="hitchPointOffset" type="HitchPointOffset" />
+    <field name="frontOverhang" type="FrontOverhang" />
+    <field name="rearOverhang" type="RearOverhang" />
+    <field name="trailerWidth" optional="true" type="VehicleWidth" />
+    <field name="hitchAngle" optional="true" type="CartesianAngle" />
+    <extension />
+  </sequence>
+  <integer max="255" min="0" name="RefPointId" />
+  <integer max="100" min="0" name="HitchPointOffset">
+    <value name="zeroPointOneMeter" value="1" />
+    <value name="oneMeter" value="10" />
+  </integer>
+  <integer max="50" min="0" name="FrontOverhang">
+    <value name="zeroPointOneMeter" value="1" />
+    <value name="oneMeter" value="10" />
+  </integer>
+  <integer max="150" min="0" name="RearOverhang">
+    <value name="zeroPointOneMeter" value="1" />
+    <value name="oneMeter" value="10" />
+  </integer>
+  <choice name="OriginatingRSUContainer">
+    <field name="intersectionReferenceId" type="IntersectionReferenceID" />
+    <field name="roadSegmentReferenceId" type="RoadSegmentReferenceID" />
+    <extension />
+  </choice>
+  <sequence name="IntersectionReferenceID">
+    <field name="region" optional="true" type="RoadRegulatorID" />
+    <field name="id" type="IntersectionID" />
+  </sequence>
+  <integer max="65535" min="0" name="RoadRegulatorID" />
+  <integer max="65535" min="0" name="IntersectionID" />
+  <sequence name="RoadSegmentReferenceID">
+    <field name="region" optional="true" type="RoadRegulatorID" />
+    <field name="id" type="RoadSegmentID" />
+  </sequence>
+  <integer max="65535" min="0" name="RoadSegmentID" />
+  <sequence-of extension="true" max="128" min="1" name="SensorInformationContainer">
+    <field type="SensorInformation" />
+  </sequence-of>
+  <sequence name="SensorInformation">
+    <field name="sensorID" type="Identifier" />
+    <field name="type" type="SensorType" />
+    <field name="detectionArea" type="DetectionArea" />
+    <field name="freeSpaceConfidence" optional="true" type="FreeSpaceConfidence" />
+    <extension />
+  </sequence>
+  <integer max="255" min="0" name="Identifier" />
+  <integer max="15" min="0" name="SensorType">
+    <value name="undefined" value="0" />
+    <value name="radar" value="1" />
+    <value name="lidar" value="2" />
+    <value name="monovideo" value="3" />
+    <value name="stereovision" value="4" />
+    <value name="nightvision" value="5" />
+    <value name="ultrasonic" value="6" />
+    <value name="pmd" value="7" />
+    <value name="fusion" value="8" />
+    <value name="inductionloop" value="9" />
+    <value name="sphericalCamera" value="10" />
+    <value name="itssaggregation" value="11" />
+  </integer>
+  <choice name="DetectionArea">
+    <field name="vehicleSensor" type="VehicleSensor" />
+    <field name="stationarySensorRadial" type="AreaRadial" />
+    <field name="stationarySensorPolygon" type="AreaPolygon" />
+    <field name="stationarySensorCircular" type="AreaCircular" />
+    <field name="stationarySensorEllipse" type="AreaEllipse" />
+    <field name="stationarySensorRectangle" type="AreaRectangle" />
+    <extension />
+  </choice>
+  <sequence name="VehicleSensor">
+    <field default="0" name="refPointId" optional="true" type="RefPointId" />
+    <field name="xSensorOffset" type="XSensorOffset" />
+    <field name="ySensorOffset" type="YSensorOffset" />
+    <field name="zSensorOffset" optional="true" type="ZSensorOffset" />
+    <field name="vehicleSensorPropertyList" type="VehicleSensorPropertyList" />
+    <extension />
+  </sequence>
+  <integer max="0" min="-5000" name="XSensorOffset">
+    <value name="negativeZeroPointZeroOneMeter" value="-1" />
+    <value name="negativeOneMeter" value="-100" />
+  </integer>
+  <integer max="1000" min="-1000" name="YSensorOffset">
+    <value name="zeroPointZeroOneMeter" value="1" />
+    <value name="oneMeter" value="100" />
+  </integer>
+  <integer max="1000" min="0" name="ZSensorOffset">
+    <value name="zeroPointZeroOneMeter" value="1" />
+    <value name="oneMeter" value="100" />
+  </integer>
+  <sequence-of max="10" min="1" name="VehicleSensorPropertyList">
+    <field type="VehicleSensorProperties" />
+  </sequence-of>
+  <sequence name="VehicleSensorProperties">
+    <field name="range" type="Range" />
+    <field name="horizontalOpeningAngleStart" type="CartesianAngleValue" />
+    <field name="horizontalOpeningAngleEnd" type="CartesianAngleValue" />
+    <field name="verticalOpeningAngleStart" optional="true" type="CartesianAngleValue" />
+    <field name="verticalOpeningAngleEnd" optional="true" type="CartesianAngleValue" />
+    <extension />
+  </sequence>
+  <integer max="10000" min="0" name="Range">
+    <value name="zeroPointOneMeter" value="1" />
+    <value name="oneMeter" value="10" />
+  </integer>
+  <sequence name="AreaRadial">
+    <field name="range" type="Range" />
+    <field name="stationaryHorizontalOpeningAngleStart" type="WGS84AngleValue" />
+    <field name="stationaryHorizontalOpeningAngleEnd" type="WGS84AngleValue" />
+    <field name="verticalOpeningAngleStart" optional="true" type="CartesianAngleValue" />
+    <field name="verticalOpeningAngleEnd" optional="true" type="CartesianAngleValue" />
+    <field name="sensorPositionOffset" optional="true" type="OffsetPoint" />
+    <field name="sensorHeight" optional="true" type="SensorHeight" />
+    <extension />
+  </sequence>
+  <sequence name="OffsetPoint">
+    <field name="nodeOffsetPointxy" type="NodeOffsetPointXY" />
+    <field name="nodeOffsetPointZ" optional="true" type="NodeOffsetPointZ" />
+  </sequence>
+  <choice name="NodeOffsetPointXY">
+    <field name="node_XY1" type="Node_XY_20b" />
+    <field name="node_XY2" type="Node_XY_22b" />
+    <field name="node_XY3" type="Node_XY_24b" />
+    <field name="node_XY4" type="Node_XY_26b" />
+    <field name="node_XY5" type="Node_XY_28b" />
+    <field name="node_XY6" type="Node_XY_32b" />
+    <field name="node_LatLon" type="Node_LLmD_64b" />
+    <field name="regional" type="DSRC.RegionalExtensionEmpty" />
+  </choice>
+  <sequence name="Node_XY_20b">
+    <field name="x" type="Offset_B10" />
+    <field name="y" type="Offset_B10" />
+  </sequence>
+  <integer max="511" min="-512" name="Offset_B10" />
+  <sequence name="Node_XY_22b">
+    <field name="x" type="Offset_B11" />
+    <field name="y" type="Offset_B11" />
+  </sequence>
+  <integer max="1023" min="-1024" name="Offset_B11" />
+  <sequence name="Node_XY_24b">
+    <field name="x" type="Offset_B12" />
+    <field name="y" type="Offset_B12" />
+  </sequence>
+  <integer max="2047" min="-2048" name="Offset_B12" />
+  <sequence name="Node_XY_26b">
+    <field name="x" type="Offset_B13" />
+    <field name="y" type="Offset_B13" />
+  </sequence>
+  <integer max="4095" min="-4096" name="Offset_B13" />
+  <sequence name="Node_XY_28b">
+    <field name="x" type="Offset_B14" />
+    <field name="y" type="Offset_B14" />
+  </sequence>
+  <integer max="8191" min="-8192" name="Offset_B14" />
+  <sequence name="Node_XY_32b">
+    <field name="x" type="Offset_B16" />
+    <field name="y" type="Offset_B16" />
+  </sequence>
+  <integer max="32767" min="-32768" name="Offset_B16" />
+  <sequence name="Node_LLmD_64b">
+    <field name="lon" type="Longitude" />
+    <field name="lat" type="Latitude" />
+  </sequence>
+  <sequence name="DSRC.RegionalExtensionEmpty">
+    <table-key name="regionId" table="Reg_Empty" />
+    <table-val name="regExtValue" col="Type" key="regionId" />
+  </sequence>
+  <table name="Reg_Empty" type="DSRC.RegionId">
+    <col name="Type" />
+  </table>
+  <integer max="255" min="0" name="DSRC.RegionId">
+    <value name="noRegion" value="0" />
+    <value name="addGrpA" value="1" />
+    <value name="addGrpB" value="2" />
+    <value name="addGrpC" value="3" />
+  </integer>
+  <choice name="NodeOffsetPointZ">
+    <field name="node_Z1" type="Offset_B10" />
+    <field name="node_Z2" type="Offset_B11" />
+    <field name="node_Z3" type="Offset_B12" />
+    <field name="node_Z4" type="Offset_B13" />
+    <field name="node_Z5" type="Offset_B14" />
+    <field name="node_Z6" type="Offset_B16" />
+  </choice>
+  <integer max="5000" min="-5000" name="SensorHeight">
+    <value name="zeroPointZeroOneMeter" value="1" />
+  </integer>
+  <sequence name="AreaPolygon">
+    <field name="polyPointList" type="PolyPointList" />
+  </sequence>
+  <sequence-of extension="true" max="16" min="3" name="PolyPointList">
+    <field type="OffsetPoint" />
+  </sequence-of>
+  <sequence name="AreaCircular">
+    <field name="nodeCenterPoint" optional="true" type="OffsetPoint" />
+    <field name="radius" type="Radius" />
+  </sequence>
+  <integer max="10000" min="0" name="Radius">
+    <value name="zeroPointOneMeter" value="1" />
+    <value name="oneMeter" value="10" />
+  </integer>
+  <sequence name="AreaEllipse">
+    <field name="nodeCenterPoint" optional="true" type="OffsetPoint" />
+    <field name="semiMinorRangeLength" type="SemiRangeLength" />
+    <field name="semiMajorRangeLength" type="SemiRangeLength" />
+    <field name="semiMajorRangeOrientation" type="WGS84AngleValue" />
+    <field name="semiHeight" optional="true" type="SemiRangeLength" />
+  </sequence>
+  <integer max="10000" min="0" name="SemiRangeLength">
+    <value name="zeroPointOneMeter" value="1" />
+    <value name="oneMeter" value="10" />
+  </integer>
+  <sequence name="AreaRectangle">
+    <field name="nodeCenterPoint" optional="true" type="OffsetPoint" />
+    <field name="semiMajorRangeLength" type="SemiRangeLength" />
+    <field name="semiMinorRangeLength" type="SemiRangeLength" />
+    <field name="semiMajorRangeOrientation" type="WGS84AngleValue" />
+    <field name="semiHeight" optional="true" type="SemiRangeLength" />
+  </sequence>
+  <integer max="101" min="0" name="FreeSpaceConfidence">
+    <value name="unknown" value="0" />
+    <value name="onePercent" value="1" />
+    <value name="oneHundredPercent" value="100" />
+    <value name="unavailable" value="101" />
+  </integer>
+  <sequence-of extension="true" max="128" min="1" name="PerceivedObjectContainer">
+    <field type="PerceivedObject" />
+  </sequence-of>
+  <sequence name="PerceivedObject">
+    <field name="objectID" type="Identifier" />
+    <field name="sensorIDList" optional="true" type="SensorIdList" />
+    <field name="timeOfMeasurement" type="TimeOfMeasurement" />
+    <field name="objectAge" optional="true" type="ObjectAge" />
+    <field default="0" name="objectConfidence" optional="true" type="ObjectConfidence" />
+    <field name="xDistance" type="ObjectDistanceWithConfidence" />
+    <field name="yDistance" type="ObjectDistanceWithConfidence" />
+    <field name="zDistance" optional="true" type="ObjectDistanceWithConfidence" />
+    <field name="xSpeed" type="SpeedExtended" />
+    <field name="ySpeed" type="SpeedExtended" />
+    <field name="zSpeed" optional="true" type="SpeedExtended" />
+    <field name="xAcceleration" optional="true" type="LongitudinalAcceleration" />
+    <field name="yAcceleration" optional="true" type="LateralAcceleration" />
+    <field name="zAcceleration" optional="true" type="VerticalAcceleration" />
+    <field name="yawAngle" optional="true" type="CartesianAngle" />
+    <field name="planarObjectDimension1" optional="true" type="ObjectDimension" />
+    <field name="planarObjectDimension2" optional="true" type="ObjectDimension" />
+    <field name="verticalObjectDimension" optional="true" type="ObjectDimension" />
+    <field default="0" name="objectRefPoint" optional="true" type="ObjectRefPoint" />
+    <field name="dynamicStatus" optional="true" type="DynamicStatus" />
+    <field name="classification" optional="true" type="ObjectClassDescription" />
+    <field name="matchedPosition" optional="true" type="MatchedPosition" />
+    <extension />
+  </sequence>
+  <sequence-of extension="true" max="128" min="1" name="SensorIdList">
+    <field type="Identifier" />
+  </sequence-of>
+  <integer max="1500" min="-1500" name="TimeOfMeasurement">
+    <value name="oneMilliSecond" value="1" />
+  </integer>
+  <integer max="1500" min="0" name="ObjectAge">
+    <value name="oneMiliSec" value="1" />
+  </integer>
+  <integer max="101" min="0" name="ObjectConfidence">
+    <value name="unknown" value="0" />
+    <value name="onePercent" value="1" />
+    <value name="oneHundredPercent" value="100" />
+    <value name="unavailable" value="101" />
+  </integer>
+  <sequence name="ObjectDistanceWithConfidence">
+    <field name="value" type="DistanceValue" />
+    <field name="confidence" type="DistanceConfidence" />
+  </sequence>
+  <integer max="132767" min="-132768" name="DistanceValue">
+    <value name="zeroPointZeroOneMeter" value="1" />
+    <value name="oneMeter" value="100" />
+  </integer>
+  <integer max="102" min="0" name="DistanceConfidence">
+    <value name="zeroPointZeroOneMeter" value="1" />
+    <value name="oneMeter" value="100" />
+    <value name="outOfRange" value="101" />
+    <value name="unavailable" value="102" />
+  </integer>
+  <sequence name="SpeedExtended">
+    <field name="value" type="SpeedValueExtended" />
+    <field name="confidence" type="SpeedConfidence" />
+  </sequence>
+  <integer max="16383" min="-16383" name="SpeedValueExtended">
+    <value name="standstill" value="0" />
+    <value name="oneCentimeterPerSec" value="1" />
+    <value name="unavailable" value="16383" />
+  </integer>
+  <sequence name="ObjectDimension">
+    <field name="value" type="ObjectDimensionValue" />
+    <field name="confidence" type="ObjectDimensionConfidence" />
+  </sequence>
+  <integer max="1023" min="0" name="ObjectDimensionValue">
+    <value name="zeroPointOneMeter" value="1" />
+    <value name="oneMeter" value="10" />
+  </integer>
+  <integer max="102" min="0" name="ObjectDimensionConfidence">
+    <value name="zeroPointZeroOneMeter" value="1" />
+    <value name="oneMeter" value="100" />
+    <value name="outOfRange" value="101" />
+    <value name="unavailable" value="102" />
+  </integer>
+  <integer max="8" min="0" name="ObjectRefPoint">
+    <value name="mid" value="0" />
+    <value name="bottomLeft" value="1" />
+    <value name="midLeft" value="2" />
+    <value name="topLeft" value="3" />
+    <value name="bottomMid" value="4" />
+    <value name="topMid" value="5" />
+    <value name="bottomRight" value="6" />
+    <value name="midRight" value="7" />
+    <value name="topRight" value="8" />
+  </integer>
+  <integer max="2" min="0" name="DynamicStatus">
+    <value name="dynamic" value="0" />
+    <value name="hasBeenDynamic" value="1" />
+    <value name="static" value="2" />
+  </integer>
+  <sequence-of max="8" min="1" name="ObjectClassDescription">
+    <field type="ObjectClass" />
+  </sequence-of>
+  <sequence name="ObjectClass">
+    <field name="confidence" type="ClassConfidence" />
+    <field name="class" type="ObjectClass$class" />
+  </sequence>
+  <integer max="101" min="0" name="ClassConfidence">
+    <value name="unknown" value="0" />
+    <value name="onePercent" value="1" />
+    <value name="oneHundredPercent" value="100" />
+    <value name="unavailable" value="101" />
+  </integer>
+  <choice name="ObjectClass$class">
+    <field name="vehicle" type="VehicleSubclass" />
+    <field name="person" type="PersonSubclass" />
+    <field name="animal" type="AnimalSubclass" />
+    <field name="other" type="OtherSubclass" />
+  </choice>
+  <sequence name="VehicleSubclass">
+    <field default="0" name="type" optional="true" type="VehicleSubclassType" />
+    <field default="0" name="confidence" optional="true" type="ClassConfidence" />
+  </sequence>
+  <integer max="255" min="0" name="VehicleSubclassType">
+    <value name="unknown" value="0" />
+    <value name="moped" value="1" />
+    <value name="motorcycle" value="2" />
+    <value name="passengerCar" value="3" />
+    <value name="bus" value="4" />
+    <value name="lightTruck" value="5" />
+    <value name="heavyTruck" value="6" />
+    <value name="trailer" value="7" />
+    <value name="specialVehicles" value="8" />
+    <value name="tram" value="9" />
+    <value name="emergencyVehicle" value="10" />
+    <value name="agricultural" value="11" />
+  </integer>
+  <sequence name="PersonSubclass">
+    <field default="0" name="type" optional="true" type="PersonSubclassType" />
+    <field default="0" name="confidence" optional="true" type="ClassConfidence" />
+  </sequence>
+  <integer max="255" min="0" name="PersonSubclassType">
+    <value name="unknown" value="0" />
+    <value name="pedestrian" value="1" />
+    <value name="personInWheelchair" value="2" />
+    <value name="cyclist" value="3" />
+    <value name="personWithStroller" value="4" />
+    <value name="personOnSkates" value="5" />
+    <value name="personGroup" value="6" />
+  </integer>
+  <sequence name="AnimalSubclass">
+    <field default="0" name="type" optional="true" type="AnimalSubclassType" />
+    <field default="0" name="confidence" optional="true" type="ClassConfidence" />
+  </sequence>
+  <integer max="255" min="0" name="AnimalSubclassType">
+    <value name="unknown" value="0" />
+  </integer>
+  <sequence name="OtherSubclass">
+    <field default="0" name="type" optional="true" type="OtherSublassType" />
+    <field default="0" name="confidence" optional="true" type="ClassConfidence" />
+  </sequence>
+  <integer max="255" min="0" name="OtherSublassType">
+    <value name="unknown" value="0" />
+    <value name="roadSideUnit" value="1" />
+  </integer>
+  <sequence name="MatchedPosition">
+    <field name="laneID" optional="true" type="LaneID" />
+    <field name="longitudinalLanePosition" optional="true" type="LongitudinalLanePosition" />
+    <extension />
+  </sequence>
+  <integer max="255" min="0" name="LaneID" />
+  <sequence name="LongitudinalLanePosition">
+    <field name="longitudinalLanePositionValue" type="LongitudinalLanePositionValue" />
+    <field name="longitudinalLanePositionConfidence" type="LongitudinalLanePositionConfidence" />
+  </sequence>
+  <integer max="32767" min="0" name="LongitudinalLanePositionValue">
+    <value name="zeroPointOneMeter" value="1" />
+  </integer>
+  <integer max="102" min="0" name="LongitudinalLanePositionConfidence">
+    <value name="zeroPointZeroOneMeter" value="1" />
+    <value name="oneMeter" value="100" />
+    <value name="outOfRange" value="101" />
+    <value name="unavailable" value="102" />
+  </integer>
+  <sequence-of extension="true" max="128" min="1" name="FreeSpaceAddendumContainer">
+    <field type="FreeSpaceAddendum" />
+  </sequence-of>
+  <sequence name="FreeSpaceAddendum">
+    <field name="freeSpaceConfidence" type="FreeSpaceConfidence" />
+    <field name="freeSpaceArea" type="FreeSpaceArea" />
+    <field name="sensorIDList" optional="true" type="SensorIdList" />
+    <field default="TRUE" name="shadowingApplies" optional="true" type="ShadowingApplies" />
+    <extension />
+  </sequence>
+  <choice name="FreeSpaceArea">
+    <field name="freeSpacePolygon" type="AreaPolygon" />
+    <field name="freeSpaceCircular" type="AreaCircular" />
+    <field name="freeSpaceEllipse" type="AreaEllipse" />
+    <field name="freeSpaceRectangle" type="AreaRectangle" />
+    <extension />
+  </choice>
+  <boolean name="ShadowingApplies" />
+  <integer max="255" min="0" name="NumberOfPerceivedObjects" />
+</module>

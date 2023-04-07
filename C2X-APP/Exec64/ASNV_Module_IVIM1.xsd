@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="module">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="sequence" maxOccurs="unbounded" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence" maxOccurs="unbounded" type="T2_sequence"/>
+				<xs:element name="bit-string" type="T2_bit-string"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="sequence" maxOccurs="unbounded" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="enumerated" type="T2_enumerated"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" maxOccurs="unbounded" type="T2_sequence"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="enumerated" maxOccurs="unbounded" type="T2_enumerated"/>
+				<xs:element name="null" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="name" use="required" type="xs:string"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="enumerated" maxOccurs="unbounded" type="T2_enumerated"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="enumerated" type="T2_enumerated"/>
+				<xs:element name="bit-string" type="T2_bit-string"/>
+				<xs:element name="enumerated" type="T2_enumerated"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence" maxOccurs="unbounded" type="T2_sequence"/>
+				<xs:element name="enumerated" type="T2_enumerated"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence" maxOccurs="unbounded" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="sequence-of" maxOccurs="unbounded" type="T2_sequence-of"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" maxOccurs="unbounded" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence" maxOccurs="unbounded" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="bit-string" type="T2_bit-string"/>
+				<xs:element name="sequence" maxOccurs="unbounded" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="bit-string" type="T2_bit-string"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence" maxOccurs="unbounded" type="T2_sequence"/>
+				<xs:element name="octet-string" type="T2_octet-string"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="enumerated" maxOccurs="unbounded" type="T2_enumerated"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence" maxOccurs="unbounded" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence" maxOccurs="unbounded" type="T2_sequence"/>
+				<xs:element name="octet-string" type="T2_octet-string"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="enumerated" maxOccurs="unbounded" type="T2_enumerated"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="octet-string" type="T2_octet-string"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="utf8-string" type="T2_utf8-string"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="utf8-string" type="T2_utf8-string"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="utf8-string" type="T2_utf8-string"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="bit-string" type="T2_bit-string"/>
+				<xs:element name="utf8-string" type="T2_utf8-string"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="enumerated" type="T2_enumerated"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="boolean">
+					<xs:complexType>
+						<xs:attribute name="name" use="required" type="xs:string"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="octet-string" type="T2_octet-string"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence-of" maxOccurs="unbounded" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="choice" type="T2_choice"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" maxOccurs="unbounded" type="T2_integer"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="integer" type="T2_integer"/>
+				<xs:element name="sequence-of" type="T2_sequence-of"/>
+				<xs:element name="sequence" type="T2_sequence"/>
+			</xs:sequence>
+			<xs:attribute name="asnv-version" use="required" type="xs:byte"/>
+			<xs:attribute name="entry-point" use="required" type="xs:string"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="tags" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="T10_field">
+		<xs:attribute name="name" use="required" type="xs:string"/>
+		<xs:attribute name="type" use="required" type="xs:string"/>
+		<xs:attribute name="tag" type="xs:byte"/>
+	</xs:complexType>
+	<xs:complexType name="T2_bit-string">
+		<xs:sequence>
+			<xs:element name="value" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="name" use="required" type="xs:string"/>
+					<xs:attribute name="value" use="required" type="xs:byte"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="max" use="required" type="xs:byte"/>
+		<xs:attribute name="min" use="required" type="xs:byte"/>
+		<xs:attribute name="name" use="required" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="T2_choice">
+		<xs:sequence>
+			<xs:element name="field" maxOccurs="unbounded" type="T10_field"/>
+			<xs:sequence minOccurs="0">
+				<xs:element name="extension">
+					<xs:complexType>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="field" minOccurs="0" maxOccurs="unbounded" type="T10_field"/>
+			</xs:sequence>
+		</xs:sequence>
+		<xs:attribute name="name" use="required" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="T2_enumerated">
+		<xs:sequence>
+			<xs:element name="value" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="name" use="required" type="xs:string"/>
+					<xs:attribute name="value" use="required" type="xs:byte"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="extension" minOccurs="0">
+				<xs:complexType>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" use="required" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="T2_integer">
+		<xs:sequence minOccurs="0">
+			<xs:element name="value" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="name" use="required" type="xs:string"/>
+					<xs:attribute name="value" use="required" type="xs:int"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="format" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="factor" use="required" type="xs:decimal"/>
+					<xs:attribute name="unit" use="required" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="max" use="required" type="xs:long"/>
+		<xs:attribute name="min" use="required" type="xs:int"/>
+		<xs:attribute name="name" use="required" type="xs:string"/>
+		<xs:attribute name="extension" type="xs:boolean"/>
+	</xs:complexType>
+	<xs:complexType name="T2_octet-string">
+		<xs:attribute name="max" type="xs:byte"/>
+		<xs:attribute name="min" type="xs:byte"/>
+		<xs:attribute name="name" use="required" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="T2_sequence">
+		<xs:sequence>
+			<xs:element name="field" maxOccurs="unbounded" type="T3_field"/>
+			<xs:choice minOccurs="0">
+				<xs:sequence>
+					<xs:element name="extension">
+						<xs:complexType>
+						</xs:complexType>
+					</xs:element>
+					<xs:choice minOccurs="0">
+						<xs:element name="extension-group">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="field" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:attribute name="name" use="required" type="xs:string"/>
+											<xs:attribute name="optional" type="xs:boolean"/>
+											<xs:attribute name="type" use="required" type="xs:string"/>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="field" type="T3_field"/>
+					</xs:choice>
+				</xs:sequence>
+				<xs:element name="attributes">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="general">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="attribute" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:attribute name="name" use="required" type="xs:string"/>
+												<xs:attribute name="displayname" type="xs:string"/>
+												<xs:attribute name="value" use="required" type="xs:string"/>
+												<xs:attribute name="type" use="required" type="xs:string"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="stack">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="layer" maxOccurs="unbounded">
+											<xs:complexType mixed="true">
+												<xs:sequence>
+													<xs:element name="attribute" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:attribute name="name" use="required" type="xs:string"/>
+															<xs:attribute name="displayname" use="required" type="xs:string"/>
+															<xs:attribute name="value" use="required" type="xs:string"/>
+															<xs:attribute name="type" use="required" type="xs:string"/>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="name" use="required" type="xs:string"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="name" use="required" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="T2_sequence-of">
+		<xs:sequence>
+			<xs:element name="field">
+				<xs:complexType>
+					<xs:attribute name="type" use="required" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="max" use="required" type="xs:byte"/>
+		<xs:attribute name="min" use="required" type="xs:byte"/>
+		<xs:attribute name="name" use="required" type="xs:string"/>
+		<xs:attribute name="extension" type="xs:boolean"/>
+	</xs:complexType>
+	<xs:complexType name="T2_utf8-string">
+		<xs:attribute name="name" use="required" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="T3_field">
+		<xs:attribute name="name" use="required" type="xs:string"/>
+		<xs:attribute name="type" use="required" type="xs:string"/>
+		<xs:attribute name="optional" type="xs:boolean"/>
+	</xs:complexType>
+</xs:schema>

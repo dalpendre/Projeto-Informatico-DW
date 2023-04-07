@@ -1,0 +1,431 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module asnv-version="1" entry-point="SREM" name="SREM" tags="automatic">
+   <sequence name="SREM">
+      <field name="header" type="ITS_Container.ItsPduHeader" />
+      <field name="srm" type="DSRC.SignalRequestMessage" />
+      <attributes>
+         <general>
+            <attribute name="GenMsgSendType" value="Cyclic" type="enum" />
+            <attribute name="GenMsgCycleTime" value="100" type="int32" />
+            <attribute name="GenMsgCertificate" value="" type="string" />
+            <attribute name="GenMsgCertificateSignerType" value="Certificate" type="enum" />
+            <attribute name="GenMsgCertificateSendTimeMS" value="1000" type="int32" />
+            <attribute name="GenMsgCertificateMatching" value="" type="string" />
+            <attribute name="GenMsgCertificateChangeTimeM" value="5" type="int32" />
+         </general>
+         <stack>
+            <layer name="geo_bh">
+               <attribute name="version" value="1" type="int32" />
+            </layer>
+            <layer name="wssv3">
+               <attribute name="psid" displayname="PS ID" value="140" type="int32" />
+               <attribute name="generationTime" displayname="Generation Time" value="0" type="int64" />
+            </layer>
+            <layer name="geo_ch">
+               <attribute name="nextHeader" displayname="Next Header" value="BTP-B" type="enum" />
+               <attribute name="ht" displayname="Header Type" value="GeoBroadcast" type="enum" />
+               <attribute name="hst" displayname="Header Subtype" value="0" type="int32" />
+            </layer>
+            <layer name="geo_eh" />
+         </stack>
+      </attributes>
+   </sequence>
+   <sequence name="ITS_Container.ItsPduHeader">
+      <field name="protocolVersion" type="ITS_Container.ItsPduHeader$protocolVersion" />
+      <field name="messageID" type="ITS_Container.ItsPduHeader$messageID" />
+      <field name="stationID" type="ITS_Container.StationID" />
+   </sequence>
+   <integer max="255" min="0" name="ITS_Container.ItsPduHeader$protocolVersion" />
+   <integer max="255" min="0" name="ITS_Container.ItsPduHeader$messageID">
+      <value name="denm" value="1" />
+      <value name="cam" value="2" />
+      <value name="poi" value="3" />
+      <value name="spatem" value="4" />
+      <value name="mapem" value="5" />
+      <value name="ivim" value="6" />
+      <value name="ev_rsr" value="7" />
+      <value name="tistpgtransaction" value="8" />
+      <value name="srem" value="9" />
+      <value name="ssem" value="10" />
+      <value name="evcsn" value="11" />
+      <value name="saem" value="12" />
+      <value name="rtcmem" value="13" />
+   </integer>
+   <integer max="4294967295" min="0" name="ITS_Container.StationID" />
+   <sequence name="DSRC.SignalRequestMessage">
+      <field name="timeStamp" optional="true" type="DSRC.MinuteOfTheYear" />
+      <field name="second" type="DSRC.DSecond" />
+      <field name="sequenceNumber" optional="true" type="DSRC.MsgCount" />
+      <field name="requests" optional="true" type="DSRC.SignalRequestList" />
+      <field name="requestor" type="DSRC.RequestorDescription" />
+      <field name="regional" optional="true" type="DSRC.SignalRequestMessage$regional" />
+      <extension />
+   </sequence>
+   <integer max="527040" min="0" name="DSRC.MinuteOfTheYear" />
+   <integer max="65535" min="0" name="DSRC.DSecond" />
+   <integer max="127" min="0" name="DSRC.MsgCount" />
+   <sequence-of max="32" min="1" name="DSRC.SignalRequestList">
+      <field type="DSRC.SignalRequestPackage" />
+   </sequence-of>
+   <sequence name="DSRC.SignalRequestPackage">
+      <field name="request" type="DSRC.SignalRequest" />
+      <field name="minute" optional="true" type="DSRC.MinuteOfTheYear" />
+      <field name="second" optional="true" type="DSRC.DSecond" />
+      <field name="duration" optional="true" type="DSRC.DSecond" />
+      <field name="regional" optional="true" type="DSRC.SignalRequestPackage$regional" />
+      <extension />
+   </sequence>
+   <sequence name="DSRC.SignalRequest">
+      <field name="id" type="DSRC.IntersectionReferenceID" />
+      <field name="requestID" type="DSRC.RequestID" />
+      <field name="requestType" type="DSRC.PriorityRequestType" />
+      <field name="inBoundLane" type="DSRC.IntersectionAccessPoint" />
+      <field name="outBoundLane" optional="true" type="DSRC.IntersectionAccessPoint" />
+      <field name="regional" optional="true" type="DSRC.SignalRequest$regional" />
+      <extension />
+   </sequence>
+   <sequence name="DSRC.IntersectionReferenceID">
+      <field name="region" optional="true" type="DSRC.RoadRegulatorID" />
+      <field name="id" type="DSRC.IntersectionID" />
+   </sequence>
+   <integer max="65535" min="0" name="DSRC.RoadRegulatorID" />
+   <integer max="65535" min="0" name="DSRC.IntersectionID" />
+   <integer max="255" min="0" name="DSRC.RequestID" />
+   <enumerated name="DSRC.PriorityRequestType">
+      <value name="priorityRequestTypeReserved" value="0" />
+      <value name="priorityRequest" value="1" />
+      <value name="priorityRequestUpdate" value="2" />
+      <value name="priorityCancellation" value="3" />
+      <extension />
+   </enumerated>
+   <choice name="DSRC.IntersectionAccessPoint">
+      <field name="lane" type="DSRC.LaneID" />
+      <field name="approach" type="DSRC.ApproachID" />
+      <field name="connection" type="DSRC.LaneConnectionID" />
+      <extension />
+   </choice>
+   <integer max="255" min="0" name="DSRC.LaneID" />
+   <integer max="15" min="0" name="DSRC.ApproachID" />
+   <integer max="255" min="0" name="DSRC.LaneConnectionID" />
+   <sequence-of max="4" min="1" name="DSRC.SignalRequest$regional">
+      <field type="DSRC.RegionalExtensionEmpty" />
+   </sequence-of>
+   <sequence-of max="4" min="1" name="DSRC.SignalRequestPackage$regional">
+      <field type="DSRC.RegionalExtensionEmpty" />
+   </sequence-of>
+   <sequence name="DSRC.RequestorDescription">
+      <field name="id" type="DSRC.VehicleID" />
+      <field name="type" optional="true" type="DSRC.RequestorType" />
+      <field name="position" optional="true" type="DSRC.RequestorPositionVector" />
+      <field name="name" optional="true" type="DSRC.DescriptiveName" />
+      <field name="routeName" optional="true" type="DSRC.DescriptiveName" />
+      <field name="transitStatus" optional="true" type="DSRC.TransitVehicleStatus" />
+      <field name="transitOccupancy" optional="true" type="DSRC.TransitVehicleOccupancy" />
+      <field name="transitSchedule" optional="true" type="DSRC.DeltaTime" />
+      <field name="regional" optional="true" type="DSRC.RequestorDescription$regional" />
+      <extension />
+   </sequence>
+   <choice name="DSRC.VehicleID">
+      <field name="entityID" type="DSRC.TemporaryID" />
+      <field name="stationID" type="ITS_Container.StationID" />
+   </choice>
+   <octet-string max="4" min="4" name="DSRC.TemporaryID" />
+   <sequence name="DSRC.RequestorType">
+      <field name="role" type="DSRC.BasicVehicleRole" />
+      <field name="subrole" optional="true" type="DSRC.RequestSubRole" />
+      <field name="request" optional="true" type="DSRC.RequestImportanceLevel" />
+      <field name="iso3883" optional="true" type="DSRC.Iso3833VehicleType" />
+      <field name="hpmsType" optional="true" type="DSRC.VehicleType" />
+      <field name="regional" optional="true" type="DSRC.RegionalExtensionEmpty" />
+      <extension />
+   </sequence>
+   <enumerated name="DSRC.BasicVehicleRole">
+      <value name="basicVehicle" value="0" />
+      <value name="publicTransport" value="1" />
+      <value name="specialTransport" value="2" />
+      <value name="dangerousGoods" value="3" />
+      <value name="roadWork" value="4" />
+      <value name="roadRescue" value="5" />
+      <value name="emergency" value="6" />
+      <value name="safetyCar" value="7" />
+      <value name="none_unknown" value="8" />
+      <value name="truck" value="9" />
+      <value name="motorcycle" value="10" />
+      <value name="roadSideSource" value="11" />
+      <value name="police" value="12" />
+      <value name="fire" value="13" />
+      <value name="ambulance" value="14" />
+      <value name="dot" value="15" />
+      <value name="transit" value="16" />
+      <value name="slowMoving" value="17" />
+      <value name="stopNgo" value="18" />
+      <value name="cyclist" value="19" />
+      <value name="pedestrian" value="20" />
+      <value name="nonMotorized" value="21" />
+      <value name="military" value="22" />
+      <extension />
+   </enumerated>
+   <enumerated name="DSRC.RequestSubRole">
+      <value name="requestSubRoleUnKnown" value="0" />
+      <value name="requestSubRole1" value="1" />
+      <value name="requestSubRole2" value="2" />
+      <value name="requestSubRole3" value="3" />
+      <value name="requestSubRole4" value="4" />
+      <value name="requestSubRole5" value="5" />
+      <value name="requestSubRole6" value="6" />
+      <value name="requestSubRole7" value="7" />
+      <value name="requestSubRole8" value="8" />
+      <value name="requestSubRole9" value="9" />
+      <value name="requestSubRole10" value="10" />
+      <value name="requestSubRole11" value="11" />
+      <value name="requestSubRole12" value="12" />
+      <value name="requestSubRole13" value="13" />
+      <value name="requestSubRole14" value="14" />
+      <value name="requestSubRoleReserved" value="15" />
+   </enumerated>
+   <enumerated name="DSRC.RequestImportanceLevel">
+      <value name="requestImportanceLevelUnKnown" value="0" />
+      <value name="requestImportanceLevel1" value="1" />
+      <value name="requestImportanceLevel2" value="2" />
+      <value name="requestImportanceLevel3" value="3" />
+      <value name="requestImportanceLevel4" value="4" />
+      <value name="requestImportanceLevel5" value="5" />
+      <value name="requestImportanceLevel6" value="6" />
+      <value name="requestImportanceLevel7" value="7" />
+      <value name="requestImportanceLevel8" value="8" />
+      <value name="requestImportanceLevel9" value="9" />
+      <value name="requestImportanceLevel10" value="10" />
+      <value name="requestImportanceLevel11" value="11" />
+      <value name="requestImportanceLevel12" value="12" />
+      <value name="requestImportanceLevel13" value="13" />
+      <value name="requestImportanceLevel14" value="14" />
+      <value name="requestImportanceReserved" value="15" />
+   </enumerated>
+   <integer max="255" min="0" name="DSRC.Iso3833VehicleType">
+      <value name="passengerCar" value="0" />
+      <value name="saloon" value="1" />
+      <value name="convertibleSaloon" value="2" />
+      <value name="pullmanSaloon" value="3" />
+      <value name="stationWagon" value="4" />
+      <value name="truckStationWagon" value="5" />
+      <value name="coupe" value="6" />
+      <value name="convertible" value="7" />
+      <value name="multipurposePassengerCar" value="8" />
+      <value name="forwardControlPassengerCar" value="9" />
+      <value name="specialPassengerCar" value="10" />
+      <value name="bus" value="11" />
+      <value name="minibus" value="12" />
+      <value name="urbanBus" value="13" />
+      <value name="interurbanCoach" value="14" />
+      <value name="longDistanceCoach" value="15" />
+      <value name="articulatedBus" value="16" />
+      <value name="trolleyBus" value="17" />
+      <value name="specialBus" value="18" />
+      <value name="commercialVehicle" value="19" />
+      <value name="specialCommercialVehicle" value="20" />
+      <value name="specialVehicle" value="21" />
+      <value name="trailingTowingVehicle" value="22" />
+      <value name="semiTrailerTowingVehicle" value="23" />
+      <value name="trailer" value="24" />
+      <value name="busTrailer" value="25" />
+      <value name="generalPurposeTrailer" value="26" />
+      <value name="caravan" value="27" />
+      <value name="specialTrailer" value="28" />
+      <value name="semiTrailer" value="29" />
+      <value name="busSemiTrailer" value="30" />
+      <value name="generalPurposeSemiTrailer" value="31" />
+      <value name="specialSemiTrailer" value="32" />
+      <value name="roadTrain" value="33" />
+      <value name="passengerRoadTrain" value="34" />
+      <value name="articulatedRoadTrain" value="35" />
+      <value name="doubleRoadTrain" value="36" />
+      <value name="compositeRoadTrain" value="37" />
+      <value name="specialRoadTrain" value="38" />
+      <value name="moped" value="39" />
+      <value name="motorCycle" value="40" />
+   </integer>
+   <enumerated name="DSRC.VehicleType">
+      <value name="none" value="0" />
+      <value name="unknown" value="1" />
+      <value name="special" value="2" />
+      <value name="moto" value="3" />
+      <value name="car" value="4" />
+      <value name="carOther" value="5" />
+      <value name="bus" value="6" />
+      <value name="axleCnt2" value="7" />
+      <value name="axleCnt3" value="8" />
+      <value name="axleCnt4" value="9" />
+      <value name="axleCnt4Trailer" value="10" />
+      <value name="axleCnt5Trailer" value="11" />
+      <value name="axleCnt6Trailer" value="12" />
+      <value name="axleCnt5MultiTrailer" value="13" />
+      <value name="axleCnt6MultiTrailer" value="14" />
+      <value name="axleCnt7MultiTrailer" value="15" />
+      <extension />
+   </enumerated>
+   <sequence name="DSRC.RequestorPositionVector">
+      <field name="position" type="DSRC.Position3D" />
+      <field name="heading" optional="true" type="DSRC.Angle" />
+      <field name="speed" optional="true" type="DSRC.TransmissionAndSpeed" />
+      <extension />
+   </sequence>
+   <sequence name="DSRC.Position3D">
+      <field name="lat" type="ITS_Container.Latitude" />
+      <field name="lon" type="ITS_Container.Longitude" />
+      <field name="elevation" optional="true" type="DSRC.Elevation" />
+      <field name="regional" optional="true" type="DSRC.Position3D$regional" />
+      <extension />
+   </sequence>
+   <integer max="900000001" min="-900000000" name="ITS_Container.Latitude">
+      <!-- <value name="oneMicrodegreeNorth" value="10" /> -->
+      <!-- <value name="oneMicrodegreeSouth" value="-10" /> -->
+      <value name="unavailable" value="900000001" />
+      <format factor="0.0000001" unit="°" />
+   </integer>
+   <integer max="1800000001" min="-1800000000" name="ITS_Container.Longitude">
+      <!-- <value name="oneMicrodegreeEast" value="10" /> -->
+      <!-- <value name="oneMicrodegreeWest" value="-10" /> -->
+      <value name="unavailable" value="1800000001" />
+      <format factor="0.0000001" unit="°" />
+   </integer>
+   <integer max="61439" min="-4096" name="DSRC.Elevation">
+      <format factor="0.01" unit="m" />
+   </integer>
+   <sequence-of max="4" min="1" name="DSRC.Position3D$regional">
+      <field type="DSRC.RegionalExtensionPosition3D" />
+   </sequence-of>
+   <integer max="28800" min="0" name="DSRC.Angle" />
+   <sequence name="DSRC.TransmissionAndSpeed">
+      <field name="transmisson" type="DSRC.TransmissionState" />
+      <field name="speed" type="DSRC.Velocity" />
+   </sequence>
+   <enumerated name="DSRC.TransmissionState">
+      <value name="neutral" value="0" />
+      <value name="park" value="1" />
+      <value name="forwardGears" value="2" />
+      <value name="reverseGears" value="3" />
+      <value name="reserved1" value="4" />
+      <value name="reserved2" value="5" />
+      <value name="reserved3" value="6" />
+      <value name="unavailable" value="7" />
+   </enumerated>
+   <integer max="8191" min="0" name="DSRC.Velocity" />
+   <ia5-string max="63" min="1" name="DSRC.DescriptiveName" />
+   <bit-string max="8" min="8" name="DSRC.TransitVehicleStatus">
+      <value name="loading" value="0" />
+      <value name="anADAuse" value="1" />
+      <value name="aBikeLoad" value="2" />
+      <value name="doorOpen" value="3" />
+      <value name="charging" value="4" />
+      <value name="atStopLine" value="5" />
+   </bit-string>
+   <enumerated name="DSRC.TransitVehicleOccupancy">
+      <value name="occupancyUnknown" value="0" />
+      <value name="occupancyEmpty" value="1" />
+      <value name="occupancyVeryLow" value="2" />
+      <value name="occupancyLow" value="3" />
+      <value name="occupancyMed" value="4" />
+      <value name="occupancyHigh" value="5" />
+      <value name="occupancyNearlyFull" value="6" />
+      <value name="occupancyFull" value="7" />
+   </enumerated>
+   <integer max="121" min="-122" name="DSRC.DeltaTime" />
+   <sequence-of max="4" min="1" name="DSRC.RequestorDescription$regional">
+      <field type="DSRC.RegionalExtensionRequestorDescription" />
+   </sequence-of>
+   <sequence-of max="4" min="1" name="DSRC.SignalRequestMessage$regional">
+      <field type="DSRC.RegionalExtensionEmpty" />
+   </sequence-of>
+   <!-- DSRC.RegionId /> -->
+   <integer max="255" min="0" name="DSRC.RegionId">
+      <value name="noRegion" value="0" />
+      <value name="addGrpA" value="1" />
+      <value name="addGrpB" value="2" />
+      <value name="addGrpC" value="3" />
+   </integer>
+   <!-- DSRC.RegionalExtensionEmpty /> -->
+   <sequence name="DSRC.RegionalExtensionEmpty">
+      <table-key name="regionId" table="Reg_Empty" />
+      <table-val name="regExtValue" col="Type" key="regionId" />
+   </sequence>
+   <table name="Reg_Empty" type="DSRC.RegionId">
+      <col name="Type" />
+   </table>
+   <!-- DSRC.RegionalExtensionPosition3D /> -->
+   <sequence name="DSRC.RegionalExtensionPosition3D">
+      <table-key name="regionId" table="Reg_Position3D" />
+      <table-val name="regExtValue" col="Type" key="regionId" />
+   </sequence>
+   <table name="Reg_Position3D" type="DSRC.RegionId">
+      <col name="Type" />
+      <row name="addGrpC" value="addGrpC">
+         <col name="Type" type="AddGrpC.Position3D_addGrpC" />
+      </row>
+   </table>
+   <sequence name="AddGrpC.Position3D_addGrpC">
+      <field name="altitude" type="ITS_Container.Altitude" />
+      <extension />
+   </sequence>
+   <sequence name="ITS_Container.Altitude">
+      <field name="altitudeValue" type="ITS_Container.AltitudeValue" />
+      <field name="altitudeConfidence" type="ITS_Container.AltitudeConfidence" />
+   </sequence>
+   <integer max="800001" min="-100000" name="ITS_Container.AltitudeValue">
+      <value name="referenceEllipsoidSurface" value="0" />
+      <value name="oneCentimeter" value="1" />
+      <value name="unavailable" value="800001" />
+   </integer>
+   <enumerated name="ITS_Container.AltitudeConfidence">
+      <value name="alt_000_01" value="0" />
+      <value name="alt_000_02" value="1" />
+      <value name="alt_000_05" value="2" />
+      <value name="alt_000_10" value="3" />
+      <value name="alt_000_20" value="4" />
+      <value name="alt_000_50" value="5" />
+      <value name="alt_001_00" value="6" />
+      <value name="alt_002_00" value="7" />
+      <value name="alt_005_00" value="8" />
+      <value name="alt_010_00" value="9" />
+      <value name="alt_020_00" value="10" />
+      <value name="alt_050_00" value="11" />
+      <value name="alt_100_00" value="12" />
+      <value name="alt_200_00" value="13" />
+      <value name="outOfRange" value="14" />
+      <value name="unavailable" value="15" />
+   </enumerated>
+   <!-- DSRC.RegionalExtensionRequestorDescription /> -->
+   <sequence name="DSRC.RegionalExtensionRequestorDescription">
+      <table-key name="regionId" table="Reg_RequestorDescription" />
+      <table-val name="regExtValue" col="Type" key="regionId" />
+   </sequence>
+   <table name="Reg_RequestorDescription" type="DSRC.RegionId">
+      <col name="Type" />
+      <row name="addGrpC" value="addGrpC">
+         <col name="Type" type="AddGrpC.RequestorDescription_addGrpC" />
+      </row>
+   </table>
+   <sequence name="AddGrpC.RequestorDescription_addGrpC">
+      <field name="fuel" optional="true" type="DSRC.FuelType" />
+      <field name="batteryStatus" optional="true" type="AddGrpC.BatteryStatus" />
+      <extension />
+   </sequence>
+   <integer max="15" min="0" name="DSRC.FuelType">
+      <value name="unknownFuel" value="0" />
+      <value name="gasoline" value="1" />
+      <value name="ethanol" value="2" />
+      <value name="diesel" value="3" />
+      <value name="electric" value="4" />
+      <value name="hybrid" value="5" />
+      <value name="hydrogen" value="6" />
+      <value name="natGasLiquid" value="7" />
+      <value name="natGasComp" value="8" />
+      <value name="propane" value="9" />
+   </integer>
+   <enumerated name="AddGrpC.BatteryStatus">
+      <value name="unknown" value="0" />
+      <value name="critical" value="1" />
+      <value name="low" value="2" />
+      <value name="good" value="3" />
+      <extension />
+   </enumerated>
+</module>
