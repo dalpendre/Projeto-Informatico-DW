@@ -1,4 +1,4 @@
-# Projeto-Informtico
+# Projeto-Informático
 Repositório de Projeto Informático (2022/2023) - M
 
 Projeto Informático (n.º 19)
