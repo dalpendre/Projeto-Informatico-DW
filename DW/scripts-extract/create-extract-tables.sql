@@ -66,3 +66,38 @@ CREATE TABLE t_ext_denm
 	destination_id INT NOT NULL,
 	FOREIGN KEY (road_event_key) REFERENCES t_dim_road_event (road_event_key)
 );
+
+CREATE TABLE t_ext_time
+(
+	time_key SERIAL PRIMARY KEY,
+	c_day INT NOT NULL,
+	c_month INT NOT NULL,
+	c_year INT NOT NULL,
+	c_week_day VARCHAR(10) NOT NULL,
+	c_is_holiday BOOLEAN NOT NULL,
+	c_trimester INT NOT NULL,
+	c_semester INT NOT NULL
+);
+
+CREATE TABLE t_ext_ivim
+(
+	ivim_key SERIAL PRIMARY KEY,
+	road_sign_key VARCHAR(10) NOT NULL,
+	speed_limit INT NOT NULL,
+	c_location POINT NOT NULL,
+	communication_method VARCHAR(20) NOT NULL,
+	time_stamp INT NOT NULL,
+	command_type VARCHAR(20) NOT NULL,
+	FOREIGN KEY (road_sign_key) REFERENCES t_dim_road_sign (road_sign_key)
+);
+
+CREATE TABLE t_ext_road_sign
+(
+	road_sign_key VARCHAR(10) PRIMARY KEY,
+	road_sign_description VARCHAR(50) NOT NULL,
+	road_type INT NOT NULL,
+	road_code INT NOT NULL,
+	road_symbol INT NOT NULL,
+	road_class INT NOT NULL,
+	road_visibility VARCHAR(20) NOT NULL
+);
