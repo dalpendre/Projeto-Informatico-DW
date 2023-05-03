@@ -36,8 +36,8 @@ CREATE TABLE t_ext_cam
 	cam_key INT PRIMARY KEY,
 	time_key INT NOT NULL,
 	c_location POINT NOT NULL,
-	speed INT NOT NULL,
-	heading INT NOT NULL,
+	speed INT NOT NULL
+	/*heading INT NOT NULL,
 	acceleration INT NOT NULL,
 	station_type VARCHAR(20) NOT NULL,
 	vehicle_role VARCHAR(20) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE t_ext_cam
 	collision_warning_engaged BOOLEAN NOT NULL,
 	speed_limiter_engaged BOOLEAN NOT NULL,
 	cruise_control_engaged BOOLEAN NOT NULL,
-	stationary_since VARCHAR(20) NOT NULL,
+	stationary_since VARCHAR(20) NOT NULL,*/
 ); 
 
 CREATE TABLE t_ext_denm
