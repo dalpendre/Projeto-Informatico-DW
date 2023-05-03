@@ -1,0 +1,5 @@
+db_name = "projeto-informatico"
+db_user = "postgres"
+db_pass = "12345678"
+postgres_port = "5432"
+db_ip_address = "18.169.68.102"
