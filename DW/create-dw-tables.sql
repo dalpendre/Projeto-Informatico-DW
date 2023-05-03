@@ -59,7 +59,7 @@ CREATE TABLE t_fact_cam
 	time_key INT NOT NULL,
 	c_location POINT NOT NULL,
 	speed INT NOT NULL,
-	heading INT NOT NULL,
+	/*heading INT NOT NULL,
 	acceleration INT NOT NULL,
 	station_type VARCHAR(20) NOT NULL,
 	vehicle_role VARCHAR(20) NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE t_fact_cam
 	collision_warning_engaged BOOLEAN NOT NULL,
 	speed_limiter_engaged BOOLEAN NOT NULL,
 	cruise_control_engaged BOOLEAN NOT NULL,
-	stationary_since VARCHAR(20) NOT NULL,
+	stationary_since VARCHAR(20) NOT NULL,*/
 	FOREIGN KEY (time_key) REFERENCES t_dim_time (time_key)
 ); 
 
