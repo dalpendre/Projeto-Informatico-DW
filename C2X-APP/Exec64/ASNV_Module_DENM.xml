@@ -384,7 +384,7 @@
     <value name="brakeWarningEngaged" value="6" />
     <value name="collisionRiskWarningEngaged" value="7" />
   </integer>
-  <integer max="255" min="0" name="VehicleBreakdownSubCauseCode">
+ <integer max="255" min="0" name="VehicleBreakdownSubCauseCode">
     <value name="unavailable" value="0" />
     <value name="lackOfFuel" value="1" />
     <value name="lackOfBatteryPower" value="2" />
