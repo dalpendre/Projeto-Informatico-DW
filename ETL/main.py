@@ -1,5 +1,5 @@
 from colors import bcolors
-#import extract
+import extract
 import transform
 import load
 

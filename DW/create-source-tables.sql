@@ -1,4 +1,4 @@
--- Database: projeto-informatico
+-- Database: projeto_informatico_source_db
 
 CREATE TABLE t_road_event
 (
@@ -6,21 +6,18 @@ CREATE TABLE t_road_event
 	description VARCHAR(100) NOT NULL,
 	severity VARCHAR(10) NOT NULL,
 	status VARCHAR(10) NOT NULL,
-	impact_level VARCHAR(10) NOT NULL
+	impact_level VARCHAR(11) NOT NULL
 );
 
-/*
 CREATE TABLE t_road_sign
 (
 	road_sign_key VARCHAR(10) PRIMARY KEY,
 	road_sign_description VARCHAR(50) NOT NULL,
-	road_type INT NOT NULL,
-	road_code INT NOT NULL,
-	road_symbol INT NOT NULL,
-	road_class INT NOT NULL,
-	road_visibility VARCHAR(20) NOT NULL
+	road_sign_code VARCHAR(10) NOT NULL,
+	road_sign_symbol BYTEA NOT NULL,
+	road_sign_class VARCHAR(20) NOT NULL,
+	road_sign_visibility VARCHAR(20) NOT NULL
 );
-*/
 
 CREATE TABLE t_event
 (
@@ -61,7 +58,7 @@ CREATE TABLE t_segment
 	number_of_lanes INT NOT NULL,
 	start_point FLOAT NOT NULL,
 	end_point FLOAT NOT NULL,
-	FOREIGN KEY (road_key) REFERENCES t_dim_road (road_key)
+	FOREIGN KEY (road_key) REFERENCES t_road (road_key)
 );
 
 CREATE TABLE t_time
@@ -79,7 +76,7 @@ CREATE TABLE t_time
 	c_semester INT NOT NULL,
 	c_season VARCHAR(20) NOT NULL,
 	c_full_date_description VARCHAR(20) NOT NULL,
-	FOREIGN KEY (event_key) REFERENCES t_dim_event (event_key)
+	FOREIGN KEY (event_key) REFERENCES t_event (event_key)
 );
 
 CREATE TABLE t_cam
@@ -94,20 +91,14 @@ CREATE TABLE t_cam
 	speed INT NOT NULL,
 	heading INT NOT NULL,
 	acceleration INT NOT NULL,
-	station_type VARCHAR(20) NOT NULL,
-	vehicle_role VARCHAR(20) NOT NULL,
+	station_type INT NOT NULL,
+	vehicle_role INT NOT NULL,
 	time_stamp INT NOT NULL,
-	class_dangerous_cargo VARCHAR(20) NOT NULL,
-	fuel_type VARCHAR(20) BOOLEAN NOT NULL,
-	brake_pedal_engaged BOOLEAN NOT NULL,
-	gas_pedal_engaged BOOLEAN NOT NULL,
-	emergency_pedal_engaged BOOLEAN NOT NULL,
-	collision_warning_engaged BOOLEAN NOT NULL,
-	speed_limiter_engaged BOOLEAN NOT NULL,
-	cruise_control_engaged BOOLEAN NOT NULL,
-	stationary_since VARCHAR(20) NOT NULL,
-	FOREIGN KEY (time_key) REFERENCES t_dim_time (time_key),
-	FOREIGN KEY (segment_key) REFERENCES t_dim_segment (segment_key)
+	fuel_type VARCHAR(4) NOT NULL, 		-- bitstring a ser convertida para int, e depois o name correspondente
+	activation_data VARCHAR(4) NOT NULL, 	-- (pedal/sensor ativado) bitstring a ser convertida para int, e depois o name correspondente
+	stationary_since INT NULL,
+	FOREIGN KEY (time_key) REFERENCES t_time (time_key),
+	FOREIGN KEY (segment_key) REFERENCES t_segment (segment_key)
 ); 
 
 CREATE TABLE t_denm
@@ -121,40 +112,39 @@ CREATE TABLE t_denm
 	altitude INT NOT NULL,
 	heading INT NOT NULL,
 	cause INT NOT NULL,
-	sub_cause INT NOT NULL,
-	traffic_cause INT NOT NULL,
-	accident_sub_cause_code INT NOT NULL,
-	road_works_sub_cause INT NOT NULL,
-	accident_sub_cause INT NOT NULL,
-	slow_vehicle_sub_cause INT NOT NULL,
-	stationary_vehicle_cause INT NOT NULL,
-	human_problem_sub_cause INT NOT NULL,
-	collision_risk_sub_cause INT NOT NULL,
-	dangerous_situation_sub_cause INT NOT NULL,
-	vehicle_break_down_sub_cause INT NOT NULL,
-	post_crash_sub_cause INT NOT NULL,
-	human_presence_on_the_road_sub_cause INT NOT NULL,
-	adverse_weather_condition_extreme_weather_condition_sub_cause INT NOT NULL,
-	adverse_weather_condition_adhesion_sub_cause INT NOT NULL,
-	adverse_weather_condition_visibility_sub_cause INT NOT NULL,
-	adverse_weather_condition_precipitation_sub_cause INT NOT NULL,
-	emergency_vehicle_approaching_sub_cause INT NOT NULL,
-	hazardous_location_surface_condition_sub_cause INT NOT NULL,
-	hazardous_location_obstacle_on_the_road_sub_cause INT NOT NULL,
-	hazardous_location_animal_on_the_road_sub_cause INT NOT NULL,
-	rescue_and_recovery_work_in_progress_sub_cause INT NOT NULL,
-	dangerous_end_of_queue_sub_cause INT NOT NULL,
-	FOREIGN KEY (time_key) REFERENCES t_dim_time (time_key),
-	FOREIGN KEY (road_event_key) REFERENCES t_dim_road_event (road_event_key)
-
+	sub_cause INT NULL,
+	traffic_cause INT NULL,
+	accident_sub_cause_code INT NULL,
+	road_works_sub_cause INT NULL,
+	accident_sub_cause INT NULL,
+	slow_vehicle_sub_cause INT NULL,
+	stationary_vehicle_cause INT NULL,
+	human_problem_sub_cause INT NULL,
+	collision_risk_sub_cause INT NULL,
+	dangerous_situation_sub_cause INT NULL,
+	vehicle_break_down_sub_cause INT NULL,
+	post_crash_sub_cause INT NULL,
+	human_presence_on_the_road_sub_cause INT NULL,
+	adverse_weather_condition_extreme_weather_condition_sub_cause INT NULL,
+	adverse_weather_condition_adhesion_sub_cause INT NULL,
+	adverse_weather_condition_visibility_sub_cause INT NULL,
+	adverse_weather_condition_precipitation_sub_cause INT NULL,
+	emergency_vehicle_approaching_sub_cause INT NULL,
+	hazardous_location_surface_condition_sub_cause INT NULL,
+	hazardous_location_obstacle_on_the_road_sub_cause INT NULL,
+	hazardous_location_animal_on_the_road_sub_cause INT NULL,
+	rescue_and_recovery_work_in_progress_sub_cause INT NULL,
+	dangerous_end_of_queue_sub_cause INT NULL,
+	FOREIGN KEY (time_key) REFERENCES t_time (time_key),
+	FOREIGN KEY (road_event_key) REFERENCES t_road_event (road_event_key)
 );
 
-CREATE TABLE t_fact_ivim
+CREATE TABLE t_ivim
 (
 	ivim_key SERIAL PRIMARY KEY,
 	zone_key INT NOT NULL,
 	latitude INT NOT NULL,
 	longitude INT NOT NULL,
 	altitude INT NOT NULL,
-	FOREIGN KEY (zone_key) REFERENCES t_dim_zone (zone_key)
+	FOREIGN KEY (zone_key) REFERENCES t_zone (zone_key)
 );
