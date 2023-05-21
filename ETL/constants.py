@@ -1,0 +1,6 @@
+source_db_name = "projeto_informatico_source_db"
+dw_db_name = "projeto_informatico_dw"
+db_user = "postgres"
+db_pass = "12345678"
+postgres_port = "5432"
+db_ip_address = "18.169.68.102"

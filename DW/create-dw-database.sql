@@ -1,8 +1,6 @@
 -- Database: projeto_informatico
 
--- DROP DATABASE IF EXISTS projeto_informatico;
-
-CREATE DATABASE projeto_informatico
+CREATE DATABASE projeto_informatico_dw
     WITH
     OWNER = postgres
     ENCODING = 'UTF8'
@@ -12,5 +10,5 @@ CREATE DATABASE projeto_informatico
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
 
-COMMENT ON DATABASE projeto_informatico
+COMMENT ON DATABASE projeto_informatico_dw
     IS 'Data Warehouse de Projeto Informático de apresentação de veículos em mapas';

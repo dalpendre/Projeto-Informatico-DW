@@ -1,6 +1,6 @@
 -- Database: projeto-informatico_dw
 
-CREATE TABLE t_dim_road_event
+CREATE TABLE t_data_road_event
 (
 	road_event_key SERIAL PRIMARY KEY,
 	description VARCHAR(100) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE t_dim_road_event
 	impact_level VARCHAR(10) NOT NULL
 );
 
-CREATE TABLE t_dim_road_sign
+CREATE TABLE t_data_road_sign
 (
 	road_sign_key SERIAL PRIMARY KEY,
 	road_sign_description VARCHAR(50) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE t_dim_road_sign
 	road_visibility VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE t_dim_event
+CREATE TABLE t_data_event
 (
 	event_key SERIAL PRIMARY KEY,
 	designation VARCHAR(100) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE t_dim_event
 	flag_single_day_event BOOLEAN NOT NULL
 );
 
-CREATE TABLE t_dim_zone
+CREATE TABLE t_data_zone
 (
 	zone_key SERIAL PRIMARY KEY,
 	zone_name VARCHAR(100) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE t_dim_zone
 	zone_area VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE t_dim_road
+CREATE TABLE t_data_road
 (
 	road_key SERIAL PRIMARY KEY,
 	road_name VARCHAR(20) NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE t_dim_road
 	end_point FLOAT NOT NULL
 );
 
-CREATE TABLE t_dim_segment
+CREATE TABLE t_data_segment
 (
 	segment_key SERIAL PRIMARY KEY,
 	road_key INT NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE t_dim_segment
 	FOREIGN KEY (road_key) REFERENCES t_dim_road (road_key)
 );
 
-CREATE TABLE t_dim_time
+CREATE TABLE t_data_time
 (
 	time_key SERIAL PRIMARY KEY,
 	event_key INT NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE t_dim_time
 	FOREIGN KEY (event_key) REFERENCES t_dim_event (event_key)
 );
 
-CREATE TABLE t_fact_cam
+CREATE TABLE t_data_cam
 (
 	cam_key SERIAL PRIMARY KEY,
 	time_key INT NOT NULL,
@@ -107,7 +107,7 @@ CREATE TABLE t_fact_cam
 	FOREIGN KEY (segment_key) REFERENCES t_dim_segment (segment_key)
 ); 
 
-CREATE TABLE t_fact_denm
+CREATE TABLE t_data_denm
 (
 	denm_key SERIAL PRIMARY KEY,
 	time_key INT NOT NULL,
@@ -145,7 +145,7 @@ CREATE TABLE t_fact_denm
 	FOREIGN KEY (road_event_key) REFERENCES t_dim_road_event (road_event_key)
 );
 
-CREATE TABLE t_fact_ivim
+CREATE TABLE t_data_ivim
 (
 	ivim_key SERIAL PRIMARY KEY,
 	road_sign_key INT NOT NULL,
