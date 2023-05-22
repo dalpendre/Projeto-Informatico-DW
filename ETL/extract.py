@@ -189,8 +189,57 @@ def extract_segment_data():
 def insert_into_segment_data_table():
     pass
 
+def extract_time_data():
+    print(colors.bcolors.HEADER + "Extracting TIME data from source database..." + colors.bcolors.ENDC)
+    time_data = table_extract("t_time")
+
+    #convert table values to correspondent dw table values
+    for row in time_data:
+        pass
+
+def insert_into_time_data_table():
+    pass
+
+def extract_ivim_data():
+    print(colors.bcolors.HEADER + "Extracting IVIM data from source database..." + colors.bcolors.ENDC)
+    ivim_data = table_extract("t_ivim")
+
+    #convert table values to correspondent dw table values
+    for row in ivim_data:
+        pass
+
+def insert_into_ivim_data_table():
+    pass
+
+def extract_zone_data():
+    print(colors.bcolors.HEADER + "Extracting ZONE data from source database..." + colors.bcolors.ENDC)
+    zone_data = table_extract("t_zone")
+
+    #convert table values to correspondent dw table values
+    for row in zone_data:
+        pass
+
+def insert_into_zone_data_table():
+    pass
+
+def extract_road_sign_data():
+    print(colors.bcolors.HEADER + "Extracting ROAD SIGN data from source database..." + colors.bcolors.ENDC)
+    road_sign_data = table_extract("t_road_sign")
+
+    #convert table values to correspondent dw table values
+    for row in road_sign_data:
+        pass
+
+def insert_into_road_sign_data_table():
+    pass
+
 extract_cam_data()
 extract_event_data()
 extract_road_data()
 extract_road_event_data()
 extract_segment_data()
+extract_denm_data()
+extract_time_data()
+extract_ivim_data()
+extract_zone_data()
+extract_road_sign_data()
