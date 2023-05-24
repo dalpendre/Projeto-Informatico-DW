@@ -68,14 +68,14 @@ CREATE TABLE t_time
 	c_day INT NOT NULL,
 	c_month INT NOT NULL,
 	c_year INT NOT NULL,
-	c_weekend_day BOOLEAN NOT NULL,
-	c_week_day_number INT NOT NULL,
-	c_week_day_name VARCHAR(10) NOT NULL,
-	c_is_holiday BOOLEAN NOT NULL,
-	c_trimester INT NOT NULL,
-	c_semester INT NOT NULL,
-	c_season VARCHAR(20) NOT NULL,
-	c_full_date_description VARCHAR(20) NOT NULL,
+	weekend_day BOOLEAN NOT NULL,
+	week_day_number INT NOT NULL,
+	week_day_name VARCHAR(10) NOT NULL,
+	is_holiday BOOLEAN NOT NULL,
+	trimester INT NOT NULL,
+	semester INT NOT NULL,
+	season VARCHAR(20) NOT NULL,
+	full_date_description VARCHAR(20) NOT NULL,
 	FOREIGN KEY (event_key) REFERENCES t_event (event_key)
 );
 
@@ -142,9 +142,11 @@ CREATE TABLE t_denm
 CREATE TABLE t_ivim
 (
 	ivim_key SERIAL PRIMARY KEY,
+	road_sign_key VARCHAR(10) NOT NULL,
 	zone_key INT NOT NULL,
 	latitude INT NOT NULL,
 	longitude INT NOT NULL,
 	altitude INT NOT NULL,
+	FOREIGN KEY (road_sign_key) REFERENCES t_road_sign (road_sign_key),
 	FOREIGN KEY (zone_key) REFERENCES t_zone (zone_key)
 );
