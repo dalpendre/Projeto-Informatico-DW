@@ -19,8 +19,8 @@ from classes.Zone import Zone
 #denm_data_path = "../DW/datasets/DENM_data.csv"
 
 #convert binary to decimal
-def binary_to_decimal(binary):
-    return int(binary, 2)
+def binary_to_decimal(binary_string):
+    return int(binary_string, 2)
 
 #extract data from the tables in the source database
 def table_extract(table_name):
@@ -39,7 +39,7 @@ def table_extract(table_name):
         # print("Connection to PostgreSQL database is successful")
         cursor = conn.cursor()
 
-        # Fetch all rows from the source table
+        #extract data from the source table
         query = "SELECT * FROM " + table_name
         cursor.execute(query)
 
@@ -47,10 +47,7 @@ def table_extract(table_name):
         for row in source_data:
             print(row)
 
-        #insert into data_table (in ETL database) the data extracted from the source table
-        #insert_into_data_table(source_data, table_name)
-
-        print(colors.bcolors.OKGREEN + "Data from table " + table_name + " extracted successfully!" + colors.bcolors.ENDC)
+        print(colors.bcolors.OKGREEN + "Data from table " + table_name + " extracted successfully!\n" + colors.bcolors.ENDC)
 
     except pg.Error as e:
         print("Error: Could not make connection to the Postgres database")
@@ -173,20 +170,22 @@ def extract_cam_data():
         elif vehicle_role == 15:
             vehicle_role = "reserved3"
 
-        #convert type of fuel from bitstring to string
-        if type_of_fuel == "0000":
+        type_of_fuel = binary_to_decimal(type_of_fuel)
+        acceleration_control = binary_to_decimal(acceleration_control)
+
+        if type_of_fuel == 0:
             type_of_fuel = "unknown"
-        elif type_of_fuel == "0001":
+        elif type_of_fuel == 1:
             type_of_fuel = "eletricEnergyStorage"
-        elif type_of_fuel == "0010":
+        elif type_of_fuel == 2:
             type_of_fuel = "liquidPropaneGas"
-        elif type_of_fuel == "0011":
+        elif type_of_fuel == 3:
             type_of_fuel = "compressedNaturalGas"
-        elif type_of_fuel == "0100":
+        elif type_of_fuel == 4:
             type_of_fuel = "diesel"
-        elif type_of_fuel == "0101":
+        elif type_of_fuel == 5:
             type_of_fuel = "gasoline"
-        elif type_of_fuel == "0110":
+        elif type_of_fuel == 6:
             type_of_fuel = "ammonia"
 
         brakePedalEngaged = False
@@ -198,19 +197,19 @@ def extract_cam_data():
         speedLimiterEngaged = False
 
         #convert acceleration control from bitstring to string
-        if acceleration_control == "0000":
+        if acceleration_control == 0:
             brakePedalEngaged = True
-        elif acceleration_control == "0001":
+        elif acceleration_control == 1:
             gasPedalEngaged = True
-        elif acceleration_control == "0010":
+        elif acceleration_control == 2:
             emergencyBrakeEngaged = True
-        elif acceleration_control == "0011":
+        elif acceleration_control == 3:
             collisionWarningEngaged = True
-        elif acceleration_control == "0100":
+        elif acceleration_control == 4:
             accEngaged = True
-        elif acceleration_control == "0101":
+        elif acceleration_control == 5:
             cruiseControlEngaged = True
-        elif acceleration_control == "0110":
+        elif acceleration_control == 6:
             speedLimiterEngaged = True
 
         #convert stationary since from int to string
@@ -238,7 +237,43 @@ def extract_denm_data():
     denm_values = set()
 
     for row in denm_data:
-        denm_key = []
+        denm_key = row[0]
+        time_key = row[1]
+        road_event_key = row[2]
+        time_stamp = row[3]
+        latitude = row[4]
+        longitude = row[5]
+        altitude = row[6]
+        cause = row[7]
+        traffic_cause = row[8]
+        accident_sub_cause = row[9]
+        roadworks_sub_cause = row[10]
+        human_presence_on_the_road_sub_cause = row[11]
+        wrong_way_driving_sub_cause = row[12]
+        adverse_weather_condition_extreme_weather_condition_subCause = row[13]
+        adverse_weather_condition_adhesion_sub_cause = row[14]
+        adverse_weather_condition_visibility_sub_cause = row[15]
+        adverse_weather_condition_precipitation_sub_cause = row[16]
+        slow_vehicle_sub_cause = row[17]
+        stationary_vehicle_sub_cause = row[18]
+        human_problem_sub_cause = row[19]
+        emergency_vehicle_approaching_sub_cause = row[20]
+        hazardous_location_dangerous_curve_sub_cause = row[21]
+        hazardous_location_surface_condition_sub_cause = row[22]
+        hazardous_location_obstacle_on_the_road_sub_cause = row[23]
+        hazardous_location_animal_on_the_road_sub_cause = row[24]
+        collision_risk_sub_cause = row[25]
+        signal_violation_sub_cause = row[26]
+        rescue_and_recovery_work_in_progress_sub_cause = row[27]
+        dangerous_end_of_queue_sub_cause = row[28]
+        dangerous_situation_sub_cause = row[29]
+        vehicle_breakdown_sub_cause = row[30]
+        post_crash_sub_cause = row[31]
+
+        denm_message = DenmMessage(denm_key, time_key, road_event_key, time_stamp, latitude, longitude, altitude, cause, traffic_cause, accident_sub_cause, roadworks_sub_cause, human_presence_on_the_road_sub_cause, wrong_way_driving_sub_cause, adverse_weather_condition_extreme_weather_condition_subCause, adverse_weather_condition_adhesion_sub_cause, adverse_weather_condition_visibility_sub_cause, adverse_weather_condition_precipitation_sub_cause, slow_vehicle_sub_cause, stationary_vehicle_sub_cause, human_problem_sub_cause, emergency_vehicle_approaching_sub_cause, hazardous_location_dangerous_curve_sub_cause, hazardous_location_surface_condition_sub_cause, hazardous_location_obstacle_on_the_road_sub_cause, hazardous_location_animal_on_the_road_sub_cause, collision_risk_sub_cause, signal_violation_sub_cause, rescue_and_recovery_work_in_progress_sub_cause, dangerous_end_of_queue_sub_cause, dangerous_situation_sub_cause, vehicle_breakdown_sub_cause, post_crash_sub_cause)
+        denm_values.add(denm_message)
+
+    insert_into_data_table("t_data_denm", denm_values)
 
 def extract_event_data():
     print(colors.bcolors.HEADER + "Extracting EVENT data from source database..." + colors.bcolors.ENDC)
@@ -257,6 +292,32 @@ def extract_event_data():
         event_values.add(event)
 
     insert_into_data_table("t_data_event", event_values)
+
+def extract_ivim_data():
+    print(colors.bcolors.HEADER + "Extracting IVIM data from source database..." + colors.bcolors.ENDC)
+    ivim_data = table_extract("t_ivim")
+
+    ivim_values = set()
+    for row in ivim_data:
+        ivim_key = row[0]
+        road_sign_key = row[1]
+        zone_key = row[2]
+        latitude = row[3]
+        longitude = row[4]
+        altitude = row[5]
+
+        factor = 0.0000001
+        latitude = latitude * factor
+        longitude = longitude * factor
+
+        # convert altitude and heading to correct measurement unit
+        factor = 0.01
+        altitude = altitude * factor
+
+        ivim = IvimMessage(ivim_key, road_sign_key, zone_key, latitude, longitude, altitude)
+        ivim_values.add(ivim)
+
+    insert_into_data_table("t_data_ivim", ivim_values)
 
 def extract_road_data():
     print(colors.bcolors.HEADER + "Extracting ROAD data from source database..." + colors.bcolors.ENDC)
@@ -296,6 +357,25 @@ def extract_road_event_data():
         road_event_values.add(road_event)
 
     insert_into_data_table("t_data_road_event", road_event_values)
+
+def extract_road_sign_data():
+    print(colors.bcolors.HEADER + "Extracting ROAD SIGN data from source database..." + colors.bcolors.ENDC)
+    road_sign_data = table_extract("t_road_sign")
+
+    road_sign_values = set()
+
+    for row in road_sign_data:
+        road_sign_key = row[0]
+        road_sign_description = row[1]
+        road_sign_code = row[2]
+        road_sign_symbol = row[3]
+        road_sign_class = row[4]
+        road_sign_visibility = row[5]
+
+        road_sign = RoadSign(road_sign_key, road_sign_description, road_sign_code, road_sign_symbol, road_sign_class, road_sign_visibility)
+        road_sign_values.add(road_sign)
+
+    insert_into_data_table("t_data_road_sign", road_sign_values)
 
 def extract_segment_data():
     print(colors.bcolors.HEADER + "Extracting SEGMENT data from source database..." + colors.bcolors.ENDC)
@@ -344,32 +424,6 @@ def extract_time_data():
 
     insert_into_data_table("t_data_time", time_values)
 
-def extract_ivim_data():
-    print(colors.bcolors.HEADER + "Extracting IVIM data from source database..." + colors.bcolors.ENDC)
-    ivim_data = table_extract("t_ivim")
-
-    ivim_values = set()
-    for row in ivim_data:
-        ivim_key = row[0]
-        road_sign_key = row[1]
-        zone_key = row[2]
-        latitude = row[3]
-        longitude = row[4]
-        altitude = row[5]
-
-        factor = 0.0000001
-        latitude = latitude * factor
-        longitude = longitude * factor
-
-        # convert altitude and heading to correct measurement unit
-        factor = 0.01
-        altitude = altitude * factor
-
-        ivim = IvimMessage(ivim_key, road_sign_key, zone_key, latitude, longitude, altitude)
-        ivim_values.add(ivim)
-
-    insert_into_data_table("t_data_ivim", ivim_values)
-
 def extract_zone_data():
     print(colors.bcolors.HEADER + "Extracting ZONE data from source database..." + colors.bcolors.ENDC)
     zone_data = table_extract("t_zone")
@@ -387,32 +441,13 @@ def extract_zone_data():
 
     insert_into_data_table("t_data_zone", zone_values)
 
-def extract_road_sign_data():
-    print(colors.bcolors.HEADER + "Extracting ROAD SIGN data from source database..." + colors.bcolors.ENDC)
-    road_sign_data = table_extract("t_road_sign")
-
-    road_sign_values = set()
-
-    for row in road_sign_data:
-        road_sign_key = row[0]
-        road_sign_description = row[1]
-        road_sign_code = row[2]
-        road_sign_symbol = row[3]
-        road_sign_class = row[4]
-        road_sign_visibility = row[5]
-
-        road_sign = RoadSign(road_sign_key, road_sign_description, road_sign_code, road_sign_symbol, road_sign_class, road_sign_visibility)
-        road_sign_values.add(road_sign)
-
-    insert_into_data_table("t_data_road_sign", road_sign_values)
-
 def insert_into_data_table(table_name, data):
     conn = None
     cursor = None
 
     try:
         conn = pg.connect(
-            database=constants.dw_db_name,
+            database=constants.dsa_db_name,
             user=constants.db_user,
             password=constants.db_pass,
             host=constants.db_ip_address,
@@ -454,7 +489,7 @@ def insert_into_data_table(table_name, data):
 def truncate_data_tables():
     # Connect to the PostgreSQL database
     conn = pg.connect(
-        database=constants.dw_db_name,
+        database=constants.dsa_db_name,
         user=constants.db_user,
         password=constants.db_pass,
         host=constants.db_ip_address,
@@ -496,5 +531,5 @@ extract_zone_data()
 extract_road_data()
 extract_segment_data()
 extract_cam_data()
-#extract_denm_data()
+extract_denm_data()
 extract_ivim_data()

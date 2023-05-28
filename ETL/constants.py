@@ -1,4 +1,5 @@
 source_db_name = "projeto_informatico_source_db"
+dsa_db_name = "projeto_informatico_dsa_db"
 dw_db_name = "projeto_informatico_dw"
 db_user = "postgres"
 db_pass = "12345678"
