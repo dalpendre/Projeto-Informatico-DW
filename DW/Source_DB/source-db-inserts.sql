@@ -107,7 +107,7 @@ VALUES
     (9, 79, 1009, 901234, 567890, 140, 45, 90, 1, 1, 1, 1621456797, '0100', '0000', 1),
     (10, 80, 1010, 012345, 678901, 240, 80, 180, 3, 2, 2, 1621456798, '0101', '0010', NULL);
 
-/*INSERT INTO t_denm (time_key, road_event_key, time_stamp, latitude, longitude, altitude, heading, cause, sub_cause, traffic_cause, accident_sub_cause_code, road_works_sub_cause, accident_sub_cause, slow_vehicle_sub_cause, stationary_vehicle_cause, human_problem_sub_cause, collision_risk_sub_cause, dangerous_situation_sub_cause, vehicle_break_down_sub_cause, post_crash_sub_cause, human_presence_on_the_road_sub_cause, adverse_weather_condition_extreme_weather_condition_sub_cause, adverse_weather_condition_adhesion_sub_cause, adverse_weather_condition_visibility_sub_cause, adverse_weather_condition_precipitation_sub_cause, emergency_vehicle_approaching_sub_cause, hazardous_location_surface_condition_sub_cause, hazardous_location_obstacle_on_the_road_sub_cause, hazardous_location_animal_on_the_road_sub_cause, rescue_and_recovery_work_in_progress_sub_cause, dangerous_end_of_queue_sub_cause)
+INSERT INTO t_denm (time_key, road_event_key, time_stamp, latitude, longitude, altitude, heading, cause, sub_cause, traffic_cause, accident_sub_cause_code, road_works_sub_cause, accident_sub_cause, slow_vehicle_sub_cause, stationary_vehicle_cause, human_problem_sub_cause, collision_risk_sub_cause, dangerous_situation_sub_cause, vehicle_break_down_sub_cause, post_crash_sub_cause, human_presence_on_the_road_sub_cause, adverse_weather_condition_extreme_weather_condition_sub_cause, adverse_weather_condition_adhesion_sub_cause, adverse_weather_condition_visibility_sub_cause, adverse_weather_condition_precipitation_sub_cause, emergency_vehicle_approaching_sub_cause, hazardous_location_surface_condition_sub_cause, hazardous_location_obstacle_on_the_road_sub_cause, hazardous_location_animal_on_the_road_sub_cause, rescue_and_recovery_work_in_progress_sub_cause, dangerous_end_of_queue_sub_cause)
 VALUES
     (1, 1, 1621456789, 123456, 789012, 100, 90, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
     (2, 2, 1621456790, 234567, 890123, 200, 120, 2, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -119,7 +119,6 @@ VALUES
     (8, 8, 1621456796, 789012, 345678, 170, 225, 26, 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
     (9, 9, 1621456797, 789012, 345678, 170, 225, 92, 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
     (10, 10, 1621456798, 789012, 345678, 170, 225, 91, 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-*/
 	 
 INSERT INTO t_ivim (zone_key, road_sign_key, latitude, longitude, altitude)
 VALUES

@@ -270,9 +270,399 @@ def extract_denm_data():
         vehicle_breakdown_sub_cause = row[30]
         post_crash_sub_cause = row[31]
 
+        if cause == 0:
+            cause = "reserved"
+        elif cause == 1:
+            cause = "trafficCondition"
+        elif cause == 2:
+            cause = "accident"
+        elif cause == 3:
+            cause = "roadworks"
+        elif cause == 5:
+            cause = "impassability"
+        elif cause == 6:
+            cause = "adverseWeatherCondition_Adhesion"
+        elif cause == 7:
+            cause = "aquaplannning"
+        elif cause == 9:
+            cause = "hazardousLocation_SurfaceCondition"
+        elif cause == 10:
+            cause = "hazardousLocation_ObstacleOnTheRoad"
+        elif cause == 11:
+            cause = "hazardousLocation_AnimalOnTheRoad"
+        elif cause == 12:
+            cause = "humanPresenceOnTheRoad"
+        elif cause == 14:
+            cause = "wrongWayDriving"
+        elif cause == 15:
+            cause = "rescueAndRecoveryWorkInProgress"
+        elif cause == 17:
+            cause = "adverseWeatherCondition_ExtremeWeatherCondition"
+        elif cause == 18:
+            cause = "adverseWeatherCondition_Visibility"
+        elif cause == 19:
+            cause = "adverseWeatherCondition_Precipitation"
+        elif cause == 26:
+            cause = "slowVehicle"
+        elif cause == 27:
+            cause = "dangerousEndOfQueue"
+        elif cause == 91:
+            cause = "vehicleBreakdown"
+        elif cause == 92:
+            cause = "postCrash"
+        elif cause == 93:
+            cause = "humanProblem"
+        elif cause == 94:
+            cause = "stationaryVehicle"
+        elif cause == 95:
+            cause = "emergencyVehicleApproaching"
+        elif cause == 96:
+            cause = "hazardousLocation_DangerousCurve"
+        elif cause == 97:
+            cause = "collisionRisk"
+        elif cause == 98:
+            cause = "signalViolation"
+        elif cause == 99:
+            cause = "dangerousSituation"
+
+        if traffic_cause == 0:
+            traffic_cause = "unavailable"
+        elif traffic_cause == 1:
+            traffic_cause = "increasedVolumeOfTraffic"
+        elif traffic_cause == 2:
+            traffic_cause = "trafficJamSlowlyIncreasing"
+        elif traffic_cause == 3:
+            traffic_cause = "trafficJamIncreasing"
+        elif traffic_cause == 4:
+            traffic_cause = "trafficJamStronglyIncreasing"
+        elif traffic_cause == 5:
+            traffic_cause = "trafficStationary"
+        elif traffic_cause == 6:
+            traffic_cause = "trafficJamSlightlyDecreasing"
+        elif traffic_cause == 7:
+            traffic_cause = "trafficJamDecreasing"
+        elif traffic_cause == 8:
+            traffic_cause = "trafficJamStronglyDecreasing"
+
+        if accident_sub_cause == 0:
+            accident_sub_cause = "unavailable"
+        elif accident_sub_cause == 1:
+            accident_sub_cause = "multiVehicleAccident"
+        elif accident_sub_cause == 2:
+            accident_sub_cause = "heavyAccident"
+        elif accident_sub_cause == 3:
+            accident_sub_cause = "accidentInvolvingLorry"
+        elif accident_sub_cause == 4:
+            accident_sub_cause = "accidentInvolvingBus"
+        elif accident_sub_cause == 5:
+            accident_sub_cause = "accidentInvolvingHazardousMaterials"
+        elif accident_sub_cause == 6:
+            accident_sub_cause = "accidentOnOppositeLane"
+        elif accident_sub_cause == 7:
+            accident_sub_cause = "unsecuredAccident"
+        elif accident_sub_cause == 8:
+            accident_sub_cause = "assistanceRequested"
+
+        if roadworks_sub_cause == 0:
+            roadworks_sub_cause = "unavailable"
+        elif roadworks_sub_cause == 1:
+            roadworks_sub_cause = "majorRoadworks"
+        elif roadworks_sub_cause == 2:
+            roadworks_sub_cause = "roadMarkingWork"
+        elif roadworks_sub_cause == 3:
+            roadworks_sub_cause = "slowMovingRoadMaintenance"
+        elif roadworks_sub_cause == 4:
+            roadworks_sub_cause = "shortTermStationaryRoadworks"
+        elif roadworks_sub_cause == 5:
+            roadworks_sub_cause = "streetCleaning"
+        elif roadworks_sub_cause == 6:
+            roadworks_sub_cause = "winterService"
+
+        if human_presence_on_the_road_sub_cause == 0:
+            human_presence_on_the_road_sub_cause = "unavailable"
+        elif human_presence_on_the_road_sub_cause == 1:
+            human_presence_on_the_road_sub_cause = "childrenOnRoadway"
+        elif human_presence_on_the_road_sub_cause == 2:
+            human_presence_on_the_road_sub_cause = "cyclistOnRoadway"
+        elif human_presence_on_the_road_sub_cause == 3:
+            human_presence_on_the_road_sub_cause = "motorcyclistOnRoadway"
+
+        if wrong_way_driving_sub_cause == 0:
+            wrong_way_driving_sub_cause = "unavailable"
+        elif wrong_way_driving_sub_cause == 1:
+            wrong_way_driving_sub_cause = "wrongLane"
+        elif wrong_way_driving_sub_cause == 2:
+            wrong_way_driving_sub_cause = "wrongDirection"
+
+        if adverse_weather_condition_extreme_weather_condition_sub_cause == 0:
+            adverse_weather_condition_extreme_weather_condition_sub_cause = "unavailable"
+        elif adverse_weather_condition_extreme_weather_condition_sub_cause == 1:
+            adverse_weather_condition_extreme_weather_condition_sub_cause = "strongWinds"
+        elif adverse_weather_condition_extreme_weather_condition_sub_cause == 2:
+            adverse_weather_condition_extreme_weather_condition_sub_cause = "damagingHail"
+        elif adverse_weather_condition_extreme_weather_condition_sub_cause == 3:
+            adverse_weather_condition_extreme_weather_condition_sub_cause = "hurricane"
+        elif adverse_weather_condition_extreme_weather_condition_sub_cause == 4:
+            adverse_weather_condition_extreme_weather_condition_sub_cause = "thunderstorm"
+        elif adverse_weather_condition_extreme_weather_condition_sub_cause == 5:
+            adverse_weather_condition_extreme_weather_condition_sub_cause = "tornado"
+        elif adverse_weather_condition_extreme_weather_condition_sub_cause == 6:
+            adverse_weather_condition_extreme_weather_condition_sub_cause = "blizzard"
+
+        if adverse_weather_condition_adhesion_sub_cause == 0:
+            adverse_weather_condition_adhesion_sub_cause = "unavailable"
+        elif adverse_weather_condition_adhesion_sub_cause == 1:
+            adverse_weather_condition_adhesion_sub_cause = "heavyFrostOnRoad"
+        elif adverse_weather_condition_adhesion_sub_cause == 2:
+            adverse_weather_condition_adhesion_sub_cause = "fuelOnRoad"
+        elif adverse_weather_condition_adhesion_sub_cause == 3:
+            adverse_weather_condition_adhesion_sub_cause = "mudOnRoad"
+        elif adverse_weather_condition_adhesion_sub_cause == 4:
+            adverse_weather_condition_adhesion_sub_cause = "snowOnRoad"
+        elif adverse_weather_condition_adhesion_sub_cause == 5:
+            adverse_weather_condition_adhesion_sub_cause = "iceOnRoad"
+        elif adverse_weather_condition_adhesion_sub_cause == 6:
+            adverse_weather_condition_adhesion_sub_cause = "blackIceOnRoad"
+        elif adverse_weather_condition_adhesion_sub_cause == 7:
+            adverse_weather_condition_adhesion_sub_cause = "oilOnRoad"
+        elif adverse_weather_condition_adhesion_sub_cause == 8:
+            adverse_weather_condition_adhesion_sub_cause = "looseChippings"
+        elif adverse_weather_condition_adhesion_sub_cause == 9:
+            adverse_weather_condition_adhesion_sub_cause = "instantBlackIce"
+        elif adverse_weather_condition_adhesion_sub_cause == 10:
+            adverse_weather_condition_adhesion_sub_cause = "roadsSalted"
+
+        if adverse_weather_condition_visibility_sub_cause == 0:
+            adverse_weather_condition_visibility_sub_cause = "unavailable"
+        elif adverse_weather_condition_visibility_sub_cause == 1:
+            adverse_weather_condition_visibility_sub_cause = "fog"
+        elif adverse_weather_condition_visibility_sub_cause == 2:
+            adverse_weather_condition_visibility_sub_cause = "smoke"
+        elif adverse_weather_condition_visibility_sub_cause == 3:
+            adverse_weather_condition_visibility_sub_cause = "heavySnowfall"
+        elif adverse_weather_condition_visibility_sub_cause == 4:
+            adverse_weather_condition_visibility_sub_cause = "heavyRain"
+        elif adverse_weather_condition_visibility_sub_cause == 5:
+            adverse_weather_condition_visibility_sub_cause = "heavyHail"
+        elif adverse_weather_condition_visibility_sub_cause == 6:
+            adverse_weather_condition_visibility_sub_cause = "lowSunGlare"
+        elif adverse_weather_condition_visibility_sub_cause == 7:
+            adverse_weather_condition_visibility_sub_cause = "sandstorms"
+        elif adverse_weather_condition_visibility_sub_cause == 8:
+            adverse_weather_condition_visibility_sub_cause = "swarmsOfInsects"
+
+        if adverse_weather_condition_precipitation_sub_cause == 0:
+            adverse_weather_condition_precipitation_sub_cause = "unavailable"
+        elif adverse_weather_condition_precipitation_sub_cause == 1:
+            adverse_weather_condition_precipitation_sub_cause = "heavyRain"
+        elif adverse_weather_condition_precipitation_sub_cause == 2:
+            adverse_weather_condition_precipitation_sub_cause = "heavySnowfall"
+        elif adverse_weather_condition_precipitation_sub_cause == 3:
+            adverse_weather_condition_precipitation_sub_cause = "softHail"
+
+        if slow_vehicle_sub_cause == 0:
+            slow_vehicle_sub_cause = "unavailable"
+        elif slow_vehicle_sub_cause == 1:
+            slow_vehicle_sub_cause = "maintenanceVehicle"
+        elif slow_vehicle_sub_cause == 2:
+            slow_vehicle_sub_cause = "vehiclesSlowingToLookAtAccident"
+        elif slow_vehicle_sub_cause == 3:
+            slow_vehicle_sub_cause = "abnormalLoad"
+        elif slow_vehicle_sub_cause == 4:
+            slow_vehicle_sub_cause = "abnormalWideLoad"
+        elif slow_vehicle_sub_cause == 5:
+            slow_vehicle_sub_cause = "convoy"
+        elif slow_vehicle_sub_cause == 6:
+            slow_vehicle_sub_cause = "snowplough"
+        elif slow_vehicle_sub_cause == 7:
+            slow_vehicle_sub_cause = "deicing"
+        elif slow_vehicle_sub_cause == 8:
+            slow_vehicle_sub_cause = "saltingVehicles"
+
+        if stationary_vehicle_sub_cause == 0:
+            stationary_vehicle_sub_cause = "unavailable"
+        elif stationary_vehicle_sub_cause == 1:
+            stationary_vehicle_sub_cause = "humanProblem"
+        elif stationary_vehicle_sub_cause == 2:
+            stationary_vehicle_sub_cause = "vehicleBreakdown"
+        elif stationary_vehicle_sub_cause == 3:
+            stationary_vehicle_sub_cause = "postCrash"
+        elif stationary_vehicle_sub_cause == 4:
+            stationary_vehicle_sub_cause = "publicTransportStop"
+        elif stationary_vehicle_sub_cause == 5:
+            stationary_vehicle_sub_cause = "carryingDangerousGoods"
+
+        if human_problem_sub_cause == 0:
+            human_problem_sub_cause = "unavailable"
+        elif human_problem_sub_cause == 1:
+            human_problem_sub_cause = "glycemiaProblem"
+        elif human_problem_sub_cause == 2:
+            human_problem_sub_cause = "heartProblem"
+
+        if emergency_vehicle_approaching_sub_cause == 0:
+            emergency_vehicle_approaching_sub_cause = "unavailable"
+        elif emergency_vehicle_approaching_sub_cause == 1:
+            emergency_vehicle_approaching_sub_cause = "emergencyVehicleApproaching"
+        elif emergency_vehicle_approaching_sub_cause == 2:
+            emergency_vehicle_approaching_sub_cause = "prioritizedVehicleApproaching"
+
+        if hazardous_location_dangerous_curve_sub_cause == 0:
+            hazardous_location_dangerous_curve_sub_cause = "unavailable"
+        elif hazardous_location_dangerous_curve_sub_cause == 1:
+            hazardous_location_dangerous_curve_sub_cause = "dangerousLeftTurnCurve"
+        elif hazardous_location_dangerous_curve_sub_cause == 2:
+            hazardous_location_dangerous_curve_sub_cause = "dangerousRightTurnCurve"
+        elif hazardous_location_dangerous_curve_sub_cause == 3:
+            hazardous_location_dangerous_curve_sub_cause = "multipleCurvesStartingWithUnknownTurningDirection"
+        elif hazardous_location_dangerous_curve_sub_cause == 4:
+            hazardous_location_dangerous_curve_sub_cause = "multipleCurvesStartingWithLeftTurn"
+        elif hazardous_location_dangerous_curve_sub_cause == 5:
+            hazardous_location_dangerous_curve_sub_cause = "multipleCurvesStartingWithRightTurn"
+
+        if hazardous_location_surface_condition_sub_cause == 0:
+            hazardous_location_surface_condition_sub_cause = "unavailable"
+        elif hazardous_location_surface_condition_sub_cause == 1:
+            hazardous_location_surface_condition_sub_cause = "rockfalls"
+        elif hazardous_location_surface_condition_sub_cause == 2:
+            hazardous_location_surface_condition_sub_cause = "earthquakeDamage"
+        elif hazardous_location_surface_condition_sub_cause == 3:
+            hazardous_location_surface_condition_sub_cause = "sewerCollapse"
+        elif hazardous_location_surface_condition_sub_cause == 4:
+            hazardous_location_surface_condition_sub_cause = "subsidence"
+        elif hazardous_location_surface_condition_sub_cause == 5:
+            hazardous_location_surface_condition_sub_cause = "snowDrifts"
+        elif hazardous_location_surface_condition_sub_cause == 6:
+            hazardous_location_surface_condition_sub_cause = "stormDamage"
+        elif hazardous_location_surface_condition_sub_cause == 7:
+            hazardous_location_surface_condition_sub_cause = "burstPipe"
+        elif hazardous_location_surface_condition_sub_cause == 8:
+            hazardous_location_surface_condition_sub_cause = "volcanoEruption"
+        elif hazardous_location_surface_condition_sub_cause == 9:
+            hazardous_location_surface_condition_sub_cause = "fallingIce"
+
+        if hazardous_location_obstacle_on_the_road_sub_cause == 0:
+            hazardous_location_obstacle_on_the_road_sub_cause = "unavailable"
+        elif hazardous_location_obstacle_on_the_road_sub_cause == 1:
+            hazardous_location_obstacle_on_the_road_sub_cause = "shedLoad"
+        elif hazardous_location_obstacle_on_the_road_sub_cause == 2:
+            hazardous_location_obstacle_on_the_road_sub_cause = "partsOfVehicles"
+        elif hazardous_location_obstacle_on_the_road_sub_cause == 3:
+            hazardous_location_obstacle_on_the_road_sub_cause = "partsOfTyres"
+        elif hazardous_location_obstacle_on_the_road_sub_cause == 4:
+            hazardous_location_obstacle_on_the_road_sub_cause = "bigObjects"
+        elif hazardous_location_obstacle_on_the_road_sub_cause == 5:
+            hazardous_location_obstacle_on_the_road_sub_cause = "fallenTrees"
+        elif hazardous_location_obstacle_on_the_road_sub_cause == 6:
+            hazardous_location_obstacle_on_the_road_sub_cause = "hubCaps"
+        elif hazardous_location_obstacle_on_the_road_sub_cause == 7:
+            hazardous_location_obstacle_on_the_road_sub_cause = "waitingVehicles"
+
+        if hazardous_location_animal_on_the_road_sub_cause == 0:
+            hazardous_location_animal_on_the_road_sub_cause = "unavailable"
+        elif hazardous_location_animal_on_the_road_sub_cause == 1:
+            hazardous_location_animal_on_the_road_sub_cause = "wildAnimals"
+        elif hazardous_location_animal_on_the_road_sub_cause == 2:
+            hazardous_location_animal_on_the_road_sub_cause = "herdOfAnimals"
+        elif hazardous_location_animal_on_the_road_sub_cause == 3:
+            hazardous_location_animal_on_the_road_sub_cause = "smallAnimals"
+        elif hazardous_location_animal_on_the_road_sub_cause == 4:
+            hazardous_location_animal_on_the_road_sub_cause = "largeAnimals"
+
+        if collision_risk_sub_cause == 0:
+            collision_risk_sub_cause = "unavailable"
+        elif collision_risk_sub_cause == 1:
+            collision_risk_sub_cause = "longitudinalCollisionRisk"
+        elif collision_risk_sub_cause == 2:
+            collision_risk_sub_cause = "crossingCollisionRisk"
+        elif collision_risk_sub_cause == 3:
+            collision_risk_sub_cause = "lateralCollisionRisk"
+        elif collision_risk_sub_cause == 4:
+            collision_risk_sub_cause = "vulnerableRoadUser"
+
+        if signal_violation_sub_cause == 0:
+            signal_violation_sub_cause = "unavailable"
+        elif signal_violation_sub_cause == 1:
+            signal_violation_sub_cause = "stopSignViolation"
+        elif signal_violation_sub_cause == 2:
+            signal_violation_sub_cause = "trafficLightViolation"
+        elif signal_violation_sub_cause == 3:
+            signal_violation_sub_cause = "turningRegulationViolation"
+
+        if rescue_and_recovery_work_in_progress_sub_cause == 0:
+            rescue_and_recovery_work_in_progress_sub_cause = "unavailable"
+        elif rescue_and_recovery_work_in_progress_sub_cause == 1:
+            rescue_and_recovery_work_in_progress_sub_cause = "emergencyVehicles"
+        elif rescue_and_recovery_work_in_progress_sub_cause == 2:
+            rescue_and_recovery_work_in_progress_sub_cause = "rescueHelicopterLanding"
+        elif rescue_and_recovery_work_in_progress_sub_cause == 3:
+            rescue_and_recovery_work_in_progress_sub_cause = "policeActivityOngoing"
+        elif rescue_and_recovery_work_in_progress_sub_cause == 4:
+            rescue_and_recovery_work_in_progress_sub_cause = "medicalEmergencyOngoing"
+        elif rescue_and_recovery_work_in_progress_sub_cause == 5:
+            rescue_and_recovery_work_in_progress_sub_cause = "childAbductionInProgress"
+
+        if dangerous_end_of_queue_sub_cause == 0:
+            dangerous_end_of_queue_sub_cause = "unavailable"
+        elif dangerous_end_of_queue_sub_cause == 1:
+            dangerous_end_of_queue_sub_cause = "suddenEndOfQueue"
+        elif dangerous_end_of_queue_sub_cause == 2:
+            dangerous_end_of_queue_sub_cause = "queueOverHill"
+        elif dangerous_end_of_queue_sub_cause == 3:
+            dangerous_end_of_queue_sub_cause = "queueAroundBend"
+        elif dangerous_end_of_queue_sub_cause == 4:
+            dangerous_end_of_queue_sub_cause = "queueInTunnel"
+
+        if dangerous_situation_sub_cause == 0:
+            dangerous_situation_sub_cause = "unavailable"
+        elif dangerous_situation_sub_cause == 1:
+            dangerous_situation_sub_cause = "emergencyElectronicBrakeEngaged"
+        elif dangerous_situation_sub_cause == 2:
+            dangerous_situation_sub_cause = "preCrashSystemEngaged"
+        elif dangerous_situation_sub_cause == 3:
+            dangerous_situation_sub_cause = "espEngaged"
+        elif dangerous_situation_sub_cause == 4:
+            dangerous_situation_sub_cause = "absEngaged"
+        elif dangerous_situation_sub_cause == 5:
+            dangerous_situation_sub_cause = "aebEngaged"
+        elif dangerous_situation_sub_cause == 6:
+            dangerous_situation_sub_cause = "brakeWarningEngaged"
+        elif dangerous_situation_sub_cause == 7:
+            dangerous_situation_sub_cause = "collisionRiskWarningEngaged"
+
+        if vehicle_breakdown_sub_cause == 0:
+            vehicle_breakdown_sub_cause = "unavailable"
+        elif vehicle_breakdown_sub_cause == 1:
+            vehicle_breakdown_sub_cause = "lackOfFuel"
+        elif vehicle_breakdown_sub_cause == 2:
+            vehicle_breakdown_sub_cause = "lackOfBatteryPower"
+        elif vehicle_breakdown_sub_cause == 3:
+            vehicle_breakdown_sub_cause = "engineProblem"
+        elif vehicle_breakdown_sub_cause == 4:
+            vehicle_breakdown_sub_cause = "transmissionProblem"
+        elif vehicle_breakdown_sub_cause == 5:
+            vehicle_breakdown_sub_cause = "engineCoolingProblem"
+        elif vehicle_breakdown_sub_cause == 6:
+            vehicle_breakdown_sub_cause = "brakingSystemProblem"
+        elif vehicle_breakdown_sub_cause == 7:
+            vehicle_breakdown_sub_cause = "steeringProblem"
+        elif vehicle_breakdown_sub_cause == 8:
+            vehicle_breakdown_sub_cause = "tyrePuncture"
+        elif vehicle_breakdown_sub_cause == 9:
+            vehicle_breakdown_sub_cause = "tyrePressureProblem"
+
+        if post_crash_sub_cause == 0:
+            post_crash_sub_cause = "unavailable"
+        elif post_crash_sub_cause == 1:
+            post_crash_sub_cause = "accidentWithoutECallTriggered"
+        elif post_crash_sub_cause == 2:
+            post_crash_sub_cause = "accidentWithECallManuallyTriggered"
+        elif post_crash_sub_cause == 3:
+            post_crash_sub_cause = "accidentWithECallAutomaticallyTriggered"
+        elif post_crash_sub_cause == 4:
+            post_crash_sub_cause = "accidentWithECallTriggeredWithoutAccessToCellularNetwork"
+
         denm_message = DenmMessage(denm_key, time_key, road_event_key, time_stamp, latitude, longitude, altitude, cause, traffic_cause, accident_sub_cause, roadworks_sub_cause, human_presence_on_the_road_sub_cause, wrong_way_driving_sub_cause, adverse_weather_condition_extreme_weather_condition_subCause, adverse_weather_condition_adhesion_sub_cause, adverse_weather_condition_visibility_sub_cause, adverse_weather_condition_precipitation_sub_cause, slow_vehicle_sub_cause, stationary_vehicle_sub_cause, human_problem_sub_cause, emergency_vehicle_approaching_sub_cause, hazardous_location_dangerous_curve_sub_cause, hazardous_location_surface_condition_sub_cause, hazardous_location_obstacle_on_the_road_sub_cause, hazardous_location_animal_on_the_road_sub_cause, collision_risk_sub_cause, signal_violation_sub_cause, rescue_and_recovery_work_in_progress_sub_cause, dangerous_end_of_queue_sub_cause, dangerous_situation_sub_cause, vehicle_breakdown_sub_cause, post_crash_sub_cause)
         denm_values.add(denm_message)
-
     insert_into_data_table("t_data_denm", denm_values)
 
 def extract_event_data():

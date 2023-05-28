@@ -5,22 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d58e9fcb-e164-44ec-b74c-d079731d882e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../DW/.~lock.Data_Warehouse_Matrix.xlsx#" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DW/create-data-tables.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DW/create-dw-database.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DW/create-dw-tables.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DW/create-extract-tables.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DW/create-source-database.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DW/create-source-tables.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DW/drop-tables.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DW/insert-tables.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DW/scripts-extract/create-extract-tables.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DW/source-db-inserts.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DW/Source_DB/source-db-inserts.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../DW/Source_DB/source-db-inserts.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extract.py" beforeDir="false" afterPath="$PROJECT_DIR$/extract.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/load.py" beforeDir="false" afterPath="$PROJECT_DIR$/load.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/transform.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,6 +134,7 @@
       <workItem from="1685035760157" duration="8070000" />
       <workItem from="1685111500975" duration="4589000" />
       <workItem from="1685208170304" duration="682000" />
+      <workItem from="1685296313493" duration="1297000" />
     </task>
     <servers />
   </component>
