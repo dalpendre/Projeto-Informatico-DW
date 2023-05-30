@@ -41,7 +41,7 @@ class RoadSign:
 
 property_ranges = {
     "road_sign_key" : ["int", 1, sys.maxsize],
-    "road_description": ["choice", "...", "..."],
+    "road_sign_description": ["choice", "...", "..."],
     "code" : ["int", 1, sys.maxsize],
     "symbol": ["choice", "open", "closed"],
     "class_code" : ["int", 0, 100],

@@ -1,0 +1,4 @@
+zone_key,zone_name,zone_type,zone_description,zone_area
+66,increasedVolumeOfTraffic,increasedVolumeOfTraffic,open,unavailable
+68,trafficJamSlowlyIncreasing,increasedVolumeOfTraffic,open,unavailable
+69,increasedVolumeOfTraffic,unavailable,closed,trafficJamSlowlyIncreasing

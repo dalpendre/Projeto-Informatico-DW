@@ -1,6 +1,6 @@
 import random
 import sys
-
+import datetime
 
 class Time:
     def __init__(self, property_ranges):
@@ -43,7 +43,7 @@ property_ranges = {
     "event_key": ["int", 1, sys.maxsize],
     "day": ["int", 1, 31],
     "month": ["int", 1, 12],
-    "year": ["int", 2023, sys.maxsize],
+    "year": ["int", datetime.date.today().year, datetime.date.today().year],
     "is_weekend_day": ["choice", "True", "False"],
     "is_holiday": ["choice", "True", "False"],
     "trimester": ["int", 1, 3],

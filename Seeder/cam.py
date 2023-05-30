@@ -58,7 +58,7 @@ property_ranges = {
     "acc_engaged" : ["choice", "True", "False"],
     "cruise_control_engaged" : ["choice", "True", "False"],
     "speed_limiter_engaged" : ["choice", "True", "False"],
-    "stationary_since" : ["float", 1.0, 10.0],
+    "stationary_since" : ["int", 0, 3],
 }
 
 seeder_generator = Cam(property_ranges)
