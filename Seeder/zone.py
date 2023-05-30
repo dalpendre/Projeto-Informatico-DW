@@ -49,14 +49,20 @@ def insert_data_to_database(data):
 class Zone:
     def __init__(self, property_ranges):
         self.property_ranges = property_ranges
+        self.current_zone_key = property_ranges.get("zone_key", [])[1] - 1  # Initialize with the previous value
 
     def generate_random_data(self):
         generated_data = {}
 
         for property_name, value_range in self.property_ranges.items():
-            generated_data[property_name] = self.generate_value(value_range)
+            if property_name == "zone_key":
+                self.current_zone_key += 1  # Increment the zone_key value
+                generated_data[property_name] = self.current_zone_key
+            else:
+                generated_data[property_name] = self.generate_value(value_range)
 
         return generated_data
+
 
     @staticmethod
     def generate_value(value_range):
@@ -88,19 +94,22 @@ class Zone:
 
 
 property_ranges = {
-    "zone_key": ["int", 61, 70],
+    "zone_key": ["int", 1, sys.maxsize],
     "zone_name": ["choice", "unavailable", "increasedVolumeOfTraffic", "trafficJamSlowlyIncreasing"],
     "zone_type": ["choice", "unavailable", "increasedVolumeOfTraffic", "trafficJamSlowlyIncreasing"],
     "zone_description": ["choice", "open", "closed"],
     "zone_area": ["choice", "unavailable", "increasedVolumeOfTraffic", "trafficJamSlowlyIncreasing"],
 }
 
-seeder_generator = Zone(property_ranges)
-n = 3  # Number of Seeder instances to generate
-seeders = seeder_generator.generate_seeders(n)
+# Create a Seeder instance
+seeder = Zone(property_ranges)
 
-for seeder in seeders:
-    seeder.insert_data_to_database()
+# Generate and print example data
+for _ in range(3):
+    data = seeder.generate_random_data()
+    print(data)
+    #seeder.insert_data_to_database()
+    print("---")
 
 """
     generated_messages = seeder.generate_random_data()

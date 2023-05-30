@@ -4,12 +4,26 @@ import sys
 class Cam:
     def __init__(self, property_ranges):
         self.property_ranges = property_ranges
+        self.current_cam_key = property_ranges.get("cam_key", [])[1] - 1  # Initialize with the previous value
+        self.current_time_key = property_ranges.get("time_key", [])[1] - 1  # Initialize with the previous value
+        self.current_segment_key = property_ranges.get("segment_key", [])[1] - 1  # Initialize with the previous value
+
 
     def generate_random_data(self):
         generated_data = {}
 
         for property_name, value_range in self.property_ranges.items():
-            generated_data[property_name] = self.generate_value(value_range)
+            if property_name == "cam_key":
+                self.current_cam_key += 1  # Increment the zone_key value
+                generated_data[property_name] = self.current_cam_key
+            elif property_name == "time_key":
+                self.current_time_key += 1
+                generated_data[property_name] = self.current_time_key
+            elif property_name == "segment_key":
+                self.current_segment_key += 1
+                generated_data[property_name] = self.current_segment_key
+            else:
+                generated_data[property_name] = self.generate_value(value_range)
 
         return generated_data
 
@@ -28,13 +42,6 @@ class Cam:
             return random.choice(choices)
         else:
             return None
-
-    def generate_seeders(self, n):
-            seeders = []
-            for _ in range(n):
-                seeder = Cam(self.property_ranges)
-                seeders.append(seeder)
-            return seeders
 
 property_ranges = {
     "cam_key" : ["int", 1, sys.maxsize],
@@ -61,12 +68,12 @@ property_ranges = {
     "stationary_since" : ["int", 0, 3],
 }
 
-seeder_generator = Cam(property_ranges)
-n = 3  # Number of Seeder instances to generate
-seeders = seeder_generator.generate_seeders(n)
+# Create a Seeder instance
+seeder = Cam(property_ranges)
 
-for seeder in seeders:
-    generated_messages = seeder.generate_random_data()
-    print(generated_messages)
+# Generate and print example data
+for _ in range(3):
+    data = seeder.generate_random_data()
+    print(data)
     print("---")
 

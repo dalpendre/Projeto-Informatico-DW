@@ -5,12 +5,25 @@ import sys
 class Denm:
     def __init__(self, property_ranges):
         self.property_ranges = property_ranges
+        self.current_denm_key = property_ranges.get("denm_key", [])[1] - 1  # Initialize with the previous value
+        self.current_road_event_key = property_ranges.get("road_event_key", [])[1] - 1  # Initialize with the previous value
+        self.current_time_key = property_ranges.get("time_key", [])[1] - 1  # Initialize with the previous value
 
     def generate_random_data(self):
         generated_data = {}
 
         for property_name, value_range in self.property_ranges.items():
-            generated_data[property_name] = self.generate_value(value_range)
+            if property_name == "denm_key":
+                self.current_denm_key += 1  # Increment the zone_key value
+                generated_data[property_name] = self.current_denm_key
+            elif property_name == "road_event_key":
+                self.current_road_event_key += 1
+                generated_data[property_name] = self.current_road_event_key
+            elif property_name == "time_key":
+                self.current_time_key += 1
+                generated_data[property_name] = self.current_time_key
+            else:
+                generated_data[property_name] = self.generate_value(value_range)
 
         return generated_data
 
@@ -29,13 +42,6 @@ class Denm:
             return random.choice(choices)
         else:
             return None
-
-    def generate_seeders(self, n):
-        seeders = []
-        for _ in range(n):
-            seeder = Denm(self.property_ranges)
-            seeders.append(seeder)
-        return seeders
 
 
 property_ranges = {
@@ -75,11 +81,11 @@ property_ranges = {
 
 }
 
-seeder_generator = Denm(property_ranges)
-n = 1  # Number of Seeder instances to generate
-seeders = seeder_generator.generate_seeders(n)
+# Create a Seeder instance
+seeder = Denm(property_ranges)
 
-for seeder in seeders:
-    generated_messages = seeder.generate_random_data()
-    print(generated_messages)
+# Generate and print example data
+for _ in range(3):
+    data = seeder.generate_random_data()
+    print(data)
     print("---")

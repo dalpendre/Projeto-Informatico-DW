@@ -6,12 +6,18 @@ from data import RoadData
 class Road:
     def __init__(self, property_ranges):
         self.property_ranges = property_ranges
+        self.current_road_key = property_ranges.get("road_key", [])[1] - 1  # Initialize with the previous value
+
 
     def generate_random_data(self):
         generated_data = {}
 
         for property_name, value_range in self.property_ranges.items():
-            generated_data[property_name] = self.generate_value(value_range)
+            if property_name == "road_key":
+                self.current_road_key += 1  # Increment the zone_key value
+                generated_data[property_name] = self.current_road_key
+            else:
+                generated_data[property_name] = self.generate_value(value_range)
 
         return generated_data
 
@@ -31,13 +37,6 @@ class Road:
         else:
             return None
 
-    def generate_seeders(self, n):
-        seeders = []
-        for _ in range(n):
-            seeder = Road(self.property_ranges)
-            seeders.append(seeder)
-        return seeders
-
 
 property_ranges = {
     "road_key": ["int", 1, sys.maxsize],
@@ -49,11 +48,11 @@ property_ranges = {
     "end_point" : ["float", 1, sys.maxsize],
 }
 
-seeder_generator = Road(property_ranges)
-n = 3  # Number of Seeder instances to generate
-seeders = seeder_generator.generate_seeders(n)
+# Create a Seeder instance
+seeder = Road(property_ranges)
 
-for seeder in seeders:
-    generated_messages = seeder.generate_random_data()
-    print(generated_messages)
+# Generate and print example data
+for _ in range(3):
+    data = seeder.generate_random_data()
+    print(data)
     print("---")
