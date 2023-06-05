@@ -1,5 +1,73 @@
 import random
 import sys
+import psycopg2
+from psycopg2 import Error
+
+
+def insert_data_to_database(data):
+    try:
+        connection = psycopg2.connect(
+            user="postgres",
+            password="Erick2002@",
+            host="localhost",
+            port="5432",
+            database="projeto_informatico_source_db"
+        )
+
+        cursor = connection.cursor()
+
+        # Modify the SQL INSERT statement based on your table structure and column names
+        insert_query = """
+            INSERT INTO t_time (denm_key,time_key,road_event_key,time_stamp,latitude,longitude,altitude,heading,cause,traffic_cause,road_works_sub_cause,accident_sub_cause,slow_vehicle_sub_cause,stationary_vehicle_cause,human_problem_sub_cause,collision_risk_sub_cause,dangerous_situation_sub_cause,vehicle_break_down_sub_cause,post_crash_sub_cause,human_presence_on_the_road_sub_cause,adverse_weather_condition_extreme_weather_condition_sub_cause,adverse_weather_condition_adhesion_sub_cause,adverse_weather_condition_visibility_sub_cause,adverse_weather_condition_precipitation_sub_cause,emergency_vehicle_approaching_sub_cause,hazardous_location_surface_condition_sub_cause,hazardous_location_obstacle_on_the_road_sub_cause,hazardous_location_animal_on_the_road_sub_cause,rescue_and_recovery_work_in_progress_sub_cause,dangerous_end_of_queue_sub_cause) 
+            VALUES (%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s)
+        """
+
+        for record in data:
+            values = (
+                record['denm_key'],
+                record['time_key'],
+                record['road_event_key'],
+                record['time_stamp'],
+                record['latitude'],
+                record['longitude'],
+                record['altitude'],
+                record['heading'],
+                record['cause'],
+                record['traffic_cause'],
+                record['road_works_sub_cause'],
+                record['accident_sub_cause'],
+                record['slow_vehicle_sub_cause'],
+                record['stationary_vehicle_cause'],
+                record['human_problem_sub_cause'],
+                record['collision_risk_sub_cause'],
+                record['dangerous_situation_sub_cause'],
+                record['vehicle_break_down_sub_cause'],
+                record['post_crash_sub_cause'],
+                record['human_presence_on_the_road_sub_cause'],
+                record['adverse_weather_condition_extreme_weather_condition_sub_cause'],
+                record['adverse_weather_condition_adhesion_sub_cause'],
+                record['adverse_weather_condition_visibility_sub_cause'],
+                record['adverse_weather_condition_precipitation_sub_cause'],
+                record['emergency_vehicle_approaching_sub_cause'],
+                record['hazardous_location_surface_condition_sub_cause'],
+                record['hazardous_location_obstacle_on_the_road_sub_cause'],
+                record['hazardous_location_animal_on_the_road_sub_cause'],
+                record['rescue_and_recovery_work_in_progress_sub_cause'],
+                record['dangerous_end_of_queue_sub_cause']
+
+            )
+            cursor.execute(insert_query, values)
+
+        connection.commit()
+        print("Data inserted successfully!")
+
+    except (Exception, Error) as error:
+        print("Error while inserting data into PostgreSQL:", error)
+
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
 
 
 class Denm:
@@ -42,6 +110,17 @@ class Denm:
             return random.choice(choices)
         else:
             return None
+        
+    def generate_seeders(self, n):
+        seeders = []
+        for _ in range(n):
+            seeder = Denm(self.property_ranges)
+            seeders.append(seeder)
+        return seeders
+
+    def insert_data_to_database(self):
+        data = self.generate_random_data()
+        insert_data_to_database([data])
 
 
 property_ranges = {
@@ -86,6 +165,12 @@ seeder = Denm(property_ranges)
 
 # Generate and print example data
 for _ in range(3):
-    data = seeder.generate_random_data()
-    print(data)
-    print("---")
+    seeder.insert_data_to_database()
+
+
+    
+"""
+data = seeder.generate_random_data()
+print(data)
+print("---")
+"""

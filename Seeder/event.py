@@ -1,6 +1,47 @@
 import random
 import sys
+import psycopg2
+from psycopg2 import Error
 
+
+def insert_data_to_database(data):
+    try:
+        connection = psycopg2.connect(
+            user="postgres",
+            password="Erick2002@",
+            host="localhost",
+            port="5432",
+            database="projeto_informatico_source_db"
+        )
+
+        cursor = connection.cursor()
+
+        # Modify the SQL INSERT statement based on your table structure and column names
+        insert_query = """
+            INSERT INTO t_event (event_key,designation,start_time,end_time,flag_single_day_event) 
+            VALUES (%s, %s, %s, %s, %s)
+        """
+
+        for record in data:
+            values = (
+                record['event_key'],
+                record['designation'],
+                record['start_time'],
+                record['end_time'],
+                record['flag_single_day_event']
+            )
+            cursor.execute(insert_query, values)
+
+        connection.commit()
+        print("Data inserted successfully!")
+
+    except (Exception, Error) as error:
+        print("Error while inserting data into PostgreSQL:", error)
+
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
 
 class Event:
     def __init__(self, property_ranges):
@@ -33,16 +74,28 @@ class Event:
         elif value_type == "choice":
             choices = value_range[1:]
             return random.choice(choices)
+        elif value_type == "boolean":
+            return random.choice([True, False])
         else:
             return None
+        
+    def generate_seeders(self, n):
+            seeders = []
+            for _ in range(n):
+                seeder = Event(self.property_ranges)
+                seeders.append(seeder)
+            return seeders
 
-
+    def insert_data_to_database(self):
+        data = self.generate_random_data()
+        insert_data_to_database([data])
+        
 property_ranges = {
     "event_key": ["int", 1, sys.maxsize],
-    "designation": ["choice", ".....", "....."],
+    "designation": ["choice", "Car Race", "Car Rally","Car Cruise","Test Drive Event","Car Show"],
     "start_time": ["float", 1, sys.maxsize],
     "end_time": ["float", 1, sys.maxsize],
-    "flag_single_day_event": ["choice", "True", "False"],
+    "flag_single_day_event": ["boolean"],
 }
 
 # Create a Seeder instance
@@ -50,6 +103,13 @@ seeder = Event(property_ranges)
 
 # Generate and print example data
 for _ in range(3):
-    data = seeder.generate_random_data()
-    print(data)
-    print("---")
+    seeder.insert_data_to_database()
+
+
+    
+"""
+data = seeder.generate_random_data()
+print(data)
+print("---")
+"""
+
