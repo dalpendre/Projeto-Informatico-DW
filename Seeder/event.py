@@ -3,15 +3,17 @@ import sys
 import psycopg2
 from psycopg2 import Error
 
+import constants
+
 
 def insert_data_to_database(data):
     try:
         connection = psycopg2.connect(
-            user="postgres",
-            password="Erick2002@",
-            host="localhost",
-            port="5432",
-            database="projeto_informatico_source_db"
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port,
+            database=constants.db_name
         )
 
         cursor = connection.cursor()
@@ -103,13 +105,7 @@ seeder = Event(property_ranges)
 
 # Generate and print example data
 for _ in range(3):
-    seeder.insert_data_to_database()
-
-
-    
-"""
-data = seeder.generate_random_data()
-print(data)
-print("---")
-"""
+    data = seeder.insert_data_to_database()
+    print(data)
+    print("---")
 
