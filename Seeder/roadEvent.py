@@ -3,6 +3,7 @@ import sys
 import psycopg2
 from psycopg2 import Error
 
+import constants
 
 def insert_data_to_database(data):
     try:
@@ -23,8 +24,8 @@ def insert_data_to_database(data):
 
         # Modify the SQL INSERT statement based on your table structure and column names
         insert_query = """
-            INSERT INTO t_road_event (road_event_key,description,severity,status,impact_level) 
-            VALUES (%s, %s, %s, %s, %s)
+            INSERT INTO t_road_event (road_event_key,description, severity, status, impact_level) 
+            VALUES (%s,%s, %s, %s, %s)
         """
 
         # Generate new keys sequentially
@@ -57,17 +58,12 @@ def insert_data_to_database(data):
 class RoadEvent:
     def __init__(self, property_ranges):
         self.property_ranges = property_ranges
-        self.current_road_event_key = property_ranges.get("road_event_key", [])[1] - 1  # Initialize with the previous value
 
     def generate_random_data(self):
         generated_data = {}
 
         for property_name, value_range in self.property_ranges.items():
-            if property_name == "road_event_key":
-                self.current_road_event_key += 1  # Increment the zone_key value
-                generated_data[property_name] = self.current_road_event_key
-            else:
-                generated_data[property_name] = self.generate_value(value_range)
+            generated_data[property_name] = self.generate_value(value_range)
 
         return generated_data
 
@@ -86,7 +82,7 @@ class RoadEvent:
             return random.choice(choices)
         else:
             return None
-    
+
     def generate_seeders(self, n):
         seeders = []
         for _ in range(n):
@@ -98,13 +94,12 @@ class RoadEvent:
         data = self.generate_random_data()
         insert_data_to_database([data])
 
-
 property_ranges = {
     "road_event_key": ["int", 1, sys.maxsize],
-    "description": ["choice", "Traffic Accident", "Road Construction","Road Closure","Road Congestion","Road Flooding","Roadwork Zone","Vehicle Breakdown","Traffic Jam","Road Debris","Traffic Control"],
+    "description": ["choice", "Traffic Accident", "Road Construction", "Road Closure", "Road Congestion", "Road Flooding", "Roadwork Zone", "Vehicle Breakdown", "Traffic Jam", "Road Debris", "Traffic Control"],
     "severity": ["int", 1, 10],
-    "status": ["choice","in progress", "resolved"],
-    "impact_level": ["choice","very-low","low","medium","high","very-high"],
+    "status": ["choice", "in progress", "resolved"],
+    "impact_level": ["choice", "very-low", "low", "medium", "high", "very-high"],
 }
 
 # Create a Seeder instance
@@ -114,8 +109,6 @@ seeder = RoadEvent(property_ranges)
 for _ in range(3):
     seeder.insert_data_to_database()
 
-
-    
 """
 data = seeder.generate_random_data()
 print(data)

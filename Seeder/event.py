@@ -3,6 +3,8 @@ import sys
 import psycopg2
 from psycopg2 import Error
 
+import constants
+
 
 def insert_data_to_database(data):
     try:
@@ -114,10 +116,9 @@ seeder = Event(property_ranges)
 
 # Generate and print example data
 for _ in range(3):
+    data = seeder.insert_data_to_database()
     seeder.insert_data_to_database()
 
-
-    
 """
 data = seeder.generate_random_data()
 print(data)

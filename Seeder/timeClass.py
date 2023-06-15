@@ -4,6 +4,8 @@ import datetime
 import psycopg2
 from psycopg2 import Error
 
+import constants
+
 
 def insert_data_to_database(data):
     try:

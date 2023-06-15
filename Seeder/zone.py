@@ -8,8 +8,8 @@ def insert_data_to_database(data):
     try:
         connection = psycopg2.connect(
             user="postgres",
-            password="12345678",
-            host="18.169.68.102",
+            password="Erick2002@",
+            host="localhost",
             port="5432",
             database="projeto_informatico_source_db"
         )

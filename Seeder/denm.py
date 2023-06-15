@@ -3,7 +3,6 @@ import sys
 import psycopg2
 from psycopg2 import Error
 
-
 def insert_data_to_database(data):
     try:
         connection = psycopg2.connect(
@@ -155,11 +154,10 @@ class Denm:
         data = self.generate_random_data()
         insert_data_to_database([data])
 
-
 property_ranges = {
     "denm_key": ["int", 1, sys.maxsize],
-    "time_key": ["int", 1, sys.maxsize],
     "road_event_key": ["int", 1, sys.maxsize],
+    "time_key": ["int", 1, sys.maxsize],
     "heading": ["int", 0, 3601],
     "time_stamp": ["int", 0, 4398046511103],
     "longitude": ["int", -1800000000, 1800000000],

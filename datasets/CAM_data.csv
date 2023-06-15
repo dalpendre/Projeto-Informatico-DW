@@ -1,0 +1,11 @@
+CAMKey,StationID,Speed,Heading,Acceleration,StationType,VehicleRole,TypeOfFuel,TimeStamp,BrakePedalEngaged,GasPedalEngaged,EmergencyPedalEngaged,CollisionWarningEngaged,SpeedLimiterEngaged,CruiseControlEngaged,StationarySince,Latitude,Longitude,Altitude
+1,1073709587,10,1517,,cyclist,default,human_powered,4398046511102,,,,,,,,,,
+2,2224254766,15,2965,,motorcycle,default,gasoline,4398046511101,,,,,,,,,,
+3,1795169474,256,2245,,passengerCar,default,diesel,4398046511100,,,,,,,,,,
+4,411206932,53,572,,bus,publicTransport,diesel,4398046511099,,,,,,,,,,
+5,3750830837,221,2833,,passengerCar,emergency,compressedNaturalGas,4398046511098,,,,,,,,,,
+6,3889824605,98,3274,,heavyTruck,dangerousGoods,diesel,4398046511097,,,,,,,,,,
+7,3516158258,287,2602,,motorcycle,default,gasoline,4398046511096,,,,,,,,,,
+8,3615162719,164,2291,,passengerCar,táxi,gasoline,4398046511095,,,,,,,,,,
+9,937398743,29,1035,,cyclist,default,human_powered,4398046511094,,,,,,,,,,
+10,2288940448,122,3176,,passengerCar,safetyCar,diesel,4398046511093,,,,,,,,,,
