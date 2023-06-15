@@ -16,24 +16,35 @@ def insert_data_to_database(data):
 
         cursor = connection.cursor()
 
+        cursor.execute("SELECT MAX(event_key) FROM t_event")
+        max_event_key = cursor.fetchone()[0]
+        if max_event_key is None:
+            max_event_key = 0
+
         # Modify the SQL INSERT statement based on your table structure and column names
         insert_query = """
             INSERT INTO t_event (event_key,designation,start_time,end_time,flag_single_day_event) 
             VALUES (%s, %s, %s, %s, %s)
         """
 
+        # Generate new keys sequentially
         for record in data:
-            values = (
+
+                max_event_key += 1
+                record['event_key'] = max_event_key
+
+                values = (
                 record['event_key'],
                 record['designation'],
                 record['start_time'],
                 record['end_time'],
                 record['flag_single_day_event']
             )
-            cursor.execute(insert_query, values)
+
+                cursor.execute(insert_query, values)
 
         connection.commit()
-        print("Data inserted successfully!")
+        print("Event Data inserted successfully!")
 
     except (Exception, Error) as error:
         print("Error while inserting data into PostgreSQL:", error)
@@ -78,7 +89,7 @@ class Event:
             return random.choice([True, False])
         else:
             return None
-        
+
     def generate_seeders(self, n):
             seeders = []
             for _ in range(n):
@@ -89,7 +100,7 @@ class Event:
     def insert_data_to_database(self):
         data = self.generate_random_data()
         insert_data_to_database([data])
-        
+
 property_ranges = {
     "event_key": ["int", 1, sys.maxsize],
     "designation": ["choice", "Car Race", "Car Rally","Car Cruise","Test Drive Event","Car Show"],

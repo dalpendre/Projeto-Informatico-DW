@@ -16,13 +16,22 @@ def insert_data_to_database(data):
 
         cursor = connection.cursor()
 
+        cursor.execute("SELECT MAX(road_event_key) FROM t_road_event")
+        max_road_event_key = cursor.fetchone()[0]
+        if max_road_event_key is None:
+            max_road_event_key = 0
+
         # Modify the SQL INSERT statement based on your table structure and column names
         insert_query = """
             INSERT INTO t_road_event (road_event_key,description,severity,status,impact_level) 
             VALUES (%s, %s, %s, %s, %s)
         """
 
+        # Generate new keys sequentially
         for record in data:
+            max_road_event_key += 1
+            record['road_event_key'] = max_road_event_key
+
             values = (
                 record['road_event_key'],
                 record['description'],
@@ -30,10 +39,11 @@ def insert_data_to_database(data):
                 record['status'],
                 record['impact_level']
             )
+
             cursor.execute(insert_query, values)
 
         connection.commit()
-        print("Data inserted successfully!")
+        print("Road Event Data inserted successfully!")
 
     except (Exception, Error) as error:
         print("Error while inserting data into PostgreSQL:", error)

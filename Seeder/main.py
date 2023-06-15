@@ -10,12 +10,12 @@ from timeClass import Time
 from zone import Zone
 
 print(RoadEvent)
+print(Event)
+print(Time)
 print(Cam)
 print(Denm)
 print(Road)
 print(Segment)
 print(RoadSign)
 print(Ivim)
-print(Event)
-print(Time)
 print(Zone)

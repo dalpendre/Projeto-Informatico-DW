@@ -17,6 +17,16 @@ def insert_data_to_database(data):
 
         cursor = connection.cursor()
 
+        cursor.execute("SELECT MAX(time_key), MAX(event_key) FROM t_time")
+        max_values = cursor.fetchone()
+        max_time_key = max_values[0]
+        max_event_key = max_values[1]
+
+        if max_time_key is None:
+            max_time_key = 0
+        if max_event_key is None:
+            max_event_key = 0
+
         # Modify the SQL INSERT statement based on your table structure and column names
         insert_query = """
             INSERT INTO t_time (time_key,event_key,c_day,c_month,c_year,weekend_day,week_day_number,week_day_name,is_holiday,trimester,semester,season,full_date_description) 
@@ -24,6 +34,11 @@ def insert_data_to_database(data):
         """
 
         for record in data:
+            max_time_key += 1
+            max_event_key += 1
+            record['time_key'] = max_time_key
+            record['event_key'] = max_event_key
+
             values = (
                 record['time_key'],
                 record['event_key'],
@@ -39,10 +54,11 @@ def insert_data_to_database(data):
                 record['season'],
                 record['full_date_description']
             )
+
             cursor.execute(insert_query, values)
 
         connection.commit()
-        print("Data inserted successfully!")
+        print("Time Data inserted successfully!")
 
     except (Exception, Error) as error:
         print("Error while inserting data into PostgreSQL:", error)
@@ -107,8 +123,8 @@ class Time:
 property_ranges = {
     "time_key": ["int", 1, sys.maxsize],
     "event_key": ["int", 1, sys.maxsize],
-    "day": ["int", 1, 31],
-    "month": ["int", 1, 12],
+    "day": ["int", datetime.date.today().day, datetime.date.today().day],
+    "month": ["int", datetime.date.today().month, datetime.date.today().month],
     "year": ["int", datetime.date.today().year, datetime.date.today().year],
     "is_weekend_day": ["boolean"],
     "is_holiday": ["boolean"],
@@ -117,7 +133,7 @@ property_ranges = {
     "week_day_number": ["int", 1, 7],
     "week_day_name" : ["choice","Sunday","Monday","Tuesday","Wenesday","Thursday","Friday","Saturday"],
     "season" : ["choice", "Winter","Spring","Summer","Autumn"],
-    "full_date_description" : ["choice", "13 January 2023"],
+    "full_date_description" : ["choice", datetime.date.today().strftime("%d %B %Y")],
 }
 
 # Create a Seeder instance
