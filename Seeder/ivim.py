@@ -1,5 +1,71 @@
 import random
 import sys
+import psycopg2
+from psycopg2 import Error
+
+
+def insert_data_to_database(data):
+    try:
+        connection = psycopg2.connect(
+            user="postgres",
+            password="Erick2002@",
+            host="localhost",
+            port="5432",
+            database="projeto_informatico_source_db"
+        )
+
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT MAX(ivim_key), MAX(zone_key), MAX(road_sign_key) FROM t_ivim")
+        max_values = cursor.fetchone()
+        max_ivim_key = max_values[0]
+        max_zone_key = max_values[1]
+        max_road_sign_key = max_values[2]
+
+        if max_ivim_key is None:
+            max_ivim_key = 0
+        if max_zone_key is None:
+            max_zone_key = 0
+        if max_road_sign_key is None:
+            max_road_sign_key = 0
+
+        # Modify the SQL INSERT statement based on your table structure and column names
+        insert_query = """
+            INSERT INTO t_ivim (
+                ivim_key, zone_key, road_sign_key, latitude, longitude, altitude
+            ) 
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """
+
+        for record in data:
+            max_ivim_key += 1
+            max_zone_key += 1
+            max_road_sign_key += 1
+            record['ivim_key'] = max_ivim_key
+            record['zone_key'] = max_zone_key
+            record['road_sign_key'] = max_road_sign_key
+
+            values = (
+                record['ivim_key'],
+                record['zone_key'],
+                record['road_sign_key'],
+                record['latitude'],
+                record['longitude'],
+                record['altitude']
+            )
+
+            cursor.execute(insert_query, values)
+
+        connection.commit()
+        print("Ivim Data inserted successfully!")
+
+    except (Exception, Error) as error:
+        print("Error while inserting data into PostgreSQL:", error)
+
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
 
 class Ivim:
     def __init__(self, property_ranges):
@@ -41,13 +107,16 @@ class Ivim:
         else:
             return None
 
-    """def generate_seeders(self, n):
+    def generate_seeders(self, n):
         seeders = []
         for _ in range(n):
             seeder = Ivim(self.property_ranges)
             seeders.append(seeder)
         return seeders
-    """
+
+    def insert_data_to_database(self):
+        data = self.generate_random_data()
+        insert_data_to_database([data])
 
 property_ranges = {
     "ivim_key" : ["int", 1, sys.maxsize],
@@ -72,7 +141,5 @@ seeder = Ivim(property_ranges)
 
 # Generate and print example data
 for _ in range(3):
-    data = seeder.generate_random_data()
-    print(data)
-    print("---")
+    seeder.insert_data_to_database()
 

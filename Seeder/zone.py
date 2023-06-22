@@ -15,6 +15,10 @@ def insert_data_to_database(data):
         )
 
         cursor = connection.cursor()
+        cursor.execute("SELECT MAX(zone_key) FROM t_zone")
+        max_zone_key = cursor.fetchone()[0]
+        if max_zone_key is None:
+            max_zone_key = 0
 
         # Modify the SQL INSERT statement based on your table structure and column names
         insert_query = """
@@ -23,6 +27,9 @@ def insert_data_to_database(data):
         """
 
         for record in data:
+            max_zone_key += 1
+            record['zone_key'] = max_zone_key
+
             values = (
                 record['zone_key'],
                 record['zone_name'],
@@ -33,7 +40,7 @@ def insert_data_to_database(data):
             cursor.execute(insert_query, values)
 
         connection.commit()
-        print("Data inserted successfully!")
+        print("Zone Data inserted successfully!")
 
     except (Exception, Error) as error:
         print("Error while inserting data into PostgreSQL:", error)
@@ -94,10 +101,63 @@ class Zone:
 
 property_ranges = {
     "zone_key": ["int", 1, sys.maxsize],
-    "zone_name": ["choice", "unavailable", "increasedVolumeOfTraffic", "trafficJamSlowlyIncreasing"],
+    "zone_name": ["choice",
+        "Lisbon",
+        "Porto",
+        "Vila Nova de Gaia",
+        "Amadora",
+        "Braga",
+        "Funchal",
+        "Coimbra",
+        "Almada",
+        "Setúbal",
+        "Agualva-Cacém",
+        "Queluz",
+        "Aveiro",
+        "Viseu",
+        "Guimarães",
+        "Oeiras",
+        "Matosinhos",
+        "Gondomar",
+        "Sintra",
+        "Faro",
+        "Vila Franca de Xira",
+        "Maia",
+        "Évora",
+        "Rio Tinto",
+        "Câmara de Lobos",
+        "Santarém",
+        "Castelo Branco",
+        "Barreiro",
+        "Loures",
+        "Póvoa de Varzim",
+        "Sesimbra",
+        "Vila Nova de Famalicão",
+        "Ermesinde",
+        "Portimão",
+        "Ponta Delgada",
+        "Quarteira",
+        "Leiria",
+        "Portalegre",
+        "Beja",
+        "Viana do Castelo",
+        "Figueira da Foz",
+        "Chaves",
+        "Lamego",
+        "Torres Vedras",
+        "Caldas da Rainha",
+        "Alcobaça",
+        "Fátima",
+        "Vila Nova de Milfontes",
+        "Odemira",
+        "Albufeira",
+        "Lagos",
+        "Tavira",
+        "Loulé"
+    ],
     "zone_type": ["choice", "unavailable", "increasedVolumeOfTraffic", "trafficJamSlowlyIncreasing"],
-    "zone_description": ["choice", "open", "closed"],
-    "zone_area": ["choice", "unavailable", "increasedVolumeOfTraffic", "trafficJamSlowlyIncreasing"],
+    "zone_description": ["choice", "open", "closed","restricted access","maintenance in progress","emergency situation"],
+    "zone_area": ["choice", "Aveiro", "Beja", "Braga", "Bragança", "Castelo Branco", "Coimbra", "Évora", "Faro", "Guarda", "Leiria", "Lisboa", "Portalegre", "Porto", "Santarém", "Setúbal", "Viana do Castelo", "Vila Real y Viseu"],
 }
 
 # Create a Seeder instance
@@ -105,10 +165,7 @@ seeder = Zone(property_ranges)
 
 # Generate and print example data
 for _ in range(3):
-    data = seeder.generate_random_data()
-    print(data)
-    #seeder.insert_data_to_database()
-    print("---")
+    seeder.insert_data_to_database()
 
 """
     generated_messages = seeder.generate_random_data()

@@ -4,10 +4,10 @@ from denm import Denm
 from road import Road
 from segment import Segment
 from roadSign import RoadSign
+from zone import Zone
 from ivim import Ivim
 from event import Event
 from timeClass import Time
-from zone import Zone
 
 print(RoadEvent)
 print(Event)
@@ -16,6 +16,6 @@ print(Cam)
 print(Denm)
 print(Road)
 print(Segment)
+print(Zone)
 print(RoadSign)
 print(Ivim)
-print(Zone)

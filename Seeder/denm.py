@@ -88,7 +88,7 @@ def insert_data_to_database(data):
             cursor.execute(insert_query, values)
 
         connection.commit()
-        print("Denm data inserted successfully!")
+        print("Denm Data inserted successfully!")
 
     except (Exception, Error) as error:
         print("Error while inserting data into PostgreSQL:", error)
