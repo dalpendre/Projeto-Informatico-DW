@@ -5,15 +5,14 @@ from psycopg2 import Error
 
 import constants
 
-
 def insert_data_to_database(data):
     try:
         connection = psycopg2.connect(
-            user="postgres",
-            password="Erick2002@",
-            host="localhost",
-            port="5432",
-            database="projeto_informatico_source_db"
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port,
+            database=constants.db_name
         )
 
         cursor = connection.cursor()
@@ -60,7 +59,6 @@ class Event:
     def __init__(self, property_ranges):
         self.property_ranges = property_ranges
         self.current_event_key = property_ranges.get("event_key", [])[1] - 1  # Initialize with the previous value
-
 
     def generate_random_data(self):
         generated_data = {}

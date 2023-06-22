@@ -1,30 +1,56 @@
 import random
 import sys
+from datetime import datetime
+
 import psycopg2
 from psycopg2 import Error
 import pandas as pd
+import requests
+
 import constants
+
+def get_elevation(latitude, longitude):
+    url = f"https://maps.googleapis.com/maps/api/elevation/json?locations={latitude},{longitude}&key=" + constants.google_maps_api_key
+    response = requests.get(url)
+    data = response.json()
+
+    if data['status'] == 'OK':
+        elevation = data['results'][0]['elevation']
+        return elevation
+    else:
+        return 0
+
+def datetime_to_timestamp(datetime_str):
+    datetime_obj = datetime.fromisoformat(datetime_str)
+    timestamp = datetime_obj.timestamp()
+    normalized_timestamp = int(timestamp * 1000)  # Convert to milliseconds
+
+    min_timestamp = 0
+    max_timestamp = 4398046511103
+
+    normalized_timestamp = max(min_timestamp, min(max_timestamp, normalized_timestamp))  # Clamp within the range
+
+    return normalized_timestamp
 
 #extract timestamp and coordinates from csv file
 def file_extract(path):
+
     data = pd.read_csv(path)
 
-    #selected_columns = ['/createdAt', '/capturedData/locationLatitude', '/capturedData/locationLongitude']  # Replace with the actual column names
-    #selected_data = data[selected_columns]
+    selected_columns = ['/createdAt', '/capturedData/locationLatitude', '/capturedData/locationLongitude']  # Replace with the actual column names
+    selected_data = data[selected_columns]
 
-    return data
+    return selected_data
 
-def insert_data_to_database(data):
-
-    print(file_extract("casa estg-11-04-2023-08-58-00.csv"))
+def insert_data_to_database(data, timestamp, latitude, longitude, altitude, num_lines):
 
     try:
         connection = psycopg2.connect(
-            user="postgres",
-            password="Erick2002@",
-            host="localhost",
-            port="5432",
-            database="projeto_informatico_source_db"
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port,
+            database=constants.db_name
         )
 
         cursor = connection.cursor()
@@ -41,15 +67,15 @@ def insert_data_to_database(data):
                 record['time_key'],
                 record['segment_key'],
                 record['station_id'],
-                record['latitude'],
-                record['longitude'],
-                record['altitude'],
+                latitude,
+                longitude,
+                altitude,
                 record['speed'],
                 record['heading'],
                 record['acceleration'],
                 record['station_type'],
                 record['vehicle_role'],
-                record['time_stamp'],
+                timestamp,
                 record['fuel_type'],
                 record['activation_data'],
                 record['stationary_since']
@@ -111,23 +137,23 @@ class Cam:
             seeders.append(seeder)
         return seeders
 
-    def generate_insert_data_to_database(self):
+    def generate_insert_data_to_database(self, timestamp, latitude, longitude, altitude, num_lines):
         data = self.generate_random_data()
-        insert_data_to_database([data])
+        insert_data_to_database([data], timestamp, latitude, longitude, altitude, num_lines)
 
 property_ranges = {
-    "time_key" : ["int", 1, sys.maxsize],
+    #"time_key" : ["int", 1, sys.maxsize],
     "segment_key" : ["int", 1, sys.maxsize],
     "station_id" : ["int", 0, 4294967295],
-    "latitude" : ["int", -900000000, 900000000],
-    "longitude" : ["int", -1800000000, 1800000000],
-    "altitude" : ["int", -100000, 100000],
+    #"latitude" : ["int", -900000000, 900000000],
+    #"longitude" : ["int", -1800000000, 1800000000],
+    #"altitude" : ["int", -100000, 800001],
     "speed" : ["float", 0, 16383],
     "heading" : ["int", 0, 3601],
     "acceleration" : ["int", -160, 160],
     "station_type": ["int", 0, 255],
     "vehicle_role": ["int",0,15],
-    "time_stamp" : ["int", 1, 4398046511103],
+    #"time_stamp" : ["int", 1, 4398046511103],
     "fuel_type": ["choice", "000", "001", "010", "011", "100", "101", "110"],
     "activation_data": ["choice", "000", "001", "010", "011", "100", "101", "110"],
     "stationary_since": ["int", 0, 3]
@@ -136,8 +162,17 @@ property_ranges = {
 # Create a Seeder instance
 seeder = Cam(property_ranges)
 
+latitude_longitude_convert_factor = 0.0000001
+
+# extract data from dataset her
+dataset_data = file_extract("casa estg-11-04-2023-08-58-00.csv")
+
 # Generate and print example data
-for _ in range(3):
-    data = seeder.generate_insert_data_to_database()
-    print(data)
-    print("---")
+for index, row in dataset_data.iterrows():
+    timestamp = datetime_to_timestamp(row['/createdAt'])
+    latitude = float(row['/capturedData/locationLatitude']) * latitude_longitude_convert_factor
+    longitude = float(row['/capturedData/locationLongitude']) * latitude_longitude_convert_factor
+    altitude = get_elevation(latitude, longitude)
+
+    seeder.generate_insert_data_to_database(timestamp, latitude, longitude, altitude, len(dataset_data))
+    print(index, timestamp, latitude, longitude, altitude)

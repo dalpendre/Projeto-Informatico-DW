@@ -6,7 +6,7 @@ from segment import Segment
 from roadSign import RoadSign
 from ivim import Ivim
 from event import Event
-from timeClass import Time
+from time import Time
 from zone import Zone
 
 print(RoadEvent)
