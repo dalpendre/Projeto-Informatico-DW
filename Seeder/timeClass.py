@@ -120,7 +120,6 @@ class Time:
         data = self.generate_random_data()
         insert_data_to_database([data])
 
-
 property_ranges = {
     "time_key": ["int", 1, sys.maxsize],
     "event_key": ["int", 1, sys.maxsize],
@@ -140,10 +139,13 @@ property_ranges = {
 # Create a Seeder instance
 seeder = Time(property_ranges)
 
-# Generate and print example data
-for _ in range(3):
-    seeder.insert_data_to_database()
+def main():
+    # Generate and print example data
+    for _ in range(1):
+        data = seeder.insert_data_to_database()
+    return data
 
+main()
 """
 data = seeder.generate_random_data()
 print(data)

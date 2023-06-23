@@ -8,11 +8,11 @@ import constants
 def insert_data_to_database(data):
     try:
         connection = psycopg2.connect(
-            user="postgres",
-            password="Erick2002@",
-            host="localhost",
-            port="5432",
-            database="projeto_informatico_source_db"
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port,
+            database=constants.db_name
         )
 
         cursor = connection.cursor()
@@ -96,15 +96,20 @@ property_ranges = {
     "road_key": ["int", 1, sys.maxsize],
     "segment_name": ["choice", "...", "..."],
     "segment_type": ["choice", "...", "..."],
-    "segment_length": ["int", 0, sys.maxsize],
-    "number_of_lanes": ["int", 1, sys.maxsize],
+    "segment_length": ["int", 0, 1],
+    "number_of_lanes": ["int", 1, 100],
     "start_point": ["float", 1, sys.maxsize],
     "end_point": ["float", 1, sys.maxsize],
 }
 
-# Create a Seeder instance
-seeder = Segment(property_ranges)
+def main():
+    # Create a Seeder instance
+    seeder = Segment(property_ranges)
 
-# Generate and print example data
-for _ in range(3):
-    seeder.insert_data_to_database()
+    # Generate and print example data
+    for _ in range(1):
+        data = seeder.insert_data_to_database()
+
+        return data
+
+#main()

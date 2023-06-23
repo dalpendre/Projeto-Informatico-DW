@@ -9,11 +9,11 @@ import constants
 def insert_data_to_database(data):
     try:
         connection = psycopg2.connect(
-            user="postgres",
-            password="Erick2002@",
-            host="localhost",
-            port="5432",
-            database="projeto_informatico_source_db"
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port,
+            database=constants.db_name
         )
 
         cursor = connection.cursor()
@@ -84,21 +84,35 @@ class Road:
     def insert_data_to_database(self):
         data = self.generate_random_data()
         insert_data_to_database([data])
+        return data
 
 property_ranges = {
     "road_name": ["choice", "...", "..."],
-    "road_type": ["choice", "Highway/Expressway/Freeway", "Arterial Road", "Collector Road", "Local Street/Residential Street", "Rural Road", "Toll Road", "Parkways", "Motorway", "Freeway", "Autobahn", "Dual Carriageway", "Single Carriageway", "Interstate", "Cul-de-sac", "Alley", "Pedestrian Street", "Bicycle Lane/Cycle Track", "Bridge", "Tunnel", "Gravel Road", "Avenue", "Boulevard", "Court", "Drive", "Lane", "Parkway", "Road", "Street", "Way", "Access Road", "Frontage Road", "Service Road", "Crossroads", "Roundabout", "Overpass", "Underpass", "Flyover", "Bypass", "Causeway", "Viaduct", "Alleyway", "Boardwalk", "Promenade", "Terrace", "Greenway", "HOV Lane", "Bus Lane", "Shared-Use Path", "Scenic Byway", "Truck Route", "Ferry Road", "Farm Road", "Industrial Road", "Parking Lot/Car Park"],
+    "road_type": ["choice", "Highway/Expressway/Freeway", "Arterial Road", "Collector Road",
+                  "Local Street/Residential Street", "Rural Road", "Toll Road", "Parkways", "Motorway", "Freeway",
+                  "Autobahn", "Dual Carriageway", "Single Carriageway", "Interstate", "Cul-de-sac", "Alley",
+                  "Pedestrian Street", "Bicycle Lane/Cycle Track", "Bridge", "Tunnel", "Gravel Road", "Avenue",
+                  "Boulevard", "Court", "Drive", "Lane", "Parkway", "Road", "Street", "Way", "Access Road",
+                  "Frontage Road", "Service Road", "Crossroads", "Roundabout", "Overpass", "Underpass", "Flyover",
+                  "Bypass", "Causeway", "Viaduct", "Alleyway", "Boardwalk", "Promenade", "Terrace", "Greenway",
+                  "HOV Lane", "Bus Lane", "Shared-Use Path", "Scenic Byway", "Truck Route", "Ferry Road", "Farm Road",
+                  "Industrial Road", "Parking Lot/Car Park"],
     "road_length": ["int", 1, sys.maxsize],
     "number_of_lanes": ["int", 1, 100],
     "start_point": ["float", 1, sys.maxsize],
-    "end_point" : ["float", 1, sys.maxsize],
+    "end_point": ["float", 1, sys.maxsize],
 }
 
 # Create a Seeder instance
 seeder = Road(property_ranges)
 
-# Generate and print example data
-for _ in range(3):
-    data = seeder.insert_data_to_database()
-    print(data)
-    print("---")
+def main():
+    # Generate and print example data
+    for _ in range(1):
+        data = seeder.insert_data_to_database()
+        # print(data)
+        print("---")
+
+    return data
+
+main()

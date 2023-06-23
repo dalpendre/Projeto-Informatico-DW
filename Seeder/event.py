@@ -109,12 +109,33 @@ property_ranges = {
     "flag_single_day_event": ["boolean"],
 }
 
-# Create a Seeder instance
-seeder = Event(property_ranges)
+property_ranges_empty = {
+    "event_key": ["int", 1, sys.maxsize],
+    "designation": ["choice", "-"],
+    "start_time": ["float", 0, 0],
+    "end_time": ["float", 0, 0],
+    "flag_single_day_event": ["boolean"],
+}
 
-# Generate and print example data
-for _ in range(3):
-    seeder.insert_data_to_database()
+#to create evento for cam (without meaning)
+def main_empty():
+    seeder = Event(property_ranges_empty)
+
+    # Generate and print example data
+    for _ in range(1):
+        data = seeder.insert_data_to_database()
+
+    return data
+
+def main():
+    # Create a Seeder instance
+    seeder = Event(property_ranges)
+
+    # Generate and print example data
+    for _ in range(1):
+        data = seeder.insert_data_to_database()
+
+    return data
 
 """
 data = seeder.generate_random_data()
