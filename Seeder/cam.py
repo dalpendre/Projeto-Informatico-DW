@@ -148,7 +148,7 @@ class Cam:
 
 property_ranges = {
     #"time_key" : ["int", 1, sys.maxsize],
-    "segment_key" : ["int", 1, sys.maxsize],
+    #"segment_key" : ["int", 1, sys.maxsize],
     "station_id" : ["int", 0, 4294967295],
     #"latitude" : ["int", -900000000, 900000000],
     #"longitude" : ["int", -1800000000, 1800000000],
