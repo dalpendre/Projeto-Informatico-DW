@@ -1,6 +1,6 @@
 import random
 import sys
-import timeClass
+import time
 
 import psycopg2
 from psycopg2 import Error
@@ -113,12 +113,11 @@ property_ranges = {
 # Create a Seeder instance
 seeder = RoadEvent(property_ranges)
 
-# Generate and print example data
-for _ in range(100):
-    seeder.insert_data_to_database()
+def main():
+    # Generate and print example data
+    for _ in range(1):
+        data = seeder.insert_data_to_database()
 
-"""
-data = seeder.generate_random_data()
-print(data)
-print("---")
-"""
+    return data
+
+main()

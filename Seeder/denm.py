@@ -4,7 +4,9 @@ import psycopg2
 from psycopg2 import Error
 
 import constants
-
+import event
+import timeClass
+import roadEvent
 
 def insert_data_to_database(data):
     try:
@@ -100,10 +102,6 @@ def insert_data_to_database(data):
         if connection:
             cursor.close()
             connection.close()
-
-
-
-
 
 class Denm:
     def __init__(self, property_ranges):
@@ -201,7 +199,7 @@ for _ in range(3):
     seeder.insert_data_to_database()
 
 
-    
+
 """
 data = seeder.generate_random_data()
 print(data)

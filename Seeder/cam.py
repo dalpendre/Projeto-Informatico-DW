@@ -238,3 +238,5 @@ for index, row in dataset_data.iterrows():
 
     seeder.generate_insert_data_to_database(timestamp, latitude, longitude, altitude, time_key, segment_key, dataset_num_lines)
     print(index, timestamp, latitude, longitude, altitude)
+    if index == 2:
+        break   #test purpose

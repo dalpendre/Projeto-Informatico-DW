@@ -5,7 +5,7 @@ from psycopg2 import Error
 
 import constants
 
-def insert_data_to_database(data):
+def insert_data_to_database(data, road_key):
     try:
         connection = psycopg2.connect(
             user=constants.username,
@@ -25,7 +25,7 @@ def insert_data_to_database(data):
 
         for record in data:
             values = (
-                record['road_key'],
+               road_key,
                 record['segment_name'],
                 record['segment_type'],
                 record['segment_length'],
@@ -50,7 +50,7 @@ class Segment:
     def __init__(self, property_ranges):
         self.property_ranges = property_ranges
         #self.current_segment_key = property_ranges.get("segment_key", [])[1] - 1  # Initialize with the previous value
-        self.current_road_key = property_ranges.get("road_key", [])[1] - 1  # Initialize with the previous value
+        #self.current_road_key = property_ranges.get("road_key", [])[1] - 1  # Initialize with the previous value
 
     def generate_random_data(self):
         generated_data = {}
@@ -87,13 +87,13 @@ class Segment:
             seeders.append(seeder)
         return seeders
 
-    def insert_data_to_database(self):
+    def insert_data_to_database(self, road_key):
         data = self.generate_random_data()
-        insert_data_to_database([data])
+        insert_data_to_database([data], road_key)
 
 property_ranges = {
     #"segment_key": ["int", 1, sys.maxsize],
-    "road_key": ["int", 1, sys.maxsize],
+    #"road_key": ["int", 1, sys.maxsize],
     "segment_name": ["choice", "...", "..."],
     "segment_type": ["choice", "...", "..."],
     "segment_length": ["int", 0, 1],
@@ -102,14 +102,38 @@ property_ranges = {
     "end_point": ["float", 1, sys.maxsize],
 }
 
+def get_last_entry(key, table_name):
+    conn = psycopg2.connect(
+        host=constants.host,
+        database=constants.db_name,
+        user=constants.username,
+        password=constants.password
+    )
+    cursor = conn.cursor()
+
+    # Assuming your table name is "your_table_name" and the primary key column is "id"
+    query = "SELECT " + key + " FROM " + table_name + " ORDER BY " + key + " DESC LIMIT 1;"
+
+    cursor.execute(query)
+    result = cursor.fetchone()
+
+    conn.close()
+
+    if result:
+        return result[0]  # Assuming primary key is a single value
+    else:
+        return None
+
 def main():
     # Create a Seeder instance
     seeder = Segment(property_ranges)
 
+    road_key = get_last_entry("road_key", "t_road")
+
     # Generate and print example data
     for _ in range(1):
-        data = seeder.insert_data_to_database()
+        data = seeder.insert_data_to_database(road_key)
 
         return data
 
-#main()
+main()
