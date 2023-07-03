@@ -31,10 +31,10 @@ def table_extract(table_name):
     try:
         conn = pg.connect(
             database=constants.source_db_name,
-            user=constants.db_user,
-            password=constants.db_pass,
-            host=constants.db_ip_address,
-            port=constants.postgres_port
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port
         )
         # print("Connection to PostgreSQL database is successful")
         cursor = conn.cursor()
@@ -76,7 +76,7 @@ def extract_cam_data():
 
     #convert table values to correspondent dw table values
     for row in cam_data:
-        cam_key = row[0]
+        #cam_key = row[0]
         time_key = row[1]
         segment_key = row[2]
         station_id = row[3]
@@ -222,7 +222,7 @@ def extract_cam_data():
         elif stationary_since == 3:
             stationary_since = "equalOrGreater15Minutes"
 
-        cam_message = CamMessage(cam_key, time_key, segment_key, station_id, latitude, longitude, altitude, speed, heading, acceleration, station_type, vehicle_role, time_stamp, type_of_fuel, brakePedalEngaged,
+        cam_message = CamMessage(time_key, segment_key, station_id, latitude, longitude, altitude, speed, heading, acceleration, station_type, vehicle_role, time_stamp, type_of_fuel, brakePedalEngaged,
         gasPedalEngaged, emergencyBrakeEngaged, collisionWarningEngaged, accEngaged, cruiseControlEngaged, speedLimiterEngaged, stationary_since)
 
         #create CAM message
@@ -838,21 +838,22 @@ def insert_into_data_table(table_name, data):
     try:
         conn = pg.connect(
             database=constants.dsa_db_name,
-            user=constants.db_user,
-            password=constants.db_pass,
-            host=constants.db_ip_address,
-            port=constants.postgres_port
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port
         )
         cursor = conn.cursor()
 
-        #insert data into table
+        # Insert data into table
         # Execute the query for each set of values
         for row in data:
-            # Extract object properties dynamically
+            # Extract object properties dynamically excluding 'cam_key'
             properties = inspect.getmembers(row, lambda x: not (inspect.isroutine(x)))
             property_values = [value for name, value in properties if
-                               not name.startswith('__') and not name.endswith('__')]
-            column_names = [name for name, _ in properties if not name.startswith('__') and not name.endswith('__')]
+                               not name.startswith('__') and not name.endswith('__') and name != 'cam_key']
+            column_names = [name for name, _ in properties if
+                            not name.startswith('__') and not name.endswith('__') and name != 'cam_key']
 
             # Construct the SQL query dynamically based on property count
             placeholders = ','.join(['%s'] * len(property_values))
@@ -866,7 +867,7 @@ def insert_into_data_table(table_name, data):
         conn.commit()
 
     except pg.Error as e:
-        print("Error: Could not make connection to the Postgres database")
+        print("Error: Could not make a connection to the Postgres database (extract)")
         print(e)
 
     finally:
@@ -880,10 +881,10 @@ def truncate_data_tables():
     # Connect to the PostgreSQL database
     conn = pg.connect(
         database=constants.dsa_db_name,
-        user=constants.db_user,
-        password=constants.db_pass,
-        host=constants.db_ip_address,
-        port=constants.postgres_port
+        user=constants.username,
+        password=constants.password,
+        host=constants.host,
+        port=constants.port
     )
 
     # Create a cursor object to execute SQL queries
@@ -911,7 +912,7 @@ def truncate_data_tables():
         cursor.close()
         conn.close()
 
-truncate_data_tables()
+#truncate_data_tables()
 
 extract_road_event_data()
 extract_road_sign_data()
