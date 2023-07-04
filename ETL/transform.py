@@ -1,4 +1,4 @@
-#load from t_data tables and transform incorrect or bad data
+#load from t_data tables and clean incorrect or bad data
 
 import psycopg2
 
