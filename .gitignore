@@ -131,3 +131,4 @@ dmypy.json
 .idea/workspace.xml
 
 ETL/constants.py
+Seeder/constants.py
