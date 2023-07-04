@@ -1211,6 +1211,8 @@ def insert_into_t_data_ivim_table(table_name, data):
 
 #truncate_data_tables()
 
+print(colors.bcolors.HEADER + "EXTRACT " + colors.bcolors.ENDC)
+
 extract_road_event_data()
 extract_road_sign_data()
 extract_event_data()
