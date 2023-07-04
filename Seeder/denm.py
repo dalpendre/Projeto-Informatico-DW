@@ -42,11 +42,11 @@ def insert_data_to_database(data):
                 vehicle_break_down_sub_cause, post_crash_sub_cause, human_presence_on_the_road_sub_cause,
                 adverse_weather_condition_extreme_weather_condition_sub_cause, adverse_weather_condition_adhesion_sub_cause,
                 adverse_weather_condition_visibility_sub_cause, adverse_weather_condition_precipitation_sub_cause,
-                emergency_vehicle_approaching_sub_cause, hazardous_location_surface_condition_sub_cause,
+                emergency_vehicle_approaching_sub_cause, hazardous_location_dangerous_curve_sub_cause, hazardous_location_surface_condition_sub_cause,
                 hazardous_location_obstacle_on_the_road_sub_cause, hazardous_location_animal_on_the_road_sub_cause,
                 rescue_and_recovery_work_in_progress_sub_cause, dangerous_end_of_queue_sub_cause
             ) 
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
 
         for record in data:
@@ -83,6 +83,7 @@ def insert_data_to_database(data):
                 record['adverse_weather_condition_visibility_sub_cause'],
                 record['adverse_weather_condition_precipitation_sub_cause'],
                 record['emergency_vehicle_approaching_sub_cause'],
+                record['hazardous_location_dangerous_curve_sub_cause'],
                 record['hazardous_location_surface_condition_sub_cause'],
                 record['hazardous_location_obstacle_on_the_road_sub_cause'],
                 record['hazardous_location_animal_on_the_road_sub_cause'],
@@ -191,14 +192,15 @@ property_ranges = {
     "post_crash_sub_cause": ["int", 0, 4],
 }
 
-# Create a Seeder instance
-seeder = Denm(property_ranges)
+def main():
+    # Create a Seeder instance
+    seeder = Denm(property_ranges)
 
-# Generate and print example data
-for _ in range(3):
-    seeder.insert_data_to_database()
+    # Generate and print example data
+    for _ in range(3):
+        seeder.insert_data_to_database()
 
-
+main()
 
 """
 data = seeder.generate_random_data()

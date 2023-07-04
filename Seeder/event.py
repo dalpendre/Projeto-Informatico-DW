@@ -135,7 +135,10 @@ def main():
     for _ in range(1):
         data = seeder.insert_data_to_database()
 
+
     return data
+
+main()
 
 """
 data = seeder.generate_random_data()
