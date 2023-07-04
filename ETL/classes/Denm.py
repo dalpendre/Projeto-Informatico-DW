@@ -1,7 +1,7 @@
 class DenmMessage:
-    def __init__(self, denm_key, time_key, road_event_key, time_stamp, latitude, longitude, altitude, cause, traffic_cause,
+    def __init__(self, time_key, road_event_key, time_stamp, latitude, longitude, altitude, cause, traffic_cause,
                  accident_sub_cause, roadworks_sub_cause, human_presence_on_the_road_sub_cause, wrong_way_driving_sub_cause,
-                 adverse_weather_condition_extreme_weather_condition_subCause, adverse_weather_condition_adhesion_sub_cause,
+                 adverse_weather_condition_extreme_weather_condition_sub_cause, adverse_weather_condition_adhesion_sub_cause,
                  adverse_weather_condition_visibility_sub_cause, adverse_weather_condition_precipitation_sub_cause,
                  slow_vehicle_sub_cause, stationary_vehicle_sub_cause, human_problem_sub_cause,
                  emergency_vehicle_approaching_sub_cause, hazardous_location_dangerous_curve_sub_cause,
@@ -9,7 +9,6 @@ class DenmMessage:
                  hazardous_location_animal_on_the_road_sub_cause, collision_risk_sub_cause, signal_violation_sub_cause,
                  rescue_and_recovery_work_in_progress_sub_cause, dangerous_end_of_queue_sub_cause, dangerous_situation_sub_cause,
                  vehicle_breakdown_sub_cause, post_crash_sub_cause):
-        self.denm_key = denm_key
         self.time_key = time_key
         self.road_event_key = road_event_key
         self.time_stamp = time_stamp
@@ -22,7 +21,8 @@ class DenmMessage:
         self.roadworks_sub_cause = roadworks_sub_cause
         self.human_presence_on_the_road_sub_cause = human_presence_on_the_road_sub_cause
         self.wrong_way_driving_sub_cause = wrong_way_driving_sub_cause
-        self.adverse_weather_condition_extreme_weather_condition_subCause = adverse_weather_condition_extreme_weather_condition_subCause
+        self.adverse_weather_condition_extreme_weather_condition_sub_cause = \
+            adverse_weather_condition_extreme_weather_condition_sub_cause
         self.adverse_weather_condition_adhesion_sub_cause = adverse_weather_condition_adhesion_sub_cause
         self.adverse_weather_condition_visibility_sub_cause = adverse_weather_condition_visibility_sub_cause
         self.adverse_weather_condition_precipitation_sub_cause = adverse_weather_condition_precipitation_sub_cause

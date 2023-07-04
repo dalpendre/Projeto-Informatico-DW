@@ -76,7 +76,6 @@ def extract_cam_data():
 
     #convert table values to correspondent dw table values
     for row in cam_data:
-        #cam_key = row[0]
         time_key = row[1]
         segment_key = row[2]
         station_id = row[3]
@@ -228,7 +227,7 @@ def extract_cam_data():
         #create CAM message
         cam_values.add(cam_message)
 
-    insert_into_data_table("t_data_cam", cam_values)
+    insert_into_t_data_cam_table("t_data_cam", cam_values)
 
 def extract_denm_data():
     print(colors.bcolors.HEADER + "Extracting DENM data from source database..." + colors.bcolors.ENDC)
@@ -237,7 +236,6 @@ def extract_denm_data():
     denm_values = set()
 
     for row in denm_data:
-        denm_key = row[0]
         time_key = row[1]
         road_event_key = row[2]
         time_stamp = row[3]
@@ -250,7 +248,7 @@ def extract_denm_data():
         roadworks_sub_cause = row[10]
         human_presence_on_the_road_sub_cause = row[11]
         wrong_way_driving_sub_cause = row[12]
-        adverse_weather_condition_extreme_weather_condition_subCause = row[13]
+        adverse_weather_condition_extreme_weather_condition_sub_cause = row[13]
         adverse_weather_condition_adhesion_sub_cause = row[14]
         adverse_weather_condition_visibility_sub_cause = row[15]
         adverse_weather_condition_precipitation_sub_cause = row[16]
@@ -661,9 +659,9 @@ def extract_denm_data():
         elif post_crash_sub_cause == 4:
             post_crash_sub_cause = "accidentWithECallTriggeredWithoutAccessToCellularNetwork"
 
-        denm_message = DenmMessage(denm_key, time_key, road_event_key, time_stamp, latitude, longitude, altitude, cause, traffic_cause, accident_sub_cause, roadworks_sub_cause, human_presence_on_the_road_sub_cause, wrong_way_driving_sub_cause, adverse_weather_condition_extreme_weather_condition_subCause, adverse_weather_condition_adhesion_sub_cause, adverse_weather_condition_visibility_sub_cause, adverse_weather_condition_precipitation_sub_cause, slow_vehicle_sub_cause, stationary_vehicle_sub_cause, human_problem_sub_cause, emergency_vehicle_approaching_sub_cause, hazardous_location_dangerous_curve_sub_cause, hazardous_location_surface_condition_sub_cause, hazardous_location_obstacle_on_the_road_sub_cause, hazardous_location_animal_on_the_road_sub_cause, collision_risk_sub_cause, signal_violation_sub_cause, rescue_and_recovery_work_in_progress_sub_cause, dangerous_end_of_queue_sub_cause, dangerous_situation_sub_cause, vehicle_breakdown_sub_cause, post_crash_sub_cause)
+        denm_message = DenmMessage(time_key, road_event_key, time_stamp, latitude, longitude, altitude, cause, traffic_cause, accident_sub_cause, roadworks_sub_cause, human_presence_on_the_road_sub_cause, wrong_way_driving_sub_cause, adverse_weather_condition_extreme_weather_condition_sub_cause, adverse_weather_condition_adhesion_sub_cause, adverse_weather_condition_visibility_sub_cause, adverse_weather_condition_precipitation_sub_cause, slow_vehicle_sub_cause, stationary_vehicle_sub_cause, human_problem_sub_cause, emergency_vehicle_approaching_sub_cause, hazardous_location_dangerous_curve_sub_cause, hazardous_location_surface_condition_sub_cause, hazardous_location_obstacle_on_the_road_sub_cause, hazardous_location_animal_on_the_road_sub_cause, collision_risk_sub_cause, signal_violation_sub_cause, rescue_and_recovery_work_in_progress_sub_cause, dangerous_end_of_queue_sub_cause, dangerous_situation_sub_cause, vehicle_breakdown_sub_cause, post_crash_sub_cause)
         denm_values.add(denm_message)
-    insert_into_data_table("t_data_denm", denm_values)
+    insert_into_t_data_denm_table("t_data_denm", denm_values)
 
 def extract_event_data():
     print(colors.bcolors.HEADER + "Extracting EVENT data from source database..." + colors.bcolors.ENDC)
@@ -672,13 +670,12 @@ def extract_event_data():
     event_values = set()
 
     for row in event_data:
-        event_key = row[0]
         designation = row[1]
         start_time = row[2]
         end_time = row[3]
         flag_single_day_event = row[4]
 
-        event = Event(event_key, designation, start_time, end_time, flag_single_day_event)
+        event = Event(designation, start_time, end_time, flag_single_day_event)
         event_values.add(event)
 
     insert_into_data_table("t_data_event", event_values)
@@ -689,7 +686,6 @@ def extract_ivim_data():
 
     ivim_values = set()
     for row in ivim_data:
-        ivim_key = row[0]
         road_sign_key = row[1]
         zone_key = row[2]
         latitude = row[3]
@@ -704,10 +700,10 @@ def extract_ivim_data():
         factor = 0.01
         altitude = altitude * factor
 
-        ivim = IvimMessage(ivim_key, road_sign_key, zone_key, latitude, longitude, altitude)
+        ivim = IvimMessage(road_sign_key, zone_key, latitude, longitude, altitude)
         ivim_values.add(ivim)
 
-    insert_into_data_table("t_data_ivim", ivim_values)
+    insert_into_t_data_ivim_table("t_data_ivim", ivim_values)
 
 def extract_road_data():
     print(colors.bcolors.HEADER + "Extracting ROAD data from source database..." + colors.bcolors.ENDC)
@@ -716,7 +712,6 @@ def extract_road_data():
     road_values = set()
 
     for row in road_data:
-        road_key = row[0]
         road_name = row[1]
         road_type = row[2]
         road_length = row[3]
@@ -724,7 +719,7 @@ def extract_road_data():
         start_point = row[5]
         end_point = row[6]
 
-        road = Road(road_key, road_name, road_type, road_length, number_of_lanes, start_point, end_point)
+        road = Road(road_name, road_type, road_length, number_of_lanes, start_point, end_point)
         road_values.add(road)
 
     insert_into_data_table("t_data_road", road_values)
@@ -737,13 +732,12 @@ def extract_road_event_data():
 
     #convert table values to correspondent dw table values
     for row in road_event_data:
-        road_event_key = row[0]
         description = row[1]
         severity = row[2]
         status = row[3]
         impact_level = row[4]
 
-        road_event = RoadEvent(road_event_key, description, severity, status, impact_level)
+        road_event = RoadEvent(description, severity, status, impact_level)
         road_event_values.add(road_event)
 
     insert_into_data_table("t_data_road_event", road_event_values)
@@ -755,14 +749,13 @@ def extract_road_sign_data():
     road_sign_values = set()
 
     for row in road_sign_data:
-        road_sign_key = row[0]
         road_sign_description = row[1]
         road_sign_code = row[2]
         road_sign_symbol = row[3]
         road_sign_class = row[4]
         road_sign_visibility = row[5]
 
-        road_sign = RoadSign(road_sign_key, road_sign_description, road_sign_code, road_sign_symbol, road_sign_class, road_sign_visibility)
+        road_sign = RoadSign(road_sign_description, road_sign_code, road_sign_symbol, road_sign_class, road_sign_visibility)
         road_sign_values.add(road_sign)
 
     insert_into_data_table("t_data_road_sign", road_sign_values)
@@ -774,7 +767,6 @@ def extract_segment_data():
     segment_values = set()
 
     for row in segment_data:
-        segment_key = row[0]
         road_key = row[1]
         segment_name = row[2]
         segment_type = row[3]
@@ -783,10 +775,10 @@ def extract_segment_data():
         start_point = row[6]
         end_point = row[7]
 
-        segment = Segment(segment_key, road_key, segment_name, segment_type, segment_length, number_of_lanes, start_point, end_point)
+        segment = Segment(road_key, segment_name, segment_type, segment_length, number_of_lanes, start_point, end_point)
         segment_values.add(segment)
 
-    insert_into_data_table("t_data_segment", segment_values)
+    insert_into_t_data_segment_table("t_data_segment", segment_values)
 
 def extract_time_data():
     print(colors.bcolors.HEADER + "Extracting TIME data from source database..." + colors.bcolors.ENDC)
@@ -794,7 +786,6 @@ def extract_time_data():
 
     time_values = set()
     for row in time_data:
-        time_key = row[0]
         event_key = row[1]
         c_day = row[2]
         c_month = row[3]
@@ -808,11 +799,10 @@ def extract_time_data():
         season = row[11]
         full_date_description = row[12]
 
-        time = Time(time_key, event_key, c_day, c_month, c_year, weekend_day, week_day_number, week_day_name, is_holiday,
-                         trimester, semester, season, full_date_description)
+        time = Time(event_key, c_day, c_month, c_year, weekend_day, week_day_number, week_day_name, is_holiday, trimester, semester, season, full_date_description)
         time_values.add(time)
 
-    insert_into_data_table("t_data_time", time_values)
+    insert_into_t_data_time_table("t_data_time", time_values)
 
 def extract_zone_data():
     print(colors.bcolors.HEADER + "Extracting ZONE data from source database..." + colors.bcolors.ENDC)
@@ -820,13 +810,12 @@ def extract_zone_data():
 
     zone_values = set()
     for row in zone_data:
-        zone_key = row[0]
         zone_name = row[1]
         zone_type = row[2]
         zone_description = row[3]
         zone_area = row[4]
 
-        zone = Zone(zone_key, zone_name, zone_type, zone_description, zone_area)
+        zone = Zone(zone_name, zone_type, zone_description, zone_area)
         zone_values.add(zone)
 
     insert_into_data_table("t_data_zone", zone_values)
@@ -848,12 +837,268 @@ def insert_into_data_table(table_name, data):
         # Insert data into table
         # Execute the query for each set of values
         for row in data:
-            # Extract object properties dynamically excluding 'cam_key'
+            # Extract object properties dynamically excluding primary key
             properties = inspect.getmembers(row, lambda x: not (inspect.isroutine(x)))
             property_values = [value for name, value in properties if
-                               not name.startswith('__') and not name.endswith('__') and name != 'cam_key']
+                               not name.startswith('__') and not name.endswith('__') and not name.endswith('_key')]
             column_names = [name for name, _ in properties if
-                            not name.startswith('__') and not name.endswith('__') and name != 'cam_key']
+                            not name.startswith('__') and not name.endswith('__') and not name.endswith('_key')]
+
+            # Construct the SQL query dynamically based on property count
+            placeholders = ','.join(['%s'] * len(property_values))
+            column_list = ','.join(column_names)
+            query = f"INSERT INTO {table_name} ({column_list}) VALUES ({placeholders})"
+
+            # Execute the query with object property values
+            cursor.execute(query, property_values)
+
+        # Commit the changes to the database
+        conn.commit()
+
+    except pg.Error as e:
+        print("Error: Could not make a connection to the Postgres database (extract)")
+        print(e)
+
+    finally:
+        # Close the cursor and connection
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+def insert_into_t_data_time_table(table_name, data):
+    conn = None
+    cursor = None
+
+    try:
+        conn = pg.connect(
+            database=constants.dsa_db_name,
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port
+        )
+        cursor = conn.cursor()
+
+        # Insert data into table
+        # Execute the query for each set of values
+        for row in data:
+            # Extract object properties dynamically excluding primary key
+            properties = inspect.getmembers(row, lambda x: not (inspect.isroutine(x)))
+            property_values = [value for name, value in properties if
+                               not name.startswith('__') and not name.endswith('__') and not name.endswith('_key')]
+            column_names = [name for name, _ in properties if
+                            not name.startswith('__') and not name.endswith('__') and not name.endswith('_key')]
+
+            # Include the event_key column
+            column_names.append('event_key')
+            property_values.append(row.event_key)
+
+            # Construct the SQL query dynamically based on property count
+            placeholders = ','.join(['%s'] * len(property_values))
+            column_list = ','.join(column_names)
+            query = f"INSERT INTO {table_name} ({column_list}) VALUES ({placeholders})"
+
+            # Execute the query with object property values
+            cursor.execute(query, property_values)
+
+        # Commit the changes to the database
+        conn.commit()
+
+    except pg.Error as e:
+        print("Error: Could not make a connection to the Postgres database (extract)")
+        print(e)
+
+    finally:
+        # Close the cursor and connection
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+def insert_into_t_data_segment_table(table_name, data):
+    conn = None
+    cursor = None
+
+    try:
+        conn = pg.connect(
+            database=constants.dsa_db_name,
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port
+        )
+        cursor = conn.cursor()
+
+        # Insert data into table
+        # Execute the query for each set of values
+        for row in data:
+            # Extract object properties dynamically excluding primary key
+            properties = inspect.getmembers(row, lambda x: not (inspect.isroutine(x)))
+            property_values = [value for name, value in properties if
+                               not name.startswith('__') and not name.endswith('__') and not name.endswith('_key')]
+            column_names = [name for name, _ in properties if
+                            not name.startswith('__') and not name.endswith('__') and not name.endswith('_key')]
+
+            # Include the event_key column
+            column_names.append('road_key')
+            property_values.append(row.road_key)
+
+            # Construct the SQL query dynamically based on property count
+            placeholders = ','.join(['%s'] * len(property_values))
+            column_list = ','.join(column_names)
+            query = f"INSERT INTO {table_name} ({column_list}) VALUES ({placeholders})"
+
+            # Execute the query with object property values
+            cursor.execute(query, property_values)
+
+        # Commit the changes to the database
+        conn.commit()
+
+    except pg.Error as e:
+        print("Error: Could not make a connection to the Postgres database (extract)")
+        print(e)
+
+    finally:
+        # Close the cursor and connection
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+def insert_into_t_data_cam_table(table_name, data):
+    conn = None
+    cursor = None
+
+    try:
+        conn = pg.connect(
+            database=constants.dsa_db_name,
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port
+        )
+        cursor = conn.cursor()
+
+        # Insert data into table
+        # Execute the query for each set of values
+        for row in data:
+            # Extract object properties dynamically excluding primary key
+            properties = inspect.getmembers(row, lambda x: not (inspect.isroutine(x)))
+            property_values = [value for name, value in properties if
+                               not name.startswith('__') and not name.endswith('__') and not name.endswith('_key')]
+            column_names = [name for name, _ in properties if
+                            not name.startswith('__') and not name.endswith('__') and not name.endswith('_key')]
+
+            # Include the event_key column
+            column_names.append('time_key')
+            property_values.append(row.time_key)
+            column_names.append('segment_key')
+            property_values.append(row.segment_key)
+
+            # Construct the SQL query dynamically based on property count
+            placeholders = ','.join(['%s'] * len(property_values))
+            column_list = ','.join(column_names)
+            query = f"INSERT INTO {table_name} ({column_list}) VALUES ({placeholders})"
+
+            # Execute the query with object property values
+            cursor.execute(query, property_values)
+
+        # Commit the changes to the database
+        conn.commit()
+
+    except pg.Error as e:
+        print("Error: Could not make a connection to the Postgres database (extract)")
+        print(e)
+
+    finally:
+        # Close the cursor and connection
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+def insert_into_t_data_cam_table(table_name, data):
+    conn = None
+    cursor = None
+
+    try:
+        conn = pg.connect(
+            database=constants.dsa_db_name,
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port
+        )
+        cursor = conn.cursor()
+
+        # Insert data into table
+        # Execute the query for each set of values
+        for row in data:
+            # Extract object properties dynamically excluding primary key
+            properties = inspect.getmembers(row, lambda x: not (inspect.isroutine(x)))
+            property_values = [value for name, value in properties if
+                               not name.startswith('__') and not name.endswith('__') and not name.endswith('_key')]
+            column_names = [name for name, _ in properties if
+                            not name.startswith('__') and not name.endswith('__') and not name.endswith('_key')]
+
+            # Include the event_key column
+            column_names.append('time_key')
+            property_values.append(row.time_key)
+            column_names.append('segment_key')
+            property_values.append(row.segment_key)
+
+            # Construct the SQL query dynamically based on property count
+            placeholders = ','.join(['%s'] * len(property_values))
+            column_list = ','.join(column_names)
+            query = f"INSERT INTO {table_name} ({column_list}) VALUES ({placeholders})"
+
+            # Execute the query with object property values
+            cursor.execute(query, property_values)
+
+        # Commit the changes to the database
+        conn.commit()
+
+    except pg.Error as e:
+        print("Error: Could not make a connection to the Postgres database (extract)")
+        print(e)
+
+    finally:
+        # Close the cursor and connection
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+def insert_into_t_data_denm_table(table_name, data):
+    conn = None
+    cursor = None
+
+    try:
+        conn = pg.connect(
+            database=constants.dsa_db_name,
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port
+        )
+        cursor = conn.cursor()
+
+        # Insert data into table
+        # Execute the query for each set of values
+        for row in data:
+            # Extract object properties dynamically excluding primary key
+            properties = inspect.getmembers(row, lambda x: not (inspect.isroutine(x)))
+            property_values = [value for name, value in properties if
+                               not name.startswith('__') and not name.endswith('__') and not name.endswith('_key')]
+            column_names = [name for name, _ in properties if
+                            not name.startswith('__') and not name.endswith('__') and not name.endswith('_key')]
+
+            # Include the event_key column
+            column_names.append('time_key')
+            property_values.append(row.time_key)
+            column_names.append("road_event_key")
+            property_values.append(row.road_event_key)
 
             # Construct the SQL query dynamically based on property count
             placeholders = ','.join(['%s'] * len(property_values))
@@ -911,6 +1156,58 @@ def truncate_data_tables():
         # Close the cursor and connection
         cursor.close()
         conn.close()
+
+def insert_into_t_data_ivim_table(table_name, data):
+    conn = None
+    cursor = None
+
+    try:
+        conn = pg.connect(
+            database=constants.dsa_db_name,
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port
+        )
+        cursor = conn.cursor()
+
+        # Insert data into table
+        # Execute the query for each set of values
+        for row in data:
+            # Extract object properties dynamically excluding primary key
+            properties = inspect.getmembers(row, lambda x: not (inspect.isroutine(x)))
+            property_values = [value for name, value in properties if
+                               not name.startswith('__') and not name.endswith('__') and not name.endswith('_key')]
+            column_names = [name for name, _ in properties if
+                            not name.startswith('__') and not name.endswith('__') and not name.endswith('_key')]
+
+            # Include the event_key column
+            column_names.append('road_sign_key')
+            property_values.append(row.road_sign_key)
+            column_names.append("zone_key")
+            property_values.append(row.zone_key)
+
+            # Construct the SQL query dynamically based on property count
+            placeholders = ','.join(['%s'] * len(property_values))
+            column_list = ','.join(column_names)
+            query = f"INSERT INTO {table_name} ({column_list}) VALUES ({placeholders})"
+
+            # Execute the query with object property values
+            cursor.execute(query, property_values)
+
+        # Commit the changes to the database
+        conn.commit()
+
+    except pg.Error as e:
+        print("Error: Could not make a connection to the Postgres database (extract)")
+        print(e)
+
+    finally:
+        # Close the cursor and connection
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 #truncate_data_tables()
 
