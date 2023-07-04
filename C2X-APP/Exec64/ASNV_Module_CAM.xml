@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+n ﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <module asnv-version="1" entry-point="CAM" name="CAM" tags="automatic">
   <sequence name="ItsPduHeader">
     <field name="protocolVersion" type="$ItsPduHeader$protocolVersion" init="2"/>

@@ -1,0 +1,21 @@
+CAM fact table
+
+StationType – ID do veículo que emite a mensagem
+VehicleRole – função do veículo na estrada (normal, resgate, emergência, etc…)
+
+DENM fact table             
+
+SourceID – ID do dispositivo emissor
+DestinationID – ID do dispositivo recetor
+
+IVIM fact table
+
+CommandType – Meio de comunicação (envio) das mensagens (wifi, ethernet, bluetooth, etc...)
+
+RoadSign dim table
+
+Class – Classe do sinal (proibição, aviso, etc….)
+
+RoadEvent
+
+ImpactLevel – Nível de impacto na circulação (baixo, médio, alto)

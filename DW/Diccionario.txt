@@ -1,0 +1,150 @@
+Dimension Time:
+
+|Atribute||DataType||Range|
+
+TimeKey -> INT | {0-infinite}
+EventKey -> INT | {0-infinite}
+Day -> INT | {1,31}
+Month -> INT | {1,12}
+Year -> INT | {2023,infinito}
+IsWeekendDay -> BOOL | {True,False}
+IsHoliday -> BOOL | {True,False}
+Trimester -> INT | {1,3}
+Semester -> INT | {1,2}
+WeekDayNumber -> INT | {1,7}
+WeekDayName -> VARCHAR | {'Sunday','Monday',...}
+Season -> VARCHAR | {'Winter','Spring','Summer','Autumn'}
+FullDateDescription -> VARCHAR | (e.g) {'13 January 2023'}
+
+Dimension Event:
+
+|Atribute||DataType||Range|
+
+EventKey -> INT | {0-infinite}
+Designation -> VARCHAR | {'This event is ....'}
+StartTime -> FLOAT | {00:00, 23:59}
+EndTime -> FLOAT | {00:00, 23:59}
+FlagSingleDayEvent -> BOOL | {True,False}
+
+Dimension Road:
+
+|Atribute||DataType||Range|
+
+RoadKey -> INT | {0-infinite}
+RoadName -> VARCHAR | {'Name...'}
+RoadType -> VARCHAR | {'Highway...'}
+RoadLength -> INT | {0,infinite}
+NumberOfLanes -> INT | {1,infinite}
+StartPoint -> FLOAT | {}
+EndPoint -> FLOAT | {}
+
+Dimension Segment:
+
+|Atribute||DataType||Range|
+
+SegmentKey -> INT | {0-infinito}
+RoadKey -> INT | {0-infinito}
+StartPoint -> FLOAT | {Latitude -> INT | {-900000000,900000001},Longitude -> INT | {-1800000000,1800000000}, Altitude -> INT | {-100000,100000}}
+EndPoint -> FLOAT | {Latitude -> INT | {-900000000,900000001},Longitude -> INT | {-1800000000,1800000000}, Altitude -> INT | {-100000,100000}}
+SegmentLength -> FLOAT | {0,100}
+SegmentName -> VARCHAR | {'Name...'}
+SegmentType -> VARCHAR | {'Type...'}
+NumberOfLanes -> INT | {1,infinite}
+
+Dimension RoadEvent:
+
+|Atribute||DataType||Range|
+
+RoadEventKey -> INT | {0-infinito}
+Description -> VARCHAR | {'...'}
+Severity -> INT | {1,10}
+Status -> VARCHAR | {'in progress', 'resolved'}
+ImpactLevel -> VARCHAR | {'very-low','low','medium','high','very-high'}
+
+Dimension Zone:
+
+|Atribute||DataType||Range|
+
+ZoneKey -> INT | {0-infinite}
+ZoneName -> VARCHAR | {'Name...'}
+ZoneType -> VARCHAR | {'Type...'}
+ZoneDescription -> VARCHAR | {'...'}
+ZoneArea ->VARCHAR | {'...'}
+
+DENM Fact Table:
+
+|Atribute||DataType||Range|
+
+DENMKey -> INT | {0-infinite}
+RoadEventKey -> INT | {0-infinite}
+TimeKey -> INT | {0-infinite}
+Heading -> INT | {0,3601}
+TimeStamp -> INT | {0,4398046511103}
+Latitude -> INT | {-900000000,900000001}
+Longitude -> INT | {-1800000000,1800000000}
+Altitude -> INT | {-100000,100000}
+Cause -> STRING | {reserved, trafficCondition, accident, roadworks, impassability, adverseWeatherCondition_Adhesion, aquaplannning, hazardousLocation_SurfaceCondition, hazardousLocation_ObstacleOnTheRoad, hazardousLocation_AnimalOnTheRoad, humanPresenceOnTheRoad, wrongWayDriving, rescueAndRecoveryWorkInProgress, adverseWeatherCondition_ExtremeWeatherCondition, adverseWeatherCondition_Visibility, adverseWeatherCondition_Precipitation, slowVehicle, dangerousEndOfQueue, vehicleBreakdown, postCrash, humanProblem, stationaryVehicle, emergencyVehicleApproaching, hazardousLocation_DangerousCurve, collisionRisk, signalViolation, dangerousSituation}
+TrafficCause -> STRING | {unavailable, increasedVolumeOfTraffic, trafficJamSlowlyIncreasing, trafficJamIncreasing, trafficJamStronglyIncreasing, trafficStationary, trafficJamSlightlyDecreasing, trafficJamDecreasing, trafficJamStronglyDecreasing}
+AccidentSubCause -> STRING | {unavailable, multiVehicleAccident, heavyAccident, accidentInvolvingLorry, accidentInvolvingBus, accidentInvolvingHazardousMaterials, accidentOnOppositeLane, unsecuredAccident, assistanceRequested}
+RoadworksSubCause -> STRING | {unavailable, majorRoadworks, roadMarkingWork, slowMovingRoadMaintenance, shortTermStationaryRoadworks, streetCleaning, winterService}
+HumanPresenceOnTheRoadSubCause -> STRING | {unavailable, childrenOnRoadway, cyclistOnRoadway, motorcyclistOnRoadway}
+WrongWayDrivingSubCause -> STRING | {unavailable, wrongLane, wrongDirection}
+AdverseWeatherCondition_ExtremeWeatherConditionSubCause -> STRING | {unavailable, strongWinds, damagingHail, hurricane, thunderstorm, tornado, blizzard}
+AdverseWeatherCondition_AdhesionSubCause -> STRING | {unavailable, heavyFrostOnRoad, fuelOnRoad, mudOnRoad, snowOnRoad, iceOnRoad, blackIceOnRoad, oilOnRoad, looseChippings, instantBlackIce, roadsSalted}, 
+AdverseWeatherCondition_VisibilitySubCause -> STRING | {unavailable, fog, smoke, heavySnowfall, heavyRain, heavyHail, lowSunGlare, sandstorms, swarmsOfInsects}
+AdverseWeatherCondition_PrecipitationSubCause -> STRING | {heavyRain, heavySnowfall, softHail},
+SlowVehicleSubCause -> STRING | {unavailable, maintenanceVehicle, vehiclesSlowingToLookAtAccident, abnormalLoad, abnormalWideLoad, convoy, snowplough
+deicing, saltingVehicles}
+StationaryVehicleSubCause -> STRING | {unavailable, humanProblem, vehicleBreakdown, postCrash, publicTransportStop, carryingDangerousGoods}
+HumanProblemSubCause -> STRING | {unavailable, glycemiaProblem, heartProblem}
+EmergencyVehicleApproachingSubCause -> STRING | {unavailable, emergencyVehicleApproaching, prioritizedVehicleApproaching}
+HazardousLocation_DangerousCurveSubCause -> STRING | {unavailable, dangerousLeftTurnCurve, dangerousRightTurnCurve,
+multipleCurvesStartingWithUnknownTurningDirection, multipleCurvesStartingWithLeftTurn, multipleCurvesStartingWithRightTurn}
+HazardousLocation_SurfaceConditionSubCause -> STRING | {unavailable, rockfalls, earthquakeDamage, sewerCollapse, subsidence, snowDrifts,
+stormDamage, burstPipe, volcanoEruption, fallingIce}
+HazardousLocation_ObstacleOnTheRoadSubCause -> STRING | {unavailable, shedLoad, partsOfVehicles, partsOfTyres, bigObjects, fallenTrees
+hubCaps, waitingVehicles}
+HazardousLocation_AnimalOnTheRoadSubCause -> STRING | {unavailable, wildAnimals, herdOfAnimals, smallAnimals, largeAnimals}
+CollisionRiskSubCause -> STRING | {unavailable, longitudinalCollisionRisk, crossingCollisionRisk, lateralCollisionRisk, vulnerableRoadUser}
+SignalViolationSubCause -> STRING | {unavailable, stopSignViolation, trafficLightViolation, turningRegulationViolation}
+RescueAndRecoveryWorkInProgressSubCause -> STRING | {unavailable, emergencyVehicles, rescueHelicopterLanding, policeActivityOngoing, medicalEmergencyOngoing, childAbductionInProgress}
+DangerousEndOfQueueSubCause -> STRING | {unavailable, suddenEndOfQueue, queueOverHill, queueAroundBend, queueInTunnel}
+DangerousSituationSubCause -> STRING | {unavailable, emergencyElectronicBrakeEngaged, preCrashSystemEngaged, espEngaged, absEngaged, 
+aebEngaged, brakeWarningEngaged, collisionRiskWarningEngaged}
+VehicleBreakdownSubCause -> STRING | {unavailable, lackOfFuel, lackOfBatteryPower, engineProblem, transmissionProblem, engineCoolingProblem,
+brakingSystemProblem, steeringProblem, tyrePuncture, tyrePressureProblem}
+PostCrashSubCause -> STRING | {unavailable, accidentWithoutECallTriggered, accidentWithECallAutomaticallyTriggered, accidentWithECallTriggeredWithoutAccessToCellularNetwork}
+
+CAM Fact Table: 
+
+|Atribute||DataType||Range|
+
+CAMKey -> INT | {0,infinito}
+SegmentKey -> INT | {0,infinito}
+TimeKey -> INT | {0,infinito}
+StationID -> INT | {0,4294967295}
+Speed -> FLOAT | {0,16383}
+Heading -> INT | {0,3601}
+Acceleration -> INT | {-160,160}
+StationType -> INT | {0,255}
+VehicleRole -> INT | {0,15}
+TypeOfFuel -> VARCHAR | {human_powered, hydrogenStorage, electricEnergyStorage, liquidPropaneGas, compressedNaturalGas, diesel, gasoline, ammonia}
+TimeStamp -> INT | {0,4398046511103}
+BrakePedalEngaged -> INT | {TRUE, FALSE}
+GasPedalEngaged -> INT | {TRUE, FALSE}
+EmergencyPedalEngaged -> INT | {TRUE, FALSE}
+CollisionWarningEngaged -> INT | {TRUE, FALSE}
+SpeedLimiterEngaged -> INT | {TRUE, FALSE}
+CruiseControlEngaged -> INT | {TRUE, FALSE}
+StationarySince -> INT | {0,3}
+Latitude -> INT | {-900000000,900000001}
+Longitude -> INT | {-1800000000,1800000000}
+Altitude -> INT | {-100000,100000}
+
+IVIM Fact Table:
+
+|Atribute||DataType||Range|
+CAMKey -> INT | {0,infinite}
+Latitude -> INT | {-900000000,900000001}
+Longitude -> INT | {-1800000000,1800000000}
+Altitude -> INT | {-100000,100000}

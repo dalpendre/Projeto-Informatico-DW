@@ -1,0 +1,9 @@
+DROP TABLE t_dim_time;
+DROP TABLE t_dim_zone;
+DROP TABLE t_dim_event;
+DROP TABLE t_dim_road;
+DROP TABLE t_dim_road_event;
+DROP TABLE t_dim_segment;
+DROP TABLE t_fact_cam;
+DROP TABLE t_fact_denm;
+DROP TABLE t_fact_ivim;
