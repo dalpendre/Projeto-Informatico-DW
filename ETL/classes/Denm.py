@@ -1,6 +1,6 @@
 class DenmMessage:
     def __init__(self, time_key, road_event_key, time_stamp, latitude, longitude, altitude, cause, traffic_cause,
-                 accident_sub_cause, roadworks_sub_cause, human_presence_on_the_road_sub_cause, wrong_way_driving_sub_cause,
+                 accident_sub_cause, road_works_sub_cause, human_presence_on_the_road_sub_cause, wrong_way_driving_sub_cause,
                  adverse_weather_condition_extreme_weather_condition_sub_cause, adverse_weather_condition_adhesion_sub_cause,
                  adverse_weather_condition_visibility_sub_cause, adverse_weather_condition_precipitation_sub_cause,
                  slow_vehicle_sub_cause, stationary_vehicle_sub_cause, human_problem_sub_cause,
@@ -18,11 +18,10 @@ class DenmMessage:
         self.cause = cause
         self.traffic_cause = traffic_cause
         self.accident_sub_cause = accident_sub_cause
-        self.roadworks_sub_cause = roadworks_sub_cause
+        self.road_works_sub_cause = road_works_sub_cause
         self.human_presence_on_the_road_sub_cause = human_presence_on_the_road_sub_cause
         self.wrong_way_driving_sub_cause = wrong_way_driving_sub_cause
-        self.adverse_weather_condition_extreme_weather_condition_sub_cause = \
-            adverse_weather_condition_extreme_weather_condition_sub_cause
+        self.adverse_weather_condition_extreme_weather_condition_sub_cause = adverse_weather_condition_extreme_weather_condition_sub_cause
         self.adverse_weather_condition_adhesion_sub_cause = adverse_weather_condition_adhesion_sub_cause
         self.adverse_weather_condition_visibility_sub_cause = adverse_weather_condition_visibility_sub_cause
         self.adverse_weather_condition_precipitation_sub_cause = adverse_weather_condition_precipitation_sub_cause

@@ -1,5 +1,6 @@
 class Zone:
-    def __init__(self, zone_name, zone_type, zone_description, zone_area):
+    def __init__(self, zone_key,zone_name, zone_type, zone_description, zone_area):
+        self.zone_key = zone_key
         self.zone_name = zone_name
         self.zone_type = zone_type
         self.zone_description = zone_description

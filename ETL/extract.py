@@ -245,7 +245,7 @@ def extract_denm_data():
         cause = row[7]
         traffic_cause = row[8]
         accident_sub_cause = row[9]
-        roadworks_sub_cause = row[10]
+        road_works_sub_cause = row[10]
         human_presence_on_the_road_sub_cause = row[11]
         wrong_way_driving_sub_cause = row[12]
         adverse_weather_condition_extreme_weather_condition_sub_cause = row[13]
@@ -361,20 +361,20 @@ def extract_denm_data():
         elif accident_sub_cause == 8:
             accident_sub_cause = "assistanceRequested"
 
-        if roadworks_sub_cause == 0:
-            roadworks_sub_cause = "unavailable"
-        elif roadworks_sub_cause == 1:
-            roadworks_sub_cause = "majorRoadworks"
-        elif roadworks_sub_cause == 2:
-            roadworks_sub_cause = "roadMarkingWork"
-        elif roadworks_sub_cause == 3:
-            roadworks_sub_cause = "slowMovingRoadMaintenance"
-        elif roadworks_sub_cause == 4:
-            roadworks_sub_cause = "shortTermStationaryRoadworks"
-        elif roadworks_sub_cause == 5:
-            roadworks_sub_cause = "streetCleaning"
-        elif roadworks_sub_cause == 6:
-            roadworks_sub_cause = "winterService"
+        if road_works_sub_cause == 0:
+            road_works_sub_cause = "unavailable"
+        elif road_works_sub_cause == 1:
+            road_works_sub_cause = "majorRoadworks"
+        elif road_works_sub_cause == 2:
+            road_works_sub_cause = "roadMarkingWork"
+        elif road_works_sub_cause == 3:
+            road_works_sub_cause = "slowMovingRoadMaintenance"
+        elif road_works_sub_cause == 4:
+            road_works_sub_cause = "shortTermStationaryRoadworks"
+        elif road_works_sub_cause == 5:
+            road_works_sub_cause = "streetCleaning"
+        elif road_works_sub_cause == 6:
+            road_works_sub_cause = "winterService"
 
         if human_presence_on_the_road_sub_cause == 0:
             human_presence_on_the_road_sub_cause = "unavailable"
@@ -659,7 +659,7 @@ def extract_denm_data():
         elif post_crash_sub_cause == 4:
             post_crash_sub_cause = "accidentWithECallTriggeredWithoutAccessToCellularNetwork"
 
-        denm_message = DenmMessage(time_key, road_event_key, time_stamp, latitude, longitude, altitude, cause, traffic_cause, accident_sub_cause, roadworks_sub_cause, human_presence_on_the_road_sub_cause, wrong_way_driving_sub_cause, adverse_weather_condition_extreme_weather_condition_sub_cause, adverse_weather_condition_adhesion_sub_cause, adverse_weather_condition_visibility_sub_cause, adverse_weather_condition_precipitation_sub_cause, slow_vehicle_sub_cause, stationary_vehicle_sub_cause, human_problem_sub_cause, emergency_vehicle_approaching_sub_cause, hazardous_location_dangerous_curve_sub_cause, hazardous_location_surface_condition_sub_cause, hazardous_location_obstacle_on_the_road_sub_cause, hazardous_location_animal_on_the_road_sub_cause, collision_risk_sub_cause, signal_violation_sub_cause, rescue_and_recovery_work_in_progress_sub_cause, dangerous_end_of_queue_sub_cause, dangerous_situation_sub_cause, vehicle_breakdown_sub_cause, post_crash_sub_cause)
+        denm_message = DenmMessage(time_key, road_event_key, time_stamp, latitude, longitude, altitude, cause, traffic_cause, accident_sub_cause, road_works_sub_cause, human_presence_on_the_road_sub_cause, wrong_way_driving_sub_cause, adverse_weather_condition_extreme_weather_condition_sub_cause, adverse_weather_condition_adhesion_sub_cause, adverse_weather_condition_visibility_sub_cause, adverse_weather_condition_precipitation_sub_cause, slow_vehicle_sub_cause, stationary_vehicle_sub_cause, human_problem_sub_cause, emergency_vehicle_approaching_sub_cause, hazardous_location_dangerous_curve_sub_cause, hazardous_location_surface_condition_sub_cause, hazardous_location_obstacle_on_the_road_sub_cause, hazardous_location_animal_on_the_road_sub_cause, collision_risk_sub_cause, signal_violation_sub_cause, rescue_and_recovery_work_in_progress_sub_cause, dangerous_end_of_queue_sub_cause, dangerous_situation_sub_cause, vehicle_breakdown_sub_cause, post_crash_sub_cause)
         denm_values.add(denm_message)
     insert_into_t_data_denm_table("t_data_denm", denm_values)
 
@@ -686,6 +686,7 @@ def extract_ivim_data():
 
     ivim_values = set()
     for row in ivim_data:
+        ivim_key = row[0]
         road_sign_key = row[1]
         zone_key = row[2]
         latitude = row[3]
@@ -700,7 +701,7 @@ def extract_ivim_data():
         factor = 0.01
         altitude = altitude * factor
 
-        ivim = IvimMessage(road_sign_key, zone_key, latitude, longitude, altitude)
+        ivim = IvimMessage(ivim_key,road_sign_key, zone_key, latitude, longitude, altitude)
         ivim_values.add(ivim)
 
     insert_into_t_data_ivim_table("t_data_ivim", ivim_values)
@@ -767,6 +768,7 @@ def extract_segment_data():
     segment_values = set()
 
     for row in segment_data:
+        segment_key = [0]
         road_key = row[1]
         segment_name = row[2]
         segment_type = row[3]
@@ -775,7 +777,7 @@ def extract_segment_data():
         start_point = row[6]
         end_point = row[7]
 
-        segment = Segment(road_key, segment_name, segment_type, segment_length, number_of_lanes, start_point, end_point)
+        segment = Segment(segment_key,road_key, segment_name, segment_type, segment_length, number_of_lanes, start_point, end_point)
         segment_values.add(segment)
 
     insert_into_t_data_segment_table("t_data_segment", segment_values)
@@ -786,6 +788,7 @@ def extract_time_data():
 
     time_values = set()
     for row in time_data:
+        time_key = row[0]
         event_key = row[1]
         c_day = row[2]
         c_month = row[3]
@@ -799,7 +802,7 @@ def extract_time_data():
         season = row[11]
         full_date_description = row[12]
 
-        time = Time(event_key, c_day, c_month, c_year, weekend_day, week_day_number, week_day_name, is_holiday, trimester, semester, season, full_date_description)
+        time = Time(time_key,event_key, c_day, c_month, c_year, weekend_day, week_day_number, week_day_name, is_holiday, trimester, semester, season, full_date_description)
         time_values.add(time)
 
     insert_into_t_data_time_table("t_data_time", time_values)
@@ -810,12 +813,13 @@ def extract_zone_data():
 
     zone_values = set()
     for row in zone_data:
+        zone_key = row[0]
         zone_name = row[1]
         zone_type = row[2]
         zone_description = row[3]
         zone_area = row[4]
 
-        zone = Zone(zone_name, zone_type, zone_description, zone_area)
+        zone = Zone(zone_key,zone_name, zone_type, zone_description, zone_area)
         zone_values.add(zone)
 
     insert_into_data_table("t_data_zone", zone_values)

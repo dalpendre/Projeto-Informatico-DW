@@ -1,5 +1,6 @@
 class Segment:
-    def __init__(self, road_key, segment_name, segment_type, segment_length, number_of_lanes, start_point, end_point):
+    def __init__(self, segment_key,road_key, segment_name, segment_type, segment_length, number_of_lanes, start_point, end_point):
+        self.segment_key = segment_key
         self.road_key = road_key
         self.segment_name = segment_name
         self.segment_type = segment_type
