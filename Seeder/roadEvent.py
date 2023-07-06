@@ -30,9 +30,6 @@ def insert_data_to_database(data):
             VALUES (%s,%s, %s, %s, %s)
         """
 
-        # Start the timer
-        start_time = time.time()
-
         # Generate new keys sequentially
         for record in data:
             max_road_event_key += 1
@@ -49,10 +46,8 @@ def insert_data_to_database(data):
             cursor.execute(insert_query, values)
 
         connection.commit()
-        elapsed_time = time.time() - start_time
 
         print("Road Event Data inserted successfully!")
-        print(f"Time taken: {elapsed_time:.3f} seconds")
 
     except (Exception, Error) as error:
         print("Error while inserting data into PostgreSQL:", error)
@@ -115,7 +110,7 @@ seeder = RoadEvent(property_ranges)
 
 def main():
     # Generate and print example data
-    for _ in range(3):
+    for _ in range(1):
         data = seeder.insert_data_to_database()
 
     return data

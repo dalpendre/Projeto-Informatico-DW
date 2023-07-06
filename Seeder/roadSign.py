@@ -113,7 +113,7 @@ property_ranges = {
 seeder = RoadSign(property_ranges)
 
 # Generate and print example data
-for _ in range(3):
+for _ in range(1):
     seeder.insert_data_to_database()
 
 """
