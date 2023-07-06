@@ -36,7 +36,7 @@ def insert_data_to_database(data, road_key):
             cursor.execute(insert_query, values)
 
         connection.commit()
-        print("Data inserted successfully!")
+        print("Segment Data inserted successfully!")
 
     except (Exception, Error) as error:
         print("Error while inserting data into PostgreSQL:", error)
