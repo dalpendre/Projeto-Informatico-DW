@@ -1,13 +1,19 @@
-#load t_clean tables to the data warehouse tables
 import psycopg2
 
 import colors
 import constants
 
-def load_road_event_data(source_table, destination_table):
-    try:
-        # Connect to the database
-        conn = psycopg2.connect(
+def load_data(source_table, destination_table):
+    # Establish connections to both databases
+    source_conn = psycopg2.connect(
+            database=constants.dsa_db_name,
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port
+        )
+
+    destination_conn = psycopg2.connect(
             database=constants.dw_db_name,
             user=constants.username,
             password=constants.password,
@@ -15,344 +21,43 @@ def load_road_event_data(source_table, destination_table):
             port=constants.port
         )
 
-        # Create a cursor
-        cursor = conn.cursor()
+    # Create cursors for both connections
+    source_cursor = source_conn.cursor()
+    destination_cursor = destination_conn.cursor()
 
-        # Copy data from source table to destination table
-        query = f"INSERT INTO {destination_table} SELECT * FROM {source_table}"
-        cursor.execute(query)
-
-        # Commit the transaction
-        conn.commit()
-
-        print(f"Data copied from {source_table} to {destination_table} successfully.")
-
-    except psycopg2.Error as e:
-        print("Error: Could not copy data from table.")
-        print(e)
-
-    finally:
-        # Close the cursor and connection
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
-def load_road_sign_data(source_table, destination_table):
     try:
-        # Connect to the database
-        conn = psycopg2.connect(
-            database=constants.dw_db_name,
-            user=constants.username,
-            password=constants.password,
-            host=constants.host,
-            port=constants.port
-        )
+        # Retrieve data from the source table
+        source_query = f"SELECT * FROM {source_table}"
+        source_cursor.execute(source_query)
+        data = source_cursor.fetchall()
 
-        # Create a cursor
-        cursor = conn.cursor()
+        # Insert data into the destination table
+        destination_query = f"INSERT INTO {destination_table} VALUES ({', '.join(['%s'] * len(data[0]))})"
+        destination_cursor.executemany(destination_query, data)
 
-        # Copy data from source table to destination table
-        query = f"INSERT INTO {destination_table} SELECT * FROM {source_table}"
-        cursor.execute(query)
-
-        # Commit the transaction
-        conn.commit()
-
-        print(f"Data copied from {source_table} to {destination_table} successfully.")
-
-    except psycopg2.Error as e:
-        print("Error: Could not copy data from table.")
-        print(e)
+        # Commit the changes to the destination database
+        destination_conn.commit()
+        print(source_table + ": Data copied successfully!")
+    except (psycopg2.Error, psycopg2.DatabaseError) as e:
+        print(f"Error: {e}")
+        destination_conn.rollback()
 
     finally:
-        # Close the cursor and connection
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
-def load_event_data(source_table, destination_table):
-    try:
-        # Connect to the database
-        conn = psycopg2.connect(
-            database=constants.dw_db_name,
-            user=constants.username,
-            password=constants.password,
-            host=constants.host,
-            port=constants.port
-        )
-
-        # Create a cursor
-        cursor = conn.cursor()
-
-        # Copy data from source table to destination table
-        query = f"INSERT INTO {destination_table} SELECT * FROM {source_table}"
-        cursor.execute(query)
-
-        # Commit the transaction
-        conn.commit()
-
-        print(f"Data copied from {source_table} to {destination_table} successfully.")
-
-    except psycopg2.Error as e:
-        print("Error: Could not copy data from table.")
-        print(e)
-
-    finally:
-        # Close the cursor and connection
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
-def load_time_data(source_table, destination_table):
-    try:
-        # Connect to the database
-        conn = psycopg2.connect(
-            database=constants.dw_db_name,
-            user=constants.username,
-            password=constants.password,
-            host=constants.host,
-            port=constants.port
-        )
-
-        # Create a cursor
-        cursor = conn.cursor()
-
-        # Copy data from source table to destination table
-        query = f"INSERT INTO {destination_table} SELECT * FROM {source_table}"
-        cursor.execute(query)
-
-        # Commit the transaction
-        conn.commit()
-
-        print(f"Data copied from {source_table} to {destination_table} successfully.")
-
-    except psycopg2.Error as e:
-        print("Error: Could not copy data from table.")
-        print(e)
-
-    finally:
-        # Close the cursor and connection
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
-def load_zone_data(source_table, destination_table):
-    try:
-        # Connect to the database
-        conn = psycopg2.connect(
-            database=constants.dw_db_name,
-            user=constants.username,
-            password=constants.password,
-            host=constants.host,
-            port=constants.port
-        )
-
-        # Create a cursor
-        cursor = conn.cursor()
-
-        # Copy data from source table to destination table
-        query = f"INSERT INTO {destination_table} SELECT * FROM {source_table}"
-        cursor.execute(query)
-
-        # Commit the transaction
-        conn.commit()
-
-        print(f"Data copied from {source_table} to {destination_table} successfully.")
-
-    except psycopg2.Error as e:
-        print("Error: Could not copy data from table.")
-        print(e)
-
-    finally:
-        # Close the cursor and connection
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
-def load_road_data(source_table, destination_table):
-    try:
-        # Connect to the database
-        conn = psycopg2.connect(
-            database=constants.dw_db_name,
-            user=constants.username,
-            password=constants.password,
-            host=constants.host,
-            port=constants.port
-        )
-
-        # Create a cursor
-        cursor = conn.cursor()
-
-        # Copy data from source table to destination table
-        query = f"INSERT INTO {destination_table} SELECT * FROM {source_table}"
-        cursor.execute(query)
-
-        # Commit the transaction
-        conn.commit()
-
-        print(f"Data copied from {source_table} to {destination_table} successfully.")
-
-    except psycopg2.Error as e:
-        print("Error: Could not copy data from table.")
-        print(e)
-
-    finally:
-        # Close the cursor and connection
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
-def load_segment_data(source_table, destination_table):
-    try:
-        # Connect to the database
-        conn = psycopg2.connect(
-            database=constants.dw_db_name,
-            user=constants.username,
-            password=constants.password,
-            host=constants.host,
-            port=constants.port
-        )
-
-        # Create a cursor
-        cursor = conn.cursor()
-
-        # Copy data from source table to destination table
-        query = f"INSERT INTO {destination_table} SELECT * FROM {source_table}"
-        cursor.execute(query)
-
-        # Commit the transaction
-        conn.commit()
-
-        print(f"Data copied from {source_table} to {destination_table} successfully.")
-
-    except psycopg2.Error as e:
-        print("Error: Could not copy data from table.")
-        print(e)
-
-    finally:
-        # Close the cursor and connection
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
-def load_cam_data(source_table, destination_table):
-    try:
-        # Connect to the database
-        conn = psycopg2.connect(
-            database=constants.dw_db_name,
-            user=constants.username,
-            password=constants.password,
-            host=constants.host,
-            port=constants.port
-        )
-
-        # Create a cursor
-        cursor = conn.cursor()
-
-        # Copy data from source table to destination table
-        query = f"INSERT INTO {destination_table} SELECT * FROM {source_table}"
-        cursor.execute(query)
-
-        # Commit the transaction
-        conn.commit()
-
-        print(f"Data copied from {source_table} to {destination_table} successfully.")
-
-    except psycopg2.Error as e:
-        print("Error: Could not copy data from table.")
-        print(e)
-
-    finally:
-        # Close the cursor and connection
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
-def load_denm_data(source_table, destination_table):
-    try:
-        # Connect to the database
-        conn = psycopg2.connect(
-            database=constants.dw_db_name,
-            user=constants.username,
-            password=constants.password,
-            host=constants.host,
-            port=constants.port
-        )
-
-        # Create a cursor
-        cursor = conn.cursor()
-
-        # Copy data from source table to destination table
-        query = f"INSERT INTO {destination_table} SELECT * FROM {source_table}"
-        cursor.execute(query)
-
-        # Commit the transaction
-        conn.commit()
-
-        print(f"Data copied from {source_table} to {destination_table} successfully.")
-
-    except psycopg2.Error as e:
-        print("Error: Could not copy data from table.")
-        print(e)
-
-    finally:
-        # Close the cursor and connection
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
-def load_ivim_data(source_table, destination_table):
-    try:
-        # Connect to the database
-        conn = psycopg2.connect(
-            database=constants.dw_db_name,
-            user=constants.username,
-            password=constants.password,
-            host=constants.host,
-            port=constants.port
-        )
-
-        # Create a cursor
-        cursor = conn.cursor()
-
-        # Copy data from source table to destination table
-        query = f"INSERT INTO {destination_table} SELECT * FROM {source_table}"
-        cursor.execute(query)
-
-        # Commit the transaction
-        conn.commit()
-
-        print(f"Data copied from {source_table} to {destination_table} successfully.")
-
-    except psycopg2.Error as e:
-        print("Error: Could not copy data from table.")
-        print(e)
-
-    finally:
-        # Close the cursor and connection
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
+        # Close the cursors and connections
+        source_cursor.close()
+        destination_cursor.close()
+        source_conn.close()
+        destination_conn.close()
 
 print(colors.bcolors.HEADER + "LOAD " + colors.bcolors.ENDC)
 
-load_road_event_data("t_clean_road_event","t_dim_road_event")
-load_road_sign_data("t_clean_road_sign","t_dim_road_sign")
-load_event_data("t_clean_event","t_dim_event")
-load_time_data("t_clean_time","t_dim_time")
-load_zone_data("t_clean_zone","t_dim_zone")
-load_road_data("t_clean_road","t_dim_road")
-load_segment_data("t_clean_segment","t_dim_segment")
-load_cam_data("t_clean_cam","t_fact_cam")
-load_denm_data("t_clean_denm","t_fact_denm")
-load_ivim_data("t_clean_ivim","t_fact_ivim")
+load_data("t_clean_road_event", "t_dim_road_event")
+load_data("t_clean_road_sign", "t_dim_road_sign")
+load_data("t_clean_event", "t_dim_event")
+load_data("t_clean_time", "t_dim_time")
+load_data("t_clean_zone", "t_dim_zone")
+load_data("t_clean_road", "t_dim_road")
+load_data("t_clean_segment", "t_dim_segment")
+load_data("t_clean_cam", "t_fact_cam")
+load_data("t_clean_denm", "t_fact_denm")
+load_data("t_clean_ivim", "t_fact_ivim")

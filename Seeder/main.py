@@ -8,8 +8,8 @@ print("Creating Time data")
 from timeClass import Time
 print(Time)
 print("Creating CAM data")
-#from cam import Cam
-#print(Cam)
+from cam import Cam
+print(Cam)
 print("Creating Denm data")
 from denm import Denm
 print(Denm)

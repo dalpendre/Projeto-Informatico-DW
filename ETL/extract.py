@@ -242,31 +242,32 @@ def extract_denm_data():
         latitude = row[4]
         longitude = row[5]
         altitude = row[6]
-        cause = row[7]
-        traffic_cause = row[8]
-        accident_sub_cause = row[9]
+        heading = row[7]
+        cause = row[8]
+        traffic_cause = row[9]
         road_works_sub_cause = row[10]
-        human_presence_on_the_road_sub_cause = row[11]
-        wrong_way_driving_sub_cause = row[12]
-        adverse_weather_condition_extreme_weather_condition_sub_cause = row[13]
-        adverse_weather_condition_adhesion_sub_cause = row[14]
-        adverse_weather_condition_visibility_sub_cause = row[15]
-        adverse_weather_condition_precipitation_sub_cause = row[16]
-        slow_vehicle_sub_cause = row[17]
-        stationary_vehicle_sub_cause = row[18]
-        human_problem_sub_cause = row[19]
-        emergency_vehicle_approaching_sub_cause = row[20]
-        hazardous_location_dangerous_curve_sub_cause = row[21]
-        hazardous_location_surface_condition_sub_cause = row[22]
-        hazardous_location_obstacle_on_the_road_sub_cause = row[23]
-        hazardous_location_animal_on_the_road_sub_cause = row[24]
-        collision_risk_sub_cause = row[25]
-        signal_violation_sub_cause = row[26]
-        rescue_and_recovery_work_in_progress_sub_cause = row[27]
-        dangerous_end_of_queue_sub_cause = row[28]
-        dangerous_situation_sub_cause = row[29]
-        vehicle_breakdown_sub_cause = row[30]
-        post_crash_sub_cause = row[31]
+        accident_sub_cause = row[11]
+        slow_vehicle_sub_cause = row[12]
+        stationary_vehicle_sub_cause = row[13]
+        human_problem_sub_cause = row[14]
+        collision_risk_sub_cause = row[15]
+        human_presence_on_the_road_sub_cause = row[16]
+        dangerous_situation_sub_cause = row[17]
+        vehicle_break_down_sub_cause = row[18]
+        post_crash_sub_cause = row[19]
+        adverse_weather_condition_extreme_weather_condition_sub_cause = row[20]
+        adverse_weather_condition_adhesion_sub_cause = row[21]
+        adverse_weather_condition_visibility_sub_cause = row[22]
+        adverse_weather_condition_precipitation_sub_cause = row[23]
+        emergency_vehicle_approaching_sub_cause = row[24]
+        hazardous_location_dangerous_curve_sub_cause = row[25]
+        hazardous_location_surface_condition_sub_cause = row[26]
+        hazardous_location_obstacle_on_the_road_sub_cause = row[27]
+        hazardous_location_animal_on_the_road_sub_cause = row[28]
+        rescue_and_recovery_work_in_progress_sub_cause = row[29]
+        dangerous_end_of_queue_sub_cause = row[30]
+        signal_violation_sub_cause = row[31]
+        wrong_way_driving_sub_cause = row[32]
 
         if cause == 0:
             cause = "reserved"
@@ -627,26 +628,26 @@ def extract_denm_data():
         elif dangerous_situation_sub_cause == 7:
             dangerous_situation_sub_cause = "collisionRiskWarningEngaged"
 
-        if vehicle_breakdown_sub_cause == 0:
-            vehicle_breakdown_sub_cause = "unavailable"
-        elif vehicle_breakdown_sub_cause == 1:
-            vehicle_breakdown_sub_cause = "lackOfFuel"
-        elif vehicle_breakdown_sub_cause == 2:
-            vehicle_breakdown_sub_cause = "lackOfBatteryPower"
-        elif vehicle_breakdown_sub_cause == 3:
-            vehicle_breakdown_sub_cause = "engineProblem"
-        elif vehicle_breakdown_sub_cause == 4:
-            vehicle_breakdown_sub_cause = "transmissionProblem"
-        elif vehicle_breakdown_sub_cause == 5:
-            vehicle_breakdown_sub_cause = "engineCoolingProblem"
-        elif vehicle_breakdown_sub_cause == 6:
-            vehicle_breakdown_sub_cause = "brakingSystemProblem"
-        elif vehicle_breakdown_sub_cause == 7:
-            vehicle_breakdown_sub_cause = "steeringProblem"
-        elif vehicle_breakdown_sub_cause == 8:
-            vehicle_breakdown_sub_cause = "tyrePuncture"
-        elif vehicle_breakdown_sub_cause == 9:
-            vehicle_breakdown_sub_cause = "tyrePressureProblem"
+        if vehicle_break_down_sub_cause == 0:
+            vehicle_break_down_sub_cause = "unavailable"
+        elif vehicle_break_down_sub_cause == 1:
+            vehicle_break_down_sub_cause = "lackOfFuel"
+        elif vehicle_break_down_sub_cause == 2:
+            vehicle_break_down_sub_cause = "lackOfBatteryPower"
+        elif vehicle_break_down_sub_cause == 3:
+            vehicle_break_down_sub_cause = "engineProblem"
+        elif vehicle_break_down_sub_cause == 4:
+            vehicle_break_down_sub_cause = "transmissionProblem"
+        elif vehicle_break_down_sub_cause == 5:
+            vehicle_break_down_sub_cause = "engineCoolingProblem"
+        elif vehicle_break_down_sub_cause == 6:
+            vehicle_break_down_sub_cause = "brakingSystemProblem"
+        elif vehicle_break_down_sub_cause == 7:
+            vehicle_break_down_sub_cause = "steeringProblem"
+        elif vehicle_break_down_sub_cause == 8:
+            vehicle_break_down_sub_cause = "tyrePuncture"
+        elif vehicle_break_down_sub_cause == 9:
+            vehicle_break_down_sub_cause = "tyrePressureProblem"
 
         if post_crash_sub_cause == 0:
             post_crash_sub_cause = "unavailable"
@@ -659,7 +660,14 @@ def extract_denm_data():
         elif post_crash_sub_cause == 4:
             post_crash_sub_cause = "accidentWithECallTriggeredWithoutAccessToCellularNetwork"
 
-        denm_message = DenmMessage(time_key, road_event_key, time_stamp, latitude, longitude, altitude, cause, traffic_cause, accident_sub_cause, road_works_sub_cause, human_presence_on_the_road_sub_cause, wrong_way_driving_sub_cause, adverse_weather_condition_extreme_weather_condition_sub_cause, adverse_weather_condition_adhesion_sub_cause, adverse_weather_condition_visibility_sub_cause, adverse_weather_condition_precipitation_sub_cause, slow_vehicle_sub_cause, stationary_vehicle_sub_cause, human_problem_sub_cause, emergency_vehicle_approaching_sub_cause, hazardous_location_dangerous_curve_sub_cause, hazardous_location_surface_condition_sub_cause, hazardous_location_obstacle_on_the_road_sub_cause, hazardous_location_animal_on_the_road_sub_cause, collision_risk_sub_cause, signal_violation_sub_cause, rescue_and_recovery_work_in_progress_sub_cause, dangerous_end_of_queue_sub_cause, dangerous_situation_sub_cause, vehicle_breakdown_sub_cause, post_crash_sub_cause)
+        denm_message = DenmMessage(time_key, road_event_key, time_stamp, latitude, longitude, altitude, heading, cause, traffic_cause, road_works_sub_cause,
+                 accident_sub_cause, slow_vehicle_sub_cause, stationary_vehicle_sub_cause, human_presence_on_the_road_sub_cause,
+                 collision_risk_sub_cause, dangerous_situation_sub_cause, vehicle_break_down_sub_cause, post_crash_sub_cause,
+                 human_problem_sub_cause, adverse_weather_condition_extreme_weather_condition_sub_cause, adverse_weather_condition_adhesion_sub_cause,
+                 adverse_weather_condition_visibility_sub_cause, adverse_weather_condition_precipitation_sub_cause, emergency_vehicle_approaching_sub_cause,
+                 hazardous_location_dangerous_curve_sub_cause, hazardous_location_surface_condition_sub_cause, hazardous_location_obstacle_on_the_road_sub_cause,
+                 hazardous_location_animal_on_the_road_sub_cause, rescue_and_recovery_work_in_progress_sub_cause, dangerous_end_of_queue_sub_cause,
+                 signal_violation_sub_cause, wrong_way_driving_sub_cause)
         denm_values.add(denm_message)
     insert_into_t_data_denm_table("t_data_denm", denm_values)
 
