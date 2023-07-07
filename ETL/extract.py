@@ -660,6 +660,14 @@ def extract_denm_data():
         elif post_crash_sub_cause == 4:
             post_crash_sub_cause = "accidentWithECallTriggeredWithoutAccessToCellularNetwork"
 
+        factor = 0.0000001
+        latitude = latitude * factor
+        longitude = longitude * factor
+
+        # convert altitude and heading to correct measurement unit
+        factor = 0.01
+        altitude = altitude * factor
+
         denm_message = DenmMessage(time_key, road_event_key, time_stamp, latitude, longitude, altitude, heading, cause, traffic_cause, road_works_sub_cause,
                  accident_sub_cause, slow_vehicle_sub_cause, stationary_vehicle_sub_cause, human_presence_on_the_road_sub_cause,
                  collision_risk_sub_cause, dangerous_situation_sub_cause, vehicle_break_down_sub_cause, post_crash_sub_cause,
