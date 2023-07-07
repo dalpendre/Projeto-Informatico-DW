@@ -1,11 +1,17 @@
 import time
 import matplotlib.pyplot as plt
 
-import road
+
 import roadEvent
-import segment
+import event
 import timeClass
 import denm
+import road
+import segment
+import zone
+import roadSign
+import ivim
+
 
 #segment
 
@@ -125,7 +131,7 @@ ivim_insertion_times = []
 for rows in number_rows_to_insert:
     start_time = time.time()
     for i in range(rows):
-        denm.main()
+        ivim.main()
     end_time = time.time()
     execution_time = end_time - start_time
     ivim_insertion_times.append(execution_time)
@@ -147,7 +153,7 @@ road_sign_insertion_times = []
 for rows in number_rows_to_insert:
     start_time = time.time()
     for i in range(rows):
-        denm.main()
+        roadSign.main()
     end_time = time.time()
     execution_time = end_time - start_time
     road_sign_insertion_times.append(execution_time)
@@ -169,7 +175,7 @@ zone_insertion_times = []
 for rows in number_rows_to_insert:
     start_time = time.time()
     for i in range(rows):
-        denm.main()
+        zone.main()
     end_time = time.time()
     execution_time = end_time - start_time
     zone_insertion_times.append(execution_time)
@@ -191,7 +197,7 @@ event_insertion_times = []
 for rows in number_rows_to_insert:
     start_time = time.time()
     for i in range(rows):
-        denm.main()
+        event.main()
     end_time = time.time()
     execution_time = end_time - start_time
     event_insertion_times.append(execution_time)
