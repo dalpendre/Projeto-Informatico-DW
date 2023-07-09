@@ -112,9 +112,16 @@ property_ranges = {
 # Create a Seeder instance
 seeder = RoadSign(property_ranges)
 
-# Generate and print example data
-for _ in range(1):
-    seeder.insert_data_to_database()
+def main():
+    # Generate and print example data
+    for _ in range(1):
+        data = seeder.insert_data_to_database()
+        # print(data)
+        #print("---")
+
+    return data
+
+main()
 
 """
 data = seeder.generate_random_data()
