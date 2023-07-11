@@ -1,3 +1,4 @@
+import os
 from time import sleep
 import pandas as pd
 import psycopg2 as pg
@@ -23,7 +24,7 @@ def binary_to_decimal(binary_string):
     return int(binary_string, 2)
 
 #extract data from the tables in the source database
-def table_extract(table_name):
+def table_extract(table_name, key_name):
     conn = None
     cursor = None
     source_data = None
@@ -39,11 +40,44 @@ def table_extract(table_name):
         # print("Connection to PostgreSQL database is successful")
         cursor = conn.cursor()
 
-        #extract data from the source table
         query = "SELECT * FROM " + table_name
         cursor.execute(query)
 
+        #all rows from the table
         source_data = cursor.fetchall()
+
+        existing_rows = 0
+        num_rows = len(source_data)
+
+        if num_rows == 0:
+            existing_rows = 0
+            if os.path.exists("num_lines_in_seeder_" + table_name + ".txt"):
+                with open("num_lines_in_seeder_" + table_name + ".txt", "w") as file:
+                    file.write(f"Number of rows in table {table_name}: {existing_rows}")
+        elif os.path.exists("num_lines_in_seeder_" + table_name + ".txt"):
+            with open("num_lines_in_seeder_" + table_name + ".txt", "r") as file:
+                existing_rows = int(file.read().strip().split(":")[-1])
+
+        print(existing_rows)
+        print(num_rows)
+
+        if num_rows > existing_rows:
+            with open("num_lines_in_seeder_" + table_name + ".txt", "w") as file:
+                file.write(f"Number of rows in table {table_name}: {num_rows}")
+
+        # calculate how many new lines were added to the table
+        num_new_lines = num_rows - existing_rows
+
+        if num_new_lines <= 0:
+            return []
+
+        # extract data from the source table
+        query = "SELECT * FROM " + table_name + " ORDER BY " + key_name + " DESC LIMIT " + str(num_new_lines);
+        cursor.execute(query)
+
+        #new rows from the table
+        source_data = cursor.fetchall()
+
         for row in source_data:
             print(row)
 
@@ -69,7 +103,7 @@ def file_extract(path):
 
 def extract_cam_data():
     print(colors.bcolors.HEADER + "Extracting CAM data from source database..." + colors.bcolors.ENDC)
-    cam_data = table_extract("t_cam")
+    cam_data = table_extract("t_cam", "cam_key")
 
     #set of rows from the source table to be inserted into the data table
     cam_values = set()
@@ -231,7 +265,7 @@ def extract_cam_data():
 
 def extract_denm_data():
     print(colors.bcolors.HEADER + "Extracting DENM data from source database..." + colors.bcolors.ENDC)
-    denm_data = table_extract("t_denm")
+    denm_data = table_extract("t_denm", "denm_key")
 
     denm_values = set()
 
@@ -681,7 +715,7 @@ def extract_denm_data():
 
 def extract_event_data():
     print(colors.bcolors.HEADER + "Extracting EVENT data from source database..." + colors.bcolors.ENDC)
-    event_data = table_extract("t_event")
+    event_data = table_extract("t_event", "event_key")
 
     event_values = set()
 
@@ -698,7 +732,7 @@ def extract_event_data():
 
 def extract_ivim_data():
     print(colors.bcolors.HEADER + "Extracting IVIM data from source database..." + colors.bcolors.ENDC)
-    ivim_data = table_extract("t_ivim")
+    ivim_data = table_extract("t_ivim", "ivim_key")
 
     ivim_values = set()
     for row in ivim_data:
@@ -724,7 +758,7 @@ def extract_ivim_data():
 
 def extract_road_data():
     print(colors.bcolors.HEADER + "Extracting ROAD data from source database..." + colors.bcolors.ENDC)
-    road_data = table_extract("t_road")
+    road_data = table_extract("t_road", "road_key")
 
     road_values = set()
 
@@ -743,7 +777,7 @@ def extract_road_data():
 
 def extract_road_event_data():
     print(colors.bcolors.HEADER + "Extracting ROAD EVENT data from source database..." + colors.bcolors.ENDC)
-    road_event_data = table_extract("t_road_event")
+    road_event_data = table_extract("t_road_event", "road_event_key")
 
     road_event_values = set()
 
@@ -761,7 +795,7 @@ def extract_road_event_data():
 
 def extract_road_sign_data():
     print(colors.bcolors.HEADER + "Extracting ROAD SIGN data from source database..." + colors.bcolors.ENDC)
-    road_sign_data = table_extract("t_road_sign")
+    road_sign_data = table_extract("t_road_sign", "road_sign_key")
 
     road_sign_values = set()
 
@@ -779,7 +813,7 @@ def extract_road_sign_data():
 
 def extract_segment_data():
     print(colors.bcolors.HEADER + "Extracting SEGMENT data from source database..." + colors.bcolors.ENDC)
-    segment_data = table_extract("t_segment")
+    segment_data = table_extract("t_segment", "segment_key")
 
     segment_values = set()
 
@@ -800,7 +834,7 @@ def extract_segment_data():
 
 def extract_time_data():
     print(colors.bcolors.HEADER + "Extracting TIME data from source database..." + colors.bcolors.ENDC)
-    time_data = table_extract("t_time")
+    time_data = table_extract("t_time", "time_key")
 
     time_values = set()
     for row in time_data:
@@ -825,7 +859,7 @@ def extract_time_data():
 
 def extract_zone_data():
     print(colors.bcolors.HEADER + "Extracting ZONE data from source database..." + colors.bcolors.ENDC)
-    zone_data = table_extract("t_zone")
+    zone_data = table_extract("t_zone", "zone_key")
 
     zone_values = set()
     for row in zone_data:

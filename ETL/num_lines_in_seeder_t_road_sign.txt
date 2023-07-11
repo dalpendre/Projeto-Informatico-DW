@@ -1,0 +1,1 @@
+Number of rows in table t_road_sign: 3
