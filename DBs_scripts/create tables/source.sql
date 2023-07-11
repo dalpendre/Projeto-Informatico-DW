@@ -189,3 +189,4 @@ create table t_denm
 
 alter table t_denm
     owner to postgres;
+

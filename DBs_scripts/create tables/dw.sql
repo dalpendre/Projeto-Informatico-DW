@@ -120,7 +120,6 @@ create table t_fact_denm
     heading                                                       integer     not null,
     cause                                                         varchar(50) not null,
     traffic_cause                                                 varchar(50),
-    accident_sub_cause_code                                       varchar(50),
     road_works_sub_cause                                          varchar(50),
     accident_sub_cause                                            varchar(50),
     slow_vehicle_sub_cause                                        varchar(50),
