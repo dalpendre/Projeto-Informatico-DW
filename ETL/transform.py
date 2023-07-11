@@ -1,14 +1,45 @@
 #load from t_data tables and clean incorrect or bad data
+import os
 
-import psycopg2
+import psycopg2 as pg
+from psycopg2 import Error
 
 import colors
 import constants
 
+def truncate_tables():
+    try:
+        connection = pg.connect(
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port,
+            database=constants.dsa_db_name
+        )
+
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_name LIKE 't_clean_%'")
+        table_names = cursor.fetchall()
+
+        for table_name in table_names:
+            cursor.execute(f"TRUNCATE TABLE {table_name[0]} RESTART IDENTITY CASCADE")
+
+        connection.commit()
+        print("Tables truncated successfully!")
+
+    except (Exception, Error) as error:
+        print("Error while truncating tables:", error)
+
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+
 def transform_road_event_data(source_table, destination_table):
     try:
         # Connect to the database
-        conn = psycopg2.connect(
+        conn = pg.connect(
             database=constants.dsa_db_name,
             user=constants.username,
             password=constants.password,
@@ -28,7 +59,7 @@ def transform_road_event_data(source_table, destination_table):
 
         print(f"Data copied from {source_table} to {destination_table} successfully.")
 
-    except psycopg2.Error as e:
+    except pg.Error as e:
         print("Error: Could not copy data from table.")
         print(e)
 
@@ -42,7 +73,7 @@ def transform_road_event_data(source_table, destination_table):
 def transform_road_sign_data(source_table, destination_table):
     try:
         # Connect to the database
-        conn = psycopg2.connect(
+        conn = pg.connect(
             database=constants.dsa_db_name,
             user=constants.username,
             password=constants.password,
@@ -62,7 +93,7 @@ def transform_road_sign_data(source_table, destination_table):
 
         print(f"Data copied from {source_table} to {destination_table} successfully.")
 
-    except psycopg2.Error as e:
+    except pg.Error as e:
         print("Error: Could not copy data from table.")
         print(e)
 
@@ -76,7 +107,7 @@ def transform_road_sign_data(source_table, destination_table):
 def transform_event_data(source_table, destination_table):
     try:
         # Connect to the database
-        conn = psycopg2.connect(
+        conn = pg.connect(
             database=constants.dsa_db_name,
             user=constants.username,
             password=constants.password,
@@ -96,7 +127,7 @@ def transform_event_data(source_table, destination_table):
 
         print(f"Data copied from {source_table} to {destination_table} successfully.")
 
-    except psycopg2.Error as e:
+    except pg.Error as e:
         print("Error: Could not copy data from table.")
         print(e)
 
@@ -110,7 +141,7 @@ def transform_event_data(source_table, destination_table):
 def transform_time_data(source_table, destination_table):
     try:
         # Connect to the database
-        conn = psycopg2.connect(
+        conn = pg.connect(
             database=constants.dsa_db_name,
             user=constants.username,
             password=constants.password,
@@ -130,7 +161,7 @@ def transform_time_data(source_table, destination_table):
 
         print(f"Data copied from {source_table} to {destination_table} successfully.")
 
-    except psycopg2.Error as e:
+    except pg.Error as e:
         print("Error: Could not copy data from table.")
         print(e)
 
@@ -144,7 +175,7 @@ def transform_time_data(source_table, destination_table):
 def transform_zone_data(source_table, destination_table):
     try:
         # Connect to the database
-        conn = psycopg2.connect(
+        conn = pg.connect(
             database=constants.dsa_db_name,
             user=constants.username,
             password=constants.password,
@@ -164,7 +195,7 @@ def transform_zone_data(source_table, destination_table):
 
         print(f"Data copied from {source_table} to {destination_table} successfully.")
 
-    except psycopg2.Error as e:
+    except pg.Error as e:
         print("Error: Could not copy data from table.")
         print(e)
 
@@ -178,7 +209,7 @@ def transform_zone_data(source_table, destination_table):
 def transform_road_data(source_table, destination_table):
     try:
         # Connect to the database
-        conn = psycopg2.connect(
+        conn = pg.connect(
             database=constants.dsa_db_name,
             user=constants.username,
             password=constants.password,
@@ -198,7 +229,7 @@ def transform_road_data(source_table, destination_table):
 
         print(f"Data copied from {source_table} to {destination_table} successfully.")
 
-    except psycopg2.Error as e:
+    except pg.Error as e:
         print("Error: Could not copy data from table.")
         print(e)
 
@@ -212,7 +243,7 @@ def transform_road_data(source_table, destination_table):
 def transform_segment_data(source_table, destination_table):
     try:
         # Connect to the database
-        conn = psycopg2.connect(
+        conn = pg.connect(
             database=constants.dsa_db_name,
             user=constants.username,
             password=constants.password,
@@ -232,7 +263,7 @@ def transform_segment_data(source_table, destination_table):
 
         print(f"Data copied from {source_table} to {destination_table} successfully.")
 
-    except psycopg2.Error as e:
+    except pg.Error as e:
         print("Error: Could not copy data from table.")
         print(e)
 
@@ -246,7 +277,7 @@ def transform_segment_data(source_table, destination_table):
 def transform_cam_data(source_table, destination_table):
     try:
         # Connect to the database
-        conn = psycopg2.connect(
+        conn = pg.connect(
             database=constants.dsa_db_name,
             user=constants.username,
             password=constants.password,
@@ -266,7 +297,7 @@ def transform_cam_data(source_table, destination_table):
 
         print(f"Data copied from {source_table} to {destination_table} successfully.")
 
-    except psycopg2.Error as e:
+    except pg.Error as e:
         print("Error: Could not copy data from table.")
         print(e)
 
@@ -280,7 +311,7 @@ def transform_cam_data(source_table, destination_table):
 def transform_denm_data(source_table, destination_table):
     try:
         # Connect to the database
-        conn = psycopg2.connect(
+        conn = pg.connect(
             database=constants.dsa_db_name,
             user=constants.username,
             password=constants.password,
@@ -300,7 +331,7 @@ def transform_denm_data(source_table, destination_table):
 
         print(f"Data copied from {source_table} to {destination_table} successfully.")
 
-    except psycopg2.Error as e:
+    except pg.Error as e:
         print("Error: Could not copy data from table.")
         print(e)
 
@@ -314,7 +345,7 @@ def transform_denm_data(source_table, destination_table):
 def transform_ivim_data(source_table, destination_table):
     try:
         # Connect to the database
-        conn = psycopg2.connect(
+        conn = pg.connect(
             database=constants.dsa_db_name,
             user=constants.username,
             password=constants.password,
@@ -334,7 +365,7 @@ def transform_ivim_data(source_table, destination_table):
 
         print(f"Data copied from {source_table} to {destination_table} successfully.")
 
-    except psycopg2.Error as e:
+    except pg.Error as e:
         print("Error: Could not copy data from table.")
         print(e)
 
@@ -347,6 +378,7 @@ def transform_ivim_data(source_table, destination_table):
 
 print(colors.bcolors.HEADER + "TRANSFORM " + colors.bcolors.ENDC)
 
+truncate_tables()
 transform_road_event_data("t_data_road_event", "t_clean_road_event")
 transform_road_sign_data("t_data_road_sign", "t_clean_road_sign")
 transform_event_data("t_data_event", "t_clean_event")

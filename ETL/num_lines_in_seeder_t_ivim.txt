@@ -1,1 +1,1 @@
-Number of rows in table t_ivim: 3
+Number of rows in table t_ivim: 5

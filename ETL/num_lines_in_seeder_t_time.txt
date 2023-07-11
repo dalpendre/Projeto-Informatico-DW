@@ -1,1 +1,1 @@
-Number of rows in table t_time: 6
+Number of rows in table t_time: 10

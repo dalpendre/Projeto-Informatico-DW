@@ -1,11 +1,49 @@
-import psycopg2
+import psycopg2 as pg
+from psycopg2 import Error
 
 import colors
 import constants
 
+def truncate_tables():
+    try:
+        connection = pg.connect(
+            user=constants.username,
+            password=constants.password,
+            host=constants.host,
+            port=constants.port,
+            database=constants.dw_db_name
+        )
+
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_name LIKE 't_fact_%'")
+        table_names = cursor.fetchall()
+
+        for table_name in table_names:
+            cursor.execute(f"TRUNCATE TABLE {table_name[0]} RESTART IDENTITY CASCADE")
+
+        connection.commit()
+
+        cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_name LIKE 't_dim_%'")
+        table_names = cursor.fetchall()
+
+        for table_name in table_names:
+            cursor.execute(f"TRUNCATE TABLE {table_name[0]} RESTART IDENTITY CASCADE")
+
+        connection.commit()
+        print("Tables truncated successfully!")
+
+    except (Exception, Error) as error:
+        print("Error while truncating tables:", error)
+
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+
 def load_data(source_table, destination_table):
     # Establish connections to both databases
-    source_conn = psycopg2.connect(
+    source_conn = pg.connect(
             database=constants.dsa_db_name,
             user=constants.username,
             password=constants.password,
@@ -13,7 +51,7 @@ def load_data(source_table, destination_table):
             port=constants.port
         )
 
-    destination_conn = psycopg2.connect(
+    destination_conn = pg.connect(
             database=constants.dw_db_name,
             user=constants.username,
             password=constants.password,
@@ -37,8 +75,8 @@ def load_data(source_table, destination_table):
 
         # Commit the changes to the destination database
         destination_conn.commit()
-        print(source_table + ": Data copied successfully!")
-    except (psycopg2.Error, psycopg2.DatabaseError) as e:
+        print(destination_table + ": Data copied successfully!")
+    except (pg.Error, pg.DatabaseError) as e:
         print(f"Error: {e}")
         destination_conn.rollback()
 
@@ -51,6 +89,7 @@ def load_data(source_table, destination_table):
 
 print(colors.bcolors.HEADER + "LOAD " + colors.bcolors.ENDC)
 
+truncate_tables()
 load_data("t_clean_road_event", "t_dim_road_event")
 load_data("t_clean_road_sign", "t_dim_road_sign")
 load_data("t_clean_event", "t_dim_event")
