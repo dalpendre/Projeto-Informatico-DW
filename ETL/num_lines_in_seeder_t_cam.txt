@@ -1,1 +1,1 @@
-Number of rows in table t_cam: 15
+Number of rows in table t_cam: 6

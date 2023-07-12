@@ -1,1 +1,1 @@
-Number of rows in table t_denm: 5
+Number of rows in table t_denm: 2
