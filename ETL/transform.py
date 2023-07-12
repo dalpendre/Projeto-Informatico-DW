@@ -1,5 +1,6 @@
+import glob
 import os
-from time import sleep
+
 import pandas as pd
 import psycopg2 as pg
 import colors
@@ -15,13 +16,6 @@ from classes.RoadSign import RoadSign
 from classes.Segment import Segment
 from classes.Time import Time
 from classes.Zone import Zone
-
-#cam_data_path = "../DW/datasets/CAM_data.csv"
-#denm_data_path = "../DW/datasets/DENM_data.csv"
-
-#convert binary to decimal
-def binary_to_decimal(binary_string):
-    return int(binary_string, 2)
 
 #extract data from the tables in the source database
 def table_extract(table_name, key_name):
@@ -155,7 +149,7 @@ def transform_denm_data():
         altitude = row[6]
         heading = row[7]
         cause = row[8]
-        traffic_cause = row[9]
+        traffic_sub_cause = row[9]
         road_works_sub_cause = row[10]
         accident_sub_cause = row[11]
         slow_vehicle_sub_cause = row[12]
@@ -180,7 +174,7 @@ def transform_denm_data():
         signal_violation_sub_cause = row[31]
         wrong_way_driving_sub_cause = row[32]
 
-        denm_message = DenmMessage(time_key, road_event_key, time_stamp, latitude, longitude, altitude, heading, cause, traffic_cause, road_works_sub_cause,
+        denm_message = DenmMessage(time_key, road_event_key, time_stamp, latitude, longitude, altitude, heading, cause, traffic_sub_cause, road_works_sub_cause,
                  accident_sub_cause, slow_vehicle_sub_cause, stationary_vehicle_sub_cause, human_presence_on_the_road_sub_cause,
                  collision_risk_sub_cause, dangerous_situation_sub_cause, vehicle_break_down_sub_cause, post_crash_sub_cause,
                  human_problem_sub_cause, adverse_weather_condition_extreme_weather_condition_sub_cause, adverse_weather_condition_adhesion_sub_cause,
@@ -646,6 +640,12 @@ def insert_into_t_clean_denm_table(table_name, data):
         if conn:
             conn.close()
 
+def delete_files_with_pattern(pattern, tablename):
+    files = glob.glob(pattern.replace('tablename', tablename))
+    for file in files:
+        os.remove(file)
+        #print(f"Deleted file: {file}")
+
 def truncate_data_tables():
     # Connect to the PostgreSQL database
     conn = pg.connect(
@@ -670,7 +670,7 @@ def truncate_data_tables():
 
         # Commit the changes
         conn.commit()
-        print("Tables truncated successfully.")
+        #print("Tables truncated successfully.")
 
     except pg.Error as e:
         print("Error: Could not truncate tables.")
@@ -733,8 +733,6 @@ def insert_into_t_data_ivim_table(table_name, data):
         if conn:
             conn.close()
 
-#truncate_data_tables()
-
 print(colors.bcolors.HEADER + "TRANSFORM " + colors.bcolors.ENDC)
 
 transform_road_event_data()
@@ -747,3 +745,46 @@ transform_segment_data()
 transform_cam_data()
 transform_denm_data()
 transform_ivim_data()
+
+'''tablename = "t_data_road_event"
+pattern = "num_lines_in_seeder_t_tablename.txt"
+delete_files_with_pattern(pattern, tablename)
+
+tablename = "t_data_road_sign"
+pattern = "num_lines_in_seeder_t_tablename.txt"
+delete_files_with_pattern(pattern, tablename)
+
+tablename = "t_data_event"
+pattern = "num_lines_in_seeder_t_tablename.txt"
+delete_files_with_pattern(pattern, tablename)
+
+tablename = "t_data_time"
+pattern = "num_lines_in_seeder_t_tablename.txt"
+delete_files_with_pattern(pattern, tablename)
+
+tablename = "t_data_zone"
+pattern = "num_lines_in_seeder_t_tablename.txt"
+delete_files_with_pattern(pattern, tablename)
+
+tablename = "t_data_road"
+pattern = "num_lines_in_seeder_t_tablename.txt"
+delete_files_with_pattern(pattern, tablename)
+
+tablename = "t_data_segment"
+pattern = "num_lines_in_seeder_t_tablename.txt"
+delete_files_with_pattern(pattern, tablename)
+
+tablename = "t_data_cam"
+pattern = "num_lines_in_seeder_t_tablename.txt"
+delete_files_with_pattern(pattern, tablename)
+
+tablename = "t_data_denm"
+pattern = "num_lines_in_seeder_t_tablename.txt"
+delete_files_with_pattern(pattern, tablename)
+
+tablename = "t_data_ivim"
+pattern = "num_lines_in_seeder_t_tablename.txt"
+delete_files_with_pattern(pattern, tablename)
+
+truncate_data_tables()'''
+
