@@ -288,7 +288,7 @@ def insert_data_to_database(data):
                 road_works_sub_cause = None
                 accident_sub_cause = None
                 slow_vehicle_sub_cause = None
-                stationary_vehicle_cause = None
+                stationary_vehicle_sub_cause = None
                 human_problem_sub_cause = None
                 collision_risk_sub_cause = None
                 dangerous_situation_sub_cause = None
