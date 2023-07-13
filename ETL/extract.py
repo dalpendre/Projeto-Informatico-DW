@@ -128,8 +128,8 @@ def extract_cam_data():
 
         #convert latitude, longitude to correct meaurement units
         factor = 0.0000001
-        latitude = latitude * factor
-        longitude = longitude * factor
+        #latitude = latitude * factor
+        #longitude = longitude * factor
 
         #convert altitude and heading to correct measurement unit
         factor = 0.01
