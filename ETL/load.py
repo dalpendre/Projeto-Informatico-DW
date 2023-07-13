@@ -16,13 +16,6 @@ from classes.Segment import Segment
 from classes.Time import Time
 from classes.Zone import Zone
 
-#cam_data_path = "../DW/datasets/CAM_data.csv"
-#denm_data_path = "../DW/datasets/DENM_data.csv"
-
-#convert binary to decimal
-def binary_to_decimal(binary_string):
-    return int(binary_string, 2)
-
 #extract data from the tables in the source database
 def table_extract(table_name, key_name):
     conn = None
@@ -670,7 +663,7 @@ def truncate_clean_tables():
 
         # Commit the changes
         conn.commit()
-        print("Tables truncated successfully.")
+        #print("Tables truncated successfully.")
 
     except pg.Error as e:
         print("Error: Could not truncate tables.")
@@ -733,8 +726,6 @@ def insert_into_t_fact_ivim_table(table_name, data):
         if conn:
             conn.close()
 
-#truncate_clean_tables()
-
 print(colors.bcolors.HEADER + "LOAD " + colors.bcolors.ENDC)
 
 load_road_event_data()
@@ -747,3 +738,5 @@ load_segment_data()
 load_cam_data()
 load_denm_data()
 load_ivim_data()
+
+#truncate_clean_tables()

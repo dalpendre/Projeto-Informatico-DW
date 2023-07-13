@@ -15,7 +15,7 @@ class DenmMessage:
         self.altitude = altitude
         self.heading = heading
         self.cause = cause
-        self.traffic_cause = traffic_cause
+        self.traffic_sub_cause = traffic_cause
         self.accident_sub_cause = accident_sub_cause
         self.road_works_sub_cause = road_works_sub_cause
         self.human_presence_on_the_road_sub_cause = human_presence_on_the_road_sub_cause

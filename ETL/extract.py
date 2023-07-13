@@ -278,7 +278,7 @@ def extract_denm_data():
         altitude = row[6]
         heading = row[7]
         cause = row[8]
-        traffic_cause = row[9]
+        traffic_sub_cause = row[9]
         road_works_sub_cause = row[10]
         accident_sub_cause = row[11]
         slow_vehicle_sub_cause = row[12]
@@ -358,24 +358,24 @@ def extract_denm_data():
         elif cause == 99:
             cause = "dangerousSituation"
 
-        if traffic_cause == 0:
-            traffic_cause = "unavailable"
-        elif traffic_cause == 1:
-            traffic_cause = "increasedVolumeOfTraffic"
-        elif traffic_cause == 2:
-            traffic_cause = "trafficJamSlowlyIncreasing"
-        elif traffic_cause == 3:
-            traffic_cause = "trafficJamIncreasing"
-        elif traffic_cause == 4:
-            traffic_cause = "trafficJamStronglyIncreasing"
-        elif traffic_cause == 5:
-            traffic_cause = "trafficStationary"
-        elif traffic_cause == 6:
-            traffic_cause = "trafficJamSlightlyDecreasing"
-        elif traffic_cause == 7:
-            traffic_cause = "trafficJamDecreasing"
-        elif traffic_cause == 8:
-            traffic_cause = "trafficJamStronglyDecreasing"
+        if traffic_sub_cause == 0:
+            traffic_sub_cause = "unavailable"
+        elif traffic_sub_cause == 1:
+            traffic_sub_cause = "increasedVolumeOfTraffic"
+        elif traffic_sub_cause == 2:
+            traffic_sub_cause = "trafficJamSlowlyIncreasing"
+        elif traffic_sub_cause == 3:
+            traffic_sub_cause = "trafficJamIncreasing"
+        elif traffic_sub_cause == 4:
+            traffic_sub_cause = "trafficJamStronglyIncreasing"
+        elif traffic_sub_cause == 5:
+            traffic_sub_cause = "trafficStationary"
+        elif traffic_sub_cause == 6:
+            traffic_sub_cause = "trafficJamSlightlyDecreasing"
+        elif traffic_sub_cause == 7:
+            traffic_sub_cause = "trafficJamDecreasing"
+        elif traffic_sub_cause == 8:
+            traffic_sub_cause = "trafficJamStronglyDecreasing"
 
         if accident_sub_cause == 0:
             accident_sub_cause = "unavailable"
@@ -702,7 +702,7 @@ def extract_denm_data():
         factor = 0.01
         altitude = altitude * factor
 
-        denm_message = DenmMessage(time_key, road_event_key, time_stamp, latitude, longitude, altitude, heading, cause, traffic_cause, road_works_sub_cause,
+        denm_message = DenmMessage(time_key, road_event_key, time_stamp, latitude, longitude, altitude, heading, cause, traffic_sub_cause, road_works_sub_cause,
                  accident_sub_cause, slow_vehicle_sub_cause, stationary_vehicle_sub_cause, human_presence_on_the_road_sub_cause,
                  collision_risk_sub_cause, dangerous_situation_sub_cause, vehicle_break_down_sub_cause, post_crash_sub_cause,
                  human_problem_sub_cause, adverse_weather_condition_extreme_weather_condition_sub_cause, adverse_weather_condition_adhesion_sub_cause,
@@ -1262,8 +1262,6 @@ def insert_into_t_data_ivim_table(table_name, data):
             cursor.close()
         if conn:
             conn.close()
-
-#truncate_data_tables()
 
 print(colors.bcolors.HEADER + "EXTRACT " + colors.bcolors.ENDC)
 
