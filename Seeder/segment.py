@@ -131,7 +131,7 @@ def main():
     road_key = get_last_entry("road_key", "t_road")
 
     # Generate and print example data
-    for _ in range(3):
+    for _ in range(1):
         data = seeder.insert_data_to_database(road_key)
 
         return data

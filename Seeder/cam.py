@@ -217,8 +217,8 @@ prev_longitude = None
 for index, row in dataset_data.iterrows():
 
     timestamp = datetime_to_timestamp(row['/createdAt'])
-    latitude = float(row['/capturedData/locationLatitude']) * latitude_longitude_convert_factor
-    longitude = float(row['/capturedData/locationLongitude']) * latitude_longitude_convert_factor
+    latitude = float(row['/capturedData/locationLatitude']) #* latitude_longitude_convert_factor
+    longitude = float(row['/capturedData/locationLongitude']) #* latitude_longitude_convert_factor
     altitude = get_elevation(latitude, longitude)
 
     # generate segments (every set of different coordinates is a segment)
@@ -238,5 +238,5 @@ for index, row in dataset_data.iterrows():
 
     seeder.generate_insert_data_to_database(timestamp, latitude, longitude, altitude, time_key, segment_key, dataset_num_lines)
     print(index, timestamp, latitude, longitude, altitude)
-    if index == 2:
+    if index == 10:
         break   #test purpose
