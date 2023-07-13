@@ -192,7 +192,7 @@ def insert_data_to_database(data):
                 road_works_sub_cause = None
                 accident_sub_cause = None
                 slow_vehicle_sub_cause = None
-                stationary_vehicle_cause = None
+                stationary_vehicle_sub_cause = None
                 human_problem_sub_cause = None
                 collision_risk_sub_cause = None
                 dangerous_situation_sub_cause = None
@@ -284,7 +284,7 @@ def insert_data_to_database(data):
                 signal_violation_sub_cause = None
                 wrong_way_driving_sub_cause = None
             elif cause == 14:  # wrong way driving
-                traffic_cause = None
+                traffic_sub_cause = None
                 road_works_sub_cause = None
                 accident_sub_cause = None
                 slow_vehicle_sub_cause = None
