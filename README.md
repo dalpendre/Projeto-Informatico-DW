@@ -1,29 +1,35 @@
-# Projeto-Informático
-Repositório de Projeto Informático (2022/2023) - M
+-- Processo de instalação de projeto (Seeder e ETL)
 
-Projeto Informático (n.º 19)
-Aplicação para Apresentação de Dados em Mapas
-Área Temática: DA - Desenvolvimento de Aplicações
+As pastas ETL e Seeder são ambos projetos Python. Deverão ser abertos dentro do IDE pretendido (File -> Open -> Selecionar a pasta desejada).
+Recomenda-se a utilização da versão 3.11 do Python para ambos os projetos
 
-Descrição:
+Seeder:
 
-Neste projeto pretende-se desenvolver uma aplicação que permita visualizar dados num mapa
-sobre o rastreamento de veículos. Estes dados consistem na posição GPS, velocidade, aceleração,
-entre outros. Para o correto funcionamento da aplicação será necessário desenvolver uma base de
-dados de suporte para armazenamento da informação.
-As tecnologias a utilizar serão alvo de estudo, podendo os estudantes contribuir para a sua
-escolha.
+- Instalar virtual environment e instalar os pacotes necessários dentro desse mesmo virtual environment
 
-Módulos do projeto:
-- Módulo I: Desenvolvimento e carregamento da base de dados
-- Módulo II: Desenvolvimento da aplicação para apresentação dos dados em Mapas
+ETL:
 
-Requisitos:
+- Instalar virtual environment em cada projeto (Seeder e ETL) e instalar os pacotes necessários dentro desse mesmo virtual environment. 
+Recomenda-se a versão 3.11 de Python
 
-Este projeto requer conhecimentos de programação e base de dados.
+Criar dentro de ambos os projetos um ficheiro chamado constants.py (tem de ser estritamente este nome) com estritamente esta estrutura:
 
-Orientadores:
-Rosa Isabel Alves Cordeiro Matias, Maria Beatriz Guerra da Piedade, Anabela Moreira Bernardino
+source_db_name = "projeto_informatico_source_db"
+dsa_db_name = "projeto_informatico_dsa_db"
+dw_db_name = "projeto_informatico_dw_db"
+username = "username"
+password = "password"
+port = "5432"
+host = "host"
 
-Docentes responsáveis pela proposta:
-Sílvio Priem Mendes
+Devem ser alterados os campos username, password e host para os valores desejados (o campo host corresponde ao IP do servidor de bases de dados, que poderá ser externo, como cloud, ou localhost) e o username e password da instância
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Processo de instalação das bases de dados PostgreSQL do sistema fonte, processo ETL, data warehouse e tabelas respetivas
+
+Dentro do software de gestão de bases de dados, dentro da instância de BDs desejada, criar 3 bases de dados e dentro de cada base de dados criar as tabelas correspondentes:
+
+Base de dados projeto_informatico_source_db -> executar o código sql no ficheiro source.sql dentro pasta DBs_scripts/create tables
+Base de dados projeto_informatico_dsa_db -> executar o código sql no ficheiro dsa.sql dentro pasta DBs_scripts/create tables
+Base de dados projeto_informatico_dw_db -> executar o código sql no ficheiro dw.sql dentro pasta DBs_scripts/create tables
