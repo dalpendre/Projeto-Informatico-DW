@@ -1,6 +1,6 @@
 -- Processo de instalação de projeto (Seeder e ETL)
 
-As pastas ETL e Seeder são ambos projetos Python. Deverão ser abertos dentro do IDE pretendido (File -> Open -> Selecionar a pasta desejada).
+As pastas ETL e Seeder são ambas projetos Python. Deverão ser abertos dentro do IDE pretendido (File -> Open -> Selecionar a pasta desejada).
 Recomenda-se a utilização da versão 3.11 do Python para ambos os projetos
 
 Seeder:
@@ -9,10 +9,20 @@ Seeder:
 
 ETL:
 
-- Instalar virtual environment em cada projeto (Seeder e ETL) e instalar os pacotes necessários dentro desse mesmo virtual environment. 
-Recomenda-se a versão 3.11 de Python
+- Instalar virtual environment e instalar os pacotes necessários dentro desse mesmo virtual environment. 
 
-Criar dentro de ambos os projetos um ficheiro chamado constants.py (tem de ser estritamente este nome) com estritamente esta estrutura:
+Criar dentro de ambos os projetos um ficheiro chamado constants.py (tem de ser estritamente este nome).
+
+No projeto Seeder a estrutura é a seguinte:
+
+username = "username"
+password = "password"
+host = "host"
+port = "5432"
+db_name = "projeto_informatico_source_db"
+google_maps_api_key = "google_maps_api_key"
+
+No projeto ETL a estrutura é a seguinte:
 
 source_db_name = "projeto_informatico_source_db"
 dsa_db_name = "projeto_informatico_dsa_db"
@@ -22,7 +32,7 @@ password = "password"
 port = "5432"
 host = "host"
 
-Devem ser alterados os campos username, password e host para os valores desejados (o campo host corresponde ao IP do servidor de bases de dados, que poderá ser externo, como cloud, ou localhost) e o username e password da instância
+Devem ser alterados os campos username, password e host para os valores desejados (o campo host corresponde ao IP do servidor de bases de dados, que poderá ser externo, como cloud, ou localhost) e o username e password da instância, e chave da API do google maps.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
